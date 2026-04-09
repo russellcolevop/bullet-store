@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Bullet Trade Services - Professional Trade Tool Kits</title>
+    <style>
+        /* ========== CSS CUSTOM PROPERTIES & THEME VARIABLES ========== */
+        :root {
+            --primary-dark: #1a1a2e;
+            --primary-lighter: #16213e;
+            --accent-orange: #e67e22;
+            --accent-orange-hover: #d35400;
+            --text-light: #ffffff;
+            --text-dark: #1a1a2e;
+            --text-gray: #666666;
+            --text-light-gray: #999999;
+            --border-light: #f0f0f0;
+            --badge-good: #27ae60;
+            --badge-better: #3498db;
+            --badge-best: #f39c12;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+            --transition-fast: 0.2s ease;
+            --transition-base: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        /* ========== GLOBAL RESET & TYPOGRAPHY ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--text-light);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: var(--spacing-md);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+        }
+
+        h3 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+        }
+
+        p {
+            margin-bottom: var(--spacing-md);
+            color: var(--text-gray);
+        }
+
+        a {
+            color: var(--accent-orange);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        a:hover {
+            color: var(--accent-orange-hover);
+        }
+
+        /* ========== BUTTONS ========== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            padding: 0.875rem 1.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-orange);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-orange-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(230, 126, 34, 0.3);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--text-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-dark {
+            background-color: var(--primary-dark);
+            color: white;
+        }
+
+        .btn-dark:hover {
+            background-color: var(--primary-lighter);
+            transform: translateY(-2px);
+        }
+
+        /* ========== CONTAINER & GRID ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        .grid {
+            display: grid;
+            gap: var(--spacing-lg);
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        }
+
+        /* ========== STICKY NAVIGATION ========== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--primary-dark);
+            border-bottom: 1px solid rgba(230, 126, 34, 0.1);
+            transition: background-color var(--transition-base);
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(26, 26, 46, 0.98);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--spacing-sm) 0;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: 0.05em;
+        }
+
+        .navbar-logo-bullet {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-orange);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+        }
+
+        .navbar-nav a {
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color var(--transition-fast);
+        }
+
+        .navbar-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-orange);
+            transition: width var(--transition-fast);
+        }
+
+        .navbar-nav a:hover::after {
+            width: 100%;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            transition: transform var(--transition-fast);
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent-orange);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-nav {
+                display: none;
+            }
+        }
+
+        /* ========== PAGE HEADER SECTION ========== */
+        .page-header {
+            padding: var(--spacing-2xl) var(--spacing-md);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-lighter) 100%);
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .page-header h1 {
+            color: var(--text-light);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .page-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ========== CONTACT SECTION ========== */
+        .contact {
+            padding: var(--spacing-2xl) var(--spacing-md);
+            background-color: var(--text-light);
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-2xl);
+        }
+
+        /* ========== FORM STYLING ========== */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 0.75rem;
+            border: 1px solid var(--border-light);
+            border-radius: 0.375rem;
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--text-dark);
+            transition: border-color var(--transition-fast);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-note {
+            font-size: 0.85rem;
+            color: var(--text-light-gray);
+            margin-top: var(--spacing-sm);
+        }
+
+        .submit-btn {
+            width: 100%;
+            margin-top: var(--spacing-md);
+        }
+
+        /* ========== CONTACT INFO SECTION ========== */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        .info-block {
+            padding: var(--spacing-lg);
+            background-color: var(--border-light);
+            border-radius: 0.5rem;
+        }
+
+        .info-block h3 {
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.1rem;
+        }
+
+        .info-block p {
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        .info-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-block strong {
+            color: var(--text-dark);
+        }
+
+        /* ========== MAP PLACEHOLDER ========== */
+        .map-placeholder {
+            background-color: var(--border-light);
+            border-radius: 0.5rem;
+            padding: var(--spacing-2xl);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            gap: var(--spacing-md);
+        }
+
+        .map-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-orange);
+        }
+
+        .map-placeholder h3 {
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .map-placeholder p {
+            color: var(--text-gray);
+            margin-bottom: 0;
+        }
+
+        /* ========== INSTITUTIONAL CALLOUT ========== */
+        .institutional-callout {
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.05) 0%, rgba(230, 126, 34, 0.03) 100%);
+            border-left: 4px solid var(--accent-orange);
+            padding: var(--spacing-lg);
+            border-radius: 0.375rem;
+            margin-top: var(--spacing-lg);
+        }
+
+        .institutional-callout h3 {
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.05rem;
+        }
+
+        .institutional-callout p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            padding: var(--spacing-2xl) var(--spacing-md) var(--spacing-lg);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+            max-width: 1200px;
+            margin: 0 auto var(--spacing-xl);
+        }
+
+        .footer-column h4 {
+            color: var(--text-light);
+            margin-bottom: var(--spacing-md);
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-column p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: color var(--transition-fast);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-orange);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(230, 126, 34, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .social-icon:hover {
+            background-color: var(--accent-orange);
+            transform: translateY(-4px);
+        }
+
+        .footer-divider {
+            border-top: 1px solid rgba(230, 126, 34, 0.1);
+            padding-top: var(--spacing-lg);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* ========== SVG ICONS STYLING ========== */
+        svg {
+            fill: currentColor;
+            stroke: currentColor;
+            stroke-width: 0;
+        }
+
+        /* ========== UTILITY CLASSES ========== */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-lg {
+            margin-top: var(--spacing-lg);
+        }
+
+        .mb-lg {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .opacity-75 {
+            opacity: 0.75;
+        }
+
+        /* ========== RESPONSIVE ADJUSTMENTS ========== */
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .page-header,
+            .contact,
+            .footer {
+                padding: var(--spacing-xl) var(--spacing-sm);
+            }
+
+            .page-header p {
+                font-size: 1rem;
+            }
+
+            .contact-grid {
+                gap: var(--spacing-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <div class="navbar-logo">
+                    BULLET TRADE
+                    <span class="navbar-logo-bullet"></span>
+                </div>
+                <ul class="navbar-nav">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="navbar-right">
+                    <div class="cart-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M7 4V3c0-.6.4-1 1-1h8c.6 0 1 .4 1 1v1h5c.6 0 1 .4 1 1v2l-1 14c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2L2 7c0-.6.4-1 1-1h5zm2 0h6V3H9v1z"/>
+                        </svg>
+                        <span class="cart-badge">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== PAGE HEADER ========== -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Get in Touch</h1>
+            <p>Questions about our kits, institutional pricing, or custom orders? We're here to help.</p>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT SECTION ========== -->
+    <section class="contact">
+        <div class="contact-container">
+            <div class="contact-grid">
+                <!-- Left Column: Contact Form -->
+                <div>
+                    <h2>Send us a Message</h2>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone (Optional)</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="kit-question">Kit Question</option>
+                                <option value="institutional">Institutional/College Order</option>
+                                <option value="custom">Custom Order</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary submit-btn">Send Message</button>
+                        <p class="form-note">We typically respond within 1 business day.</p>
+                    </form>
+                </div>
+
+                <!-- Right Column: Contact Info & Map -->
+                <div>
+                    <h2>Contact Information</h2>
+                    <div class="contact-info">
+                        <div class="info-block">
+                            <h3>Location</h3>
+                            <p>8 Nicholas Beaver Rd</p>
+                            <p>Puslinch, Ontario</p>
+                        </div>
+
+                        <div class="info-block">
+                            <h3>Phone</h3>
+                            <p><strong>1-800-XXX-XXXX</strong></p>
+                        </div>
+
+                        <div class="info-block">
+                            <h3>Email</h3>
+                            <p><a href="mailto:info@bullettradeservices.com">info@bullettradeservices.com</a></p>
+                        </div>
+
+                        <div class="info-block">
+                            <h3>Hours</h3>
+                            <p>Monday–Friday</p>
+                            <p>7:00 AM – 5:00 PM EST</p>
+                        </div>
+
+                        <!-- Map Placeholder -->
+                        <div class="map-placeholder">
+                            <div class="map-icon">
+                                <svg width="50" height="50" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+                                </svg>
+                            </div>
+                            <h3>Puslinch, Ontario</h3>
+                            <p>Visit us at our facility</p>
+                        </div>
+
+                        <!-- Institutional Callout -->
+                        <div class="institutional-callout">
+                            <h3>Institutional Orders</h3>
+                            <p>Ordering for a college, trade school, or training program? We offer custom Campus Kits with volume pricing for orders of 20+. Select "Institutional/College Order" above or <a href="mailto:info@bullettradeservices.com">email us directly</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Company</h4>
+                <p><strong>Bullet Trade Services</strong></p>
+                <p>Puslinch, Ontario, Canada</p>
+                <p>Tel: (519) 555-0100</p>
+                <p>Email: info@bullettradeservices.com</p>
+            </div>
+
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <div class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M19 3a9 9 0 01-9 9 9 9 0 01-9-9 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M19 3a9 9 0 01-9 9 9 9 0 01-9-9 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M19 3a9 9 0 01-9 9 9 9 0 01-9-9 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-divider">
+            © 2026 Bullet Trade Services. All rights reserved. CWB Certified | TSSA Certified
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // Sticky navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Cart functionality (placeholder)
+        document.querySelector('.cart-icon').addEventListener('click', () => {
+            alert('Cart feature coming soon!');
+        });
+
+        // Form submission (placeholder)
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! We will be in touch within 1 business day.');
+            document.querySelector('.contact-form').reset();
+        });
+    </script>
+</body>
+</html>

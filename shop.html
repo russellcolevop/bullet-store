@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Trade Kits | Bullet Trade Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            color: #333;
+            background-color: #f9f9f9;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: #1a1a2e;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #e67e22;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #e67e22;
+        }
+
+        .cart-icon {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .cart-icon:hover {
+            color: #e67e22;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+            line-height: 1.7;
+        }
+
+        /* Filter Tabs */
+        .filter-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 2rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #1a1a2e;
+            background-color: white;
+            color: #1a1a2e;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .filter-btn.active {
+            background-color: #e67e22;
+            color: white;
+            border-color: #e67e22;
+        }
+
+        /* Product Grid */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (min-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .product-card.hidden {
+            display: none;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 240px;
+            background: linear-gradient(135deg, #2d2d4a 0%, #1a1a2e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image svg {
+            width: 80px;
+            height: 80px;
+            opacity: 0.8;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-good {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .badge-better {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .badge-best {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        .product-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: #e67e22;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-description {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-features {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 1.5rem;
+            padding: 0.75rem;
+            background-color: #f5f5f5;
+            border-left: 3px solid #e67e22;
+            line-height: 1.6;
+        }
+
+        .product-features strong {
+            display: block;
+            color: #1a1a2e;
+            margin-bottom: 0.4rem;
+        }
+
+        .product-cta {
+            margin-top: auto;
+        }
+
+        .btn-view {
+            width: 100%;
+            padding: 0.875rem;
+            background-color: #1a1a2e;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .btn-view:hover {
+            background-color: #e67e22;
+            transform: translateX(2px);
+        }
+
+        /* Comparison Banner */
+        .comparison-banner {
+            background-color: #ecf0f1;
+            border-left: 4px solid #e67e22;
+            padding: 2rem;
+            margin: 3rem 2rem;
+            border-radius: 4px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .comparison-banner p {
+            font-size: 1.05rem;
+            color: #1a1a2e;
+            line-height: 1.7;
+            max-width: 800px;
+        }
+
+        /* Campus Kit Callout */
+        .campus-callout {
+            background-color: #fff;
+            border: 2px solid #1a1a2e;
+            padding: 2rem;
+            margin: 3rem 2rem;
+            border-radius: 4px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .campus-callout h3 {
+            font-size: 1.3rem;
+            color: #1a1a2e;
+            margin-bottom: 0.5rem;
+        }
+
+        .campus-callout p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .campus-callout a {
+            color: #e67e22;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .campus-callout a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a2e;
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #e67e22;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #e67e22;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 1.5rem;
+            text-align: center;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .page-header p {
+                font-size: 0.95rem;
+            }
+
+            .filter-tabs {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .comparison-banner,
+            .campus-callout {
+                margin: 2rem 1rem;
+                padding: 1.5rem;
+            }
+
+            footer {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">BULLET TRADE SERVICES</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><span class="cart-icon">🛒</span></li>
+        </ul>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Shop Trade Kits</h1>
+        <p>Curated tool kits for millwrights and electricians. Good, better, best — every tier field-tested by our team.</p>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Filter Tabs -->
+        <div class="filter-section">
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-filter="all">All Kits</button>
+                <button class="filter-btn" data-filter="millwright">Millwright</button>
+                <button class="filter-btn" data-filter="electrician">Electrician</button>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="product-grid">
+            <!-- Millwright Starter Kit -->
+            <div class="product-card" data-category="millwright">
+                <div class="product-image">
+                    <div class="product-badge badge-good">Good</div>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M14 4l-7 7 7 7M5 11h13"></path>
+                    </svg>
+                </div>
+                <div class="product-content">
+                    <h3 class="product-name">Millwright Starter Kit</h3>
+                    <div class="product-price">$1,995</div>
+                    <p class="product-description">45+ hand-selected tools for day one on the job</p>
+                    <div class="product-features">
+                        <strong>Includes:</strong>
+                        Essential hand tools, measurement basics, safety gear, tool bag
+                    </div>
+                    <div class="product-cta">
+                        <a href="products/millwright-starter.html" class="btn-view">View Kit</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Millwright Pro Kit -->
+            <div class="product-card" data-category="millwright">
+                <div class="product-image">
+                    <div class="product-badge badge-better">Better</div>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
+                </div>
+                <div class="product-content">
+                    <h3 class="product-name">Millwright Pro Kit</h3>
+                    <div class="product-price">$2,995</div>
+                    <p class="product-description">65+ professional-grade tools with precision instruments</p>
+                    <div class="product-features">
+                        <strong>Includes:</strong>
+                        Everything in Starter + digital calipers, expanded socket sets, specialty pliers
+                    </div>
+                    <div class="product-cta">
+                        <a href="products/millwright-pro.html" class="btn-view">View Kit</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Millwright Master Kit -->
+            <div class="product-card" data-category="millwright">
+                <div class="product-image">
+                    <div class="product-badge badge-best">Best</div>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M12 2l2.39 4.84h5.35l-4.33 3.15 1.65 5.01-4.66-3.38-4.66 3.38 1.65-5.01-4.33-3.15h5.35L12 2z"></path>
+                    </svg>
+                </div>
+                <div class="product-content">
+                    <h3 class="product-name">Millwright Master Kit</h3>
+                    <div class="product-price">$4,495</div>
+                    <p class="product-description">90+ tools — the complete arsenal for experienced tradespeople</p>
+                    <div class="product-features">
+                        <strong>Includes:</strong>
+                        Everything in Pro + torque wrench, bearing puller, laser level, premium brands throughout
+                    </div>
+                    <div class="product-cta">
+                        <a href="products/millwright-master.html" class="btn-view">View Kit</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Electrician Starter Kit -->
+            <div class="product-card" data-category="electrician">
+                <div class="product-image">
+                    <div class="product-badge badge-good">Good</div>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M6 9l6-6 6 6M3 11v8a2 2 0 002 2h14a2 2 0 002-2v-8"></path>
+                    </svg>
+                </div>
+                <div class="product-content">
+                    <h3 class="product-name">Electrician Starter Kit</h3>
+                    <div class="product-price">$1,795</div>
+                    <p class="product-description">40+ insulated tools and essentials for apprentice electricians</p>
+                    <div class="product-features">
+                        <strong>Includes:</strong>
+                        Insulated hand tools, voltage tester, wire management, safety gear
+                    </div>
+                    <div class="product-cta">
+                        <a href="products/electrician-starter.html" class="btn-view">View Kit</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Electrician Pro Kit -->
+            <div class="product-card" data-category="electrician">
+                <div class="product-image">
+                    <div class="product-badge badge-better">Better</div>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M12 7v10M7 12h10"></path>
+                    </svg>
+                </div>
+                <div class="product-content">
+                    <h3 class="product-name">Electrician Pro Kit</h3>
+                    <div class="product-price">$2,695</div>
+                    <p class="product-description">55+ professional insulated tools for serious electricians</p>
+                    <div class="product-features">
+                        <strong>Includes:</strong>
+                        Everything in Starter + premium multimeter, fish tape, conduit tools
+                    </div>
+                    <div class="product-cta">
+                        <a href="products/electrician-pro.html" class="btn-view">View Kit</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Electrician Master Kit -->
+            <div class="product-card" data-category="electrician">
+                <div class="product-image">
+                    <div class="product-badge badge-best">Best</div>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M13 2H3v18h18V9M13 2v7h7"></path>
+                    </svg>
+                </div>
+                <div class="product-content">
+                    <h3 class="product-name">Electrician Master Kit</h3>
+                    <div class="product-price">$3,995</div>
+                    <p class="product-description">80+ tools — everything you'll ever need, premium brands</p>
+                    <div class="product-features">
+                        <strong>Includes:</strong>
+                        Everything in Pro + Fluke multimeter, thermal imager, full insulated socket set
+                    </div>
+                    <div class="product-cta">
+                        <a href="products/electrician-master.html" class="btn-view">View Kit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparison Banner -->
+    <div class="comparison-banner">
+        <p><strong>Not sure which tier?</strong> Our team of 100+ tradespeople recommends the Starter Kit for first-year apprentices and the Pro Kit for anyone with 2+ years in the trade.</p>
+    </div>
+
+    <!-- Campus Kit Callout -->
+    <div class="campus-callout">
+        <h3>Ordering for a College or Training Program?</h3>
+        <p>We offer custom Campus Kits with volume pricing. <a href="contact.html">Contact us</a> to learn more.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About</h4>
+                <ul>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="about.html">Our Team</a></li>
+                    <li><a href="#">Quality Promise</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="shop.html">All Kits</a></li>
+                    <li><a href="shop.html">Millwright</a></li>
+                    <li><a href="shop.html">Electrician</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">Warranty</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Bullet Trade Services. All rights reserved. Handcrafted for tradespeople.</p>
+        </div>
+    </footer>
+
+    <!-- Filter JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const productCards = document.querySelectorAll('.product-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const filterValue = this.getAttribute('data-filter');
+
+                    // Update active button
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Filter products with fade transition
+                    productCards.forEach(card => {
+                        const category = card.getAttribute('data-category');
+
+                        if (filterValue === 'all' || category === filterValue) {
+                            card.classList.remove('hidden');
+                            // Trigger fade-in by using opacity transition
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                            }, 10);
+                        } else {
+                            card.style.opacity = '0';
+                            setTimeout(() => {
+                                card.classList.add('hidden');
+                            }, 300);
+                        }
+                    });
+                });
+            });
+
+            // Initialize fade transition styles
+            productCards.forEach(card => {
+                card.style.transition = 'opacity 0.3s ease';
+                card.style.opacity = '1';
+            });
+        });
+    </script>
+</body>
+</html>

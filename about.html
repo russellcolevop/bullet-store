@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Bullet Trade Services - Professional Trade Tool Kits</title>
+    <style>
+        /* ========== CSS CUSTOM PROPERTIES & THEME VARIABLES ========== */
+        :root {
+            --primary-dark: #1a1a2e;
+            --primary-lighter: #16213e;
+            --accent-orange: #e67e22;
+            --accent-orange-hover: #d35400;
+            --text-light: #ffffff;
+            --text-dark: #1a1a2e;
+            --text-gray: #666666;
+            --text-light-gray: #999999;
+            --border-light: #f0f0f0;
+            --badge-good: #27ae60;
+            --badge-better: #3498db;
+            --badge-best: #f39c12;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+            --transition-fast: 0.2s ease;
+            --transition-base: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        /* ========== GLOBAL RESET & TYPOGRAPHY ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--text-light);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: var(--spacing-md);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+        }
+
+        h3 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+        }
+
+        p {
+            margin-bottom: var(--spacing-md);
+            color: var(--text-gray);
+        }
+
+        a {
+            color: var(--accent-orange);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        a:hover {
+            color: var(--accent-orange-hover);
+        }
+
+        /* ========== BUTTONS ========== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            padding: 0.875rem 1.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-orange);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-orange-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(230, 126, 34, 0.3);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--text-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-dark {
+            background-color: var(--primary-dark);
+            color: white;
+        }
+
+        .btn-dark:hover {
+            background-color: var(--primary-lighter);
+            transform: translateY(-2px);
+        }
+
+        /* ========== CONTAINER & GRID ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        .grid {
+            display: grid;
+            gap: var(--spacing-lg);
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        }
+
+        /* ========== STICKY NAVIGATION ========== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--primary-dark);
+            border-bottom: 1px solid rgba(230, 126, 34, 0.1);
+            transition: background-color var(--transition-base);
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(26, 26, 46, 0.98);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--spacing-sm) 0;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: 0.05em;
+        }
+
+        .navbar-logo-bullet {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-orange);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+        }
+
+        .navbar-nav a {
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color var(--transition-fast);
+        }
+
+        .navbar-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-orange);
+            transition: width var(--transition-fast);
+        }
+
+        .navbar-nav a:hover::after {
+            width: 100%;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            transition: transform var(--transition-fast);
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent-orange);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-nav {
+                display: none;
+            }
+        }
+
+        /* ========== HERO SECTION (SMALLER) ========== */
+        .hero {
+            min-height: 40vh;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-lighter) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(230, 126, 34, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            margin-bottom: var(--spacing-md);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--accent-orange);
+            margin-bottom: var(--spacing-xl);
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: var(--spacing-2xl);
+            line-height: 1.8;
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                min-height: 50vh;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+
+        /* ========== STORY SECTION ========== */
+        .story {
+            padding: var(--spacing-2xl) var(--spacing-md);
+            background-color: var(--text-light);
+        }
+
+        .story-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .story h2 {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            color: var(--text-dark);
+        }
+
+        .story p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        /* ========== STATS SECTION ========== */
+        .stats {
+            padding: var(--spacing-2xl) var(--spacing-md);
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-block {
+            text-align: center;
+            padding: var(--spacing-lg);
+            border-radius: 0.375rem;
+            background-color: rgba(230, 126, 34, 0.05);
+            transition: all var(--transition-base);
+        }
+
+        .stat-block:hover {
+            background-color: rgba(230, 126, 34, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .stat-number {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            color: var(--accent-orange);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* ========== CERTIFICATIONS SECTION ========== */
+        .certifications {
+            padding: var(--spacing-2xl) var(--spacing-md);
+            background-color: var(--text-light);
+        }
+
+        .certifications-header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .certifications-header h2 {
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cert-card {
+            text-align: center;
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border-light);
+            border-radius: 0.5rem;
+            background-color: white;
+            transition: all var(--transition-base);
+        }
+
+        .cert-card:hover {
+            border-color: var(--accent-orange);
+            box-shadow: 0 4px 12px rgba(230, 126, 34, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .cert-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto var(--spacing-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-orange);
+        }
+
+        .cert-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .cert-card p {
+            font-size: 0.9rem;
+            color: var(--text-light-gray);
+        }
+
+        /* ========== PROMISE SECTION ========== */
+        .promise {
+            padding: var(--spacing-2xl) var(--spacing-md);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-lighter) 100%);
+            color: var(--text-light);
+        }
+
+        .promise-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .promise-content h2 {
+            color: var(--text-light);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .promise-content p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        /* ========== CTA SECTION ========== */
+        .about-cta {
+            padding: var(--spacing-2xl) var(--spacing-md);
+            background-color: var(--text-light);
+            text-align: center;
+        }
+
+        .about-cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-cta h2 {
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .about-cta p {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            padding: var(--spacing-2xl) var(--spacing-md) var(--spacing-lg);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+            max-width: 1200px;
+            margin: 0 auto var(--spacing-xl);
+        }
+
+        .footer-column h4 {
+            color: var(--text-light);
+            margin-bottom: var(--spacing-md);
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-column p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: color var(--transition-fast);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-orange);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(230, 126, 34, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .social-icon:hover {
+            background-color: var(--accent-orange);
+            transform: translateY(-4px);
+        }
+
+        .footer-divider {
+            border-top: 1px solid rgba(230, 126, 34, 0.1);
+            padding-top: var(--spacing-lg);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* ========== SVG ICONS STYLING ========== */
+        svg {
+            fill: currentColor;
+            stroke: currentColor;
+            stroke-width: 0;
+        }
+
+        /* ========== UTILITY CLASSES ========== */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-lg {
+            margin-top: var(--spacing-lg);
+        }
+
+        .mb-lg {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .opacity-75 {
+            opacity: 0.75;
+        }
+
+        /* ========== RESPONSIVE ADJUSTMENTS ========== */
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .story,
+            .stats,
+            .certifications,
+            .promise,
+            .about-cta,
+            .footer {
+                padding: var(--spacing-xl) var(--spacing-sm);
+            }
+
+            .stats-grid,
+            .certifications-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .story p {
+                font-size: 1rem;
+            }
+
+            .promise-content p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <div class="navbar-logo">
+                    BULLET TRADE
+                    <span class="navbar-logo-bullet"></span>
+                </div>
+                <ul class="navbar-nav">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="navbar-right">
+                    <div class="cart-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M7 4V3c0-.6.4-1 1-1h8c.6 0 1 .4 1 1v1h5c.6 0 1 .4 1 1v2l-1 14c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2L2 7c0-.6.4-1 1-1h5zm2 0h6V3H9v1z"/>
+                        </svg>
+                        <span class="cart-badge">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Built by Tradespeople, for Tradespeople</h1>
+            <p>We're not an e-commerce company that decided to sell tools. We're a trades company that decided to share what we know.</p>
+        </div>
+    </section>
+
+    <!-- ========== OUR STORY SECTION ========== -->
+    <section class="story">
+        <div class="story-content">
+            <h2>Our Story</h2>
+            <p>Bullet Trade Services was founded in 2008 as an industrial millwrighting and electrical services company. Today, we're one of the largest industrial contractors in Southern Ontario — with over 100 employees, a 10,000 square foot facility in Puslinch, and hundreds of factory clients across the region.</p>
+            <p>We've spent nearly two decades equipping our own tradespeople with the right tools. We know what works, what breaks, what's worth the money and what isn't. When Ontario colleges started asking us to build tool kits for their trades students, we realized something: the knowledge our team carries every day is valuable beyond our own shop floor.</p>
+            <p>That's why we launched our tool kit line — to give every new tradesperson the same starting advantage our team has. Every kit is curated by our active millwrights and electricians, not by marketers looking at a spreadsheet.</p>
+        </div>
+    </section>
+
+    <!-- ========== BY THE NUMBERS SECTION ========== -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-block">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Active Tradespeople</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-number">2008</div>
+                <div class="stat-label">Year Founded</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-number">10,000</div>
+                <div class="stat-label">Square Feet Facility</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-number">Hundreds</div>
+                <div class="stat-label">Factory Clients Served</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CERTIFICATIONS SECTION ========== -->
+    <section class="certifications">
+        <div class="certifications-header">
+            <h2>Certifications & Standards</h2>
+        </div>
+        <div class="certifications-grid">
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <svg width="50" height="50" viewBox="0 0 24 24">
+                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm6.2 9.8l-7.1 8.4c-.4.5-1.1.8-1.8.8-.7 0-1.4-.3-1.8-.8l-3.5-4.1c-.5-.6-.4-1.5.2-2 .6-.5 1.5-.4 2 .2l1.7 2 5.3-6.3c.5-.6 1.4-.7 2-.2.6.5.7 1.4.2 2z"/>
+                    </svg>
+                </div>
+                <h3>CWB Welding Certification</h3>
+                <p>Full compliance with Canadian Welding Bureau standards</p>
+            </div>
+
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <svg width="50" height="50" viewBox="0 0 24 24">
+                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm6.2 9.8l-7.1 8.4c-.4.5-1.1.8-1.8.8-.7 0-1.4-.3-1.8-.8l-3.5-4.1c-.5-.6-.4-1.5.2-2 .6-.5 1.5-.4 2 .2l1.7 2 5.3-6.3c.5-.6 1.4-.7 2-.2.6.5.7 1.4.2 2z"/>
+                    </svg>
+                </div>
+                <h3>TSSA Pipe Fitting Certification</h3>
+                <p>Technical Safety Standards Authority certified</p>
+            </div>
+
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <svg width="50" height="50" viewBox="0 0 24 24">
+                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                    </svg>
+                </div>
+                <h3>Fully Insured</h3>
+                <p>Comprehensive liability and property coverage</p>
+            </div>
+
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <svg width="50" height="50" viewBox="0 0 24 24">
+                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm6.2 9.8l-7.1 8.4c-.4.5-1.1.8-1.8.8-.7 0-1.4-.3-1.8-.8l-3.5-4.1c-.5-.6-.4-1.5.2-2 .6-.5 1.5-.4 2 .2l1.7 2 5.3-6.3c.5-.6 1.4-.7 2-.2.6.5.7 1.4.2 2z"/>
+                    </svg>
+                </div>
+                <h3>Safety Certified</h3>
+                <p>All equipment meets safety standards</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== OUR PROMISE SECTION ========== -->
+    <section class="promise">
+        <div class="promise-content">
+            <h2>Our Promise</h2>
+            <p>Every tool in every kit has been used by our team on real job sites. We don't sell anything we wouldn't carry ourselves. If a tool doesn't meet our standard, it doesn't go in the kit. Period.</p>
+        </div>
+    </section>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section class="about-cta">
+        <div class="about-cta-content">
+            <h2>Ready to Get Started?</h2>
+            <p>Browse our complete collection of trade tool kits, curated by real professionals.</p>
+            <a href="shop.html" class="btn btn-primary">Shop Our Kits</a>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Company</h4>
+                <p><strong>Bullet Trade Services</strong></p>
+                <p>Puslinch, Ontario, Canada</p>
+                <p>Tel: (519) 555-0100</p>
+                <p>Email: info@bullettradeservices.com</p>
+            </div>
+
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <div class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M19 3a9 9 0 01-9 9 9 9 0 01-9-9 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M19 3a9 9 0 01-9 9 9 9 0 01-9-9 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M19 3a9 9 0 01-9 9 9 9 0 01-9-9 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-divider">
+            © 2026 Bullet Trade Services. All rights reserved. CWB Certified | TSSA Certified
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // Sticky navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Cart functionality (placeholder)
+        document.querySelector('.cart-icon').addEventListener('click', () => {
+            alert('Cart feature coming soon!');
+        });
+    </script>
+</body>
+</html>

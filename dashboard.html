@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bullet Trade Services — Operations Dashboard</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #f5f5f5;
+    }
+
+    .dashboard {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      width: 280px;
+      background: #1a1a2e;
+      color: white;
+      padding: 30px 20px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: #e67e22;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .nav-items {
+      list-style: none;
+    }
+
+    .nav-item {
+      margin-bottom: 8px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      color: #b0b0b0;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+      width: 100%;
+      text-align: left;
+    }
+
+    .nav-link:hover {
+      background: rgba(230, 126, 34, 0.1);
+      color: #e67e22;
+    }
+
+    .nav-link.active {
+      background: #e67e22;
+      color: white;
+    }
+
+    .nav-icon {
+      font-size: 18px;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 280px;
+      flex: 1;
+      background: #f5f5f5;
+      padding: 30px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .header-title h1 {
+      font-size: 24px;
+      color: #1a1a2e;
+      margin-bottom: 4px;
+    }
+
+    .header-badge {
+      display: inline-block;
+      background: #e67e22;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .header-right {
+      text-align: right;
+      font-size: 13px;
+      color: #666;
+    }
+
+    /* Sections */
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    /* Metric Cards */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .metric-card {
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border-top: 4px solid #e67e22;
+    }
+
+    .metric-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #999;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .metric-value {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .metric-change {
+      font-size: 13px;
+      color: #666;
+    }
+
+    /* Chart Container */
+    .chart-card {
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+    }
+
+    .chart-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 20px;
+    }
+
+    .simple-chart {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      height: 250px;
+      gap: 15px;
+    }
+
+    .chart-bar-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chart-bar {
+      width: 100%;
+      background: linear-gradient(to top, #e67e22, #f39c12);
+      border-radius: 4px 4px 0 0;
+      min-height: 10px;
+    }
+
+    .chart-label {
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+    }
+
+    .chart-value {
+      font-size: 12px;
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+
+    /* Activity Feed */
+    .activity-card {
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .activity-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 20px;
+    }
+
+    .activity-items {
+      list-style: none;
+    }
+
+    .activity-item {
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      gap: 12px;
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-dot {
+      width: 8px;
+      height: 8px;
+      background: #e67e22;
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .activity-text {
+      color: #333;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Tables */
+    .table-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+
+    .table-header {
+      padding: 25px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .table-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: #f9f9f9;
+    }
+
+    th {
+      padding: 15px 25px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid #eee;
+    }
+
+    td {
+      padding: 15px 25px;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+      color: #333;
+    }
+
+    tbody tr:hover {
+      background: #fafafa;
+    }
+
+    /* Status Badges */
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-draft {
+      background: #e0e0e0;
+      color: #666;
+    }
+
+    .badge-pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .badge-live {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .badge-in-progress {
+      background: #cfe2ff;
+      color: #084298;
+    }
+
+    .badge-prospect {
+      background: #e7d4f5;
+      color: #5a1a82;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid #eee;
+      background: white;
+      padding: 0 25px;
+      border-radius: 8px 8px 0 0;
+      margin-bottom: 0;
+    }
+
+    .tab {
+      padding: 15px 20px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: #666;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .tab:hover {
+      color: #1a1a2e;
+    }
+
+    .tab.active {
+      color: #e67e22;
+      border-bottom-color: #e67e22;
+    }
+
+    .tab-content {
+      display: none;
+      background: white;
+      padding: 25px;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Email Campaigns Grid */
+    .campaigns-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .campaign-card {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+
+    .campaign-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .campaign-meta {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 12px;
+    }
+
+    .campaign-badge {
+      display: inline-block;
+      background: #fff3cd;
+      color: #856404;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* Form Inputs */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #e67e22;
+      box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+    }
+
+    /* Timeline */
+    .timeline-section {
+      margin-bottom: 40px;
+    }
+
+    .phase-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .phase-checklist {
+      list-style: none;
+      margin-left: 20px;
+    }
+
+    .checklist-item {
+      padding: 10px 0;
+      font-size: 14px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .check-icon {
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .check-icon.done {
+      color: #28a745;
+    }
+
+    .check-icon.pending {
+      color: #999;
+    }
+
+    /* Notes Section */
+    .notes-section {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #e67e22;
+      margin-top: 20px;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* Financials Cards */
+    .financial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .financial-card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border-left: 4px solid #e67e22;
+    }
+
+    .financial-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #999;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .financial-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+
+    .financial-range {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 200px;
+        padding: 20px 15px;
+      }
+
+      .main-content {
+        margin-left: 200px;
+        padding: 20px;
+      }
+
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-right {
+        margin-top: 10px;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      th, td {
+        padding: 10px 15px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .sidebar {
+        position: absolute;
+        z-index: 1000;
+        width: 200px;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .campaigns-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .financial-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    function App() {
+      const [activeSection, setActiveSection] = React.useState('overview');
+      const [activeMarketingTab, setActiveMarketingTab] = React.useState('seo');
+      const [budgetInput, setBudgetInput] = React.useState(18000);
+
+      // Sample data
+      const products = [
+        { name: 'Millwright Starter', tier: 'Good', price: 1995, cogs: 1200, status: 'Draft' },
+        { name: 'Millwright Pro', tier: 'Better', price: 2995, cogs: 1850, status: 'Draft' },
+        { name: 'Millwright Master', tier: 'Best', price: 4495, cogs: 2850, status: 'Draft' },
+        { name: 'Electrician Starter', tier: 'Good', price: 1795, cogs: 1100, status: 'Draft' },
+        { name: 'Electrician Pro', tier: 'Better', price: 2695, cogs: 1650, status: 'Draft' },
+        { name: 'Electrician Master', tier: 'Best', price: 3995, cogs: 2550, status: 'Draft' },
+      ];
+
+      const blogPosts = [
+        { title: 'What Tools Do You Need to Start as a Millwright?', status: 'Ready to Publish', keywords: 'millwright tools list, apprentice tools', volume: 1200 },
+        { title: 'The Real Cost of Getting Into Skilled Trades', status: 'Ready to Publish', keywords: 'trades cost, apprentice costs', volume: 2400 },
+        { title: 'Colleges Are Investing in Trades', status: 'Ready to Publish', keywords: 'trades college Ontario, apprenticeship', volume: 800 },
+      ];
+
+      const emailCampaigns = [
+        { name: 'Launch Sequence', emails: 3, status: 'Built, Not Deployed' },
+        { name: 'Institutional Outreach', emails: 4, status: 'Built, Not Deployed' },
+        { name: 'Abandoned Cart', emails: 3, status: 'Built, Not Deployed' },
+        { name: 'Post-Purchase', emails: 3, status: 'Built, Not Deployed' },
+      ];
+
+      const institutions = [
+        { name: '[College Name - TBD]', contact: "Phil's contact", status: 'Pilot - In Progress', next: 'Confirm kit contents', value: 100000 },
+        { name: 'Conestoga College', contact: 'TBD', status: 'Prospect', next: 'Initial outreach', value: 50000 },
+        { name: 'Mohawk College', contact: 'TBD', status: 'Prospect', next: 'Initial outreach', value: 50000 },
+        { name: 'George Brown College', contact: 'TBD', status: 'Prospect', next: 'Initial outreach', value: 50000 },
+        { name: 'Sheridan College', contact: 'TBD', status: 'Prospect', next: 'Initial outreach', value: 40000 },
+        { name: 'Humber College', contact: 'TBD', status: 'Prospect', next: 'Initial outreach', value: 40000 },
+        { name: 'Confederation College', contact: 'TBD', status: 'Prospect', next: 'Initial outreach', value: 30000 },
+        { name: 'Northern College', contact: 'TBD', status: 'Prospect', next: 'Initial outreach', value: 25000 },
+      ];
+
+      const activityFeed = [
+        'College pilot — awaiting Phil\'s confirmation on kit contents',
+        'Store mockup complete — ready for Phil review',
+        '3 blog posts drafted — pending publish',
+        'Email sequences built — 4 campaigns ready',
+        'Kit framework sent to Phil\'s team for validation',
+      ];
+
+      const revenueData = [
+        { month: 'Jan', value: 0 },
+        { month: 'Feb', value: 0 },
+        { month: 'Mar', value: 50000 },
+        { month: 'Apr', value: 8000 },
+        { month: 'May', value: 12000 },
+        { month: 'Jun', value: 18000 },
+      ];
+
+      const maxRevenue = Math.max(...revenueData.map(d => d.value)) || 50000;
+
+      const calculateMargin = (price, cogs) => {
+        return Math.round(((price - cogs) / price) * 100);
+      };
+
+      const getStatusBadge = (status) => {
+        if (status === 'Draft') return 'badge-draft';
+        if (status === 'Pending Validation') return 'badge-pending';
+        if (status === 'Live') return 'badge-live';
+        if (status === 'Prospect') return 'badge-prospect';
+        if (status === 'Pilot - In Progress') return 'badge-in-progress';
+        return 'badge-draft';
+      };
+
+      const projectedMonthly = Math.round((budgetInput / 12) * 0.018 * 100) / 100;
+
+      const timelinePhases = [
+        {
+          phase: 'Phase 1 — Foundation',
+          weeks: 'Weeks 1-2',
+          items: [
+            { text: 'Market research complete', done: true },
+            { text: 'Kit framework built', done: true },
+            { text: 'Store mockup complete', done: true },
+            { text: 'Blog content drafted', done: true },
+            { text: 'Email sequences built', done: true },
+            { text: 'Financial model built', done: true },
+            { text: 'Proposal sent to Phil', done: true },
+            { text: 'Phil validates kit contents', done: false },
+            { text: 'Partnership agreement signed', done: false },
+            { text: 'Supplier introductions', done: false },
+          ]
+        },
+        {
+          phase: 'Phase 2 — Build',
+          weeks: 'Weeks 3-6',
+          items: [
+            { text: 'WooCommerce store live on bullettradeservices.com', done: false },
+            { text: 'Product photography', done: false },
+            { text: 'Payment processing configured', done: false },
+            { text: 'Shipping logistics configured', done: false },
+            { text: 'College pilot order placed', done: false },
+          ]
+        },
+        {
+          phase: 'Phase 3 — Launch',
+          weeks: 'Weeks 7-8',
+          items: [
+            { text: 'College pilot fulfilled', done: false },
+            { text: 'Public store launch', done: false },
+            { text: 'Blog posts published', done: false },
+            { text: 'Email campaigns deployed', done: false },
+          ]
+        },
+        {
+          phase: 'Phase 4 — Growth',
+          weeks: 'Months 3-12',
+          items: [
+            { text: 'Google Ads campaign launched', done: false },
+            { text: 'Institutional outreach started', done: false },
+            { text: 'First 10 organic sales', done: false },
+            { text: '$250K annual run rate', done: false },
+          ]
+        },
+      ];
+
+      return (
+        <div className="dashboard">
+          {/* Sidebar */}
+          <div className="sidebar">
+            <div className="logo">
+              <div className="logo-icon">★</div>
+              <span>Bullet Trade</span>
+            </div>
+            <ul className="nav-items">
+              <li className="nav-item">
+                <button
+                  className={`nav-link ${activeSection === 'overview' ? 'active' : ''}`}
+                  onClick={() => setActiveSection('overview')}
+                >
+                  <span className="nav-icon">📊</span>
+                  <span>Overview</span>
+                </button>
+              </li>
+              <li className="nav-item">
+                <button
+                  className={`nav-link ${activeSection === 'products' ? 'active' : ''}`}
+                  onClick={() => setActiveSection('products')}
+                >
+                  <span className="nav-icon">📦</span>
+                  <span>Products</span>
+                </button>
+              </li>
+              <li className="nav-item">
+                <button
+                  className={`nav-link ${activeSection === 'marketing' ? 'active' : ''}`}
+                  onClick={() => setActiveSection('marketing')}
+                >
+                  <span className="nav-icon">📢</span>
+                  <span>Marketing</span>
+                </button>
+              </li>
+              <li className="nav-item">
+                <button
+                  className={`nav-link ${activeSection === 'financials' ? 'active' : ''}`}
+                  onClick={() => setActiveSection('financials')}
+                >
+                  <span className="nav-icon">💰</span>
+                  <span>Financials</span>
+                </button>
+              </li>
+              <li className="nav-item">
+                <button
+                  className={`nav-link ${activeSection === 'timeline' ? 'active' : ''}`}
+                  onClick={() => setActiveSection('timeline')}
+                >
+                  <span className="nav-icon">📅</span>
+                  <span>Timeline</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          {/* Main Content */}
+          <div className="main-content">
+            {/* Header */}
+            <div className="header">
+              <div className="header-left">
+                <div className="header-title">
+                  <h1>Bullet Trade Services</h1>
+                  <span className="header-badge">INTERNAL</span>
+                </div>
+              </div>
+              <div className="header-right">
+                <div>Last updated: April 9, 2026</div>
+              </div>
+            </div>
+
+            {/* OVERVIEW SECTION */}
+            {activeSection === 'overview' && (
+              <div className="section active">
+                {/* Metrics */}
+                <div className="metrics-grid">
+                  <div className="metric-card">
+                    <div className="metric-label">Monthly Revenue</div>
+                    <div className="metric-value">$18,000</div>
+                    <div className="metric-change">↑ Pilot phase revenue</div>
+                  </div>
+                  <div className="metric-card">
+                    <div className="metric-label">Kits Sold This Month</div>
+                    <div className="metric-value">0</div>
+                    <div className="metric-change">Awaiting pilot order</div>
+                  </div>
+                  <div className="metric-card">
+                    <div className="metric-label">Active Leads</div>
+                    <div className="metric-value">1</div>
+                    <div className="metric-change">College pilot in progress</div>
+                  </div>
+                  <div className="metric-card">
+                    <div className="metric-label">Conversion Rate</div>
+                    <div className="metric-value">—</div>
+                    <div className="metric-change">Pre-launch</div>
+                  </div>
+                </div>
+
+                {/* Revenue Chart */}
+                <div className="chart-card">
+                  <div className="chart-title">6-Month Revenue Projection</div>
+                  <div className="simple-chart">
+                    {revenueData.map((data, idx) => (
+                      <div key={idx} className="chart-bar-container">
+                        <div
+                          className="chart-bar"
+                          style={{ height: data.value > 0 ? (data.value / maxRevenue * 100) + '%' : '20px' }}
+                        ></div>
+                        <div className="chart-value">${(data.value / 1000).toFixed(0)}K</div>
+                        <div className="chart-label">{data.month}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Activity Feed */}
+                <div className="activity-card">
+                  <div className="activity-title">Recent Activity</div>
+                  <ul className="activity-items">
+                    {activityFeed.map((item, idx) => (
+                      <li key={idx} className="activity-item">
+                        <div className="activity-dot"></div>
+                        <div className="activity-text">{item}</div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+
+            {/* PRODUCTS SECTION */}
+            {activeSection === 'products' && (
+              <div className="section active">
+                <div className="table-card">
+                  <div className="table-header">
+                    <div className="table-title">All Products (6 Kits)</div>
+                  </div>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Tier</th>
+                        <th>Price</th>
+                        <th>COGS (Est.)</th>
+                        <th>Margin</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {products.map((product, idx) => (
+                        <tr key={idx}>
+                          <td><strong>{product.name}</strong></td>
+                          <td>{product.tier}</td>
+                          <td>${product.price.toLocaleString()}</td>
+                          <td>${product.cogs.toLocaleString()}</td>
+                          <td>{calculateMargin(product.price, product.cogs)}%</td>
+                          <td><span className={`badge ${getStatusBadge(product.status)}`}>{product.status}</span></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="notes-section">
+                  <strong>📝 Note:</strong> Waiting for Phil's team to validate kit contents. COGS estimates are preliminary — will update once supplier pricing confirmed.
+                </div>
+              </div>
+            )}
+
+            {/* MARKETING SECTION */}
+            {activeSection === 'marketing' && (
+              <div className="section active">
+                <div className="table-card" style={{ marginBottom: 0 }}>
+                  <div className="tabs">
+                    <button
+                      className={`tab ${activeMarketingTab === 'seo' ? 'active' : ''}`}
+                      onClick={() => setActiveMarketingTab('seo')}
+                    >
+                      📝 SEO Content
+                    </button>
+                    <button
+                      className={`tab ${activeMarketingTab === 'email' ? 'active' : ''}`}
+                      onClick={() => setActiveMarketingTab('email')}
+                    >
+                      ✉️ Email Campaigns
+                    </button>
+                    <button
+                      className={`tab ${activeMarketingTab === 'ads' ? 'active' : ''}`}
+                      onClick={() => setActiveMarketingTab('ads')}
+                    >
+                      🎯 Ads
+                    </button>
+                    <button
+                      className={`tab ${activeMarketingTab === 'institutional' ? 'active' : ''}`}
+                      onClick={() => setActiveMarketingTab('institutional')}
+                    >
+                      🏛️ Institutional Outreach
+                    </button>
+                  </div>
+
+                  {/* SEO Content Tab */}
+                  {activeMarketingTab === 'seo' && (
+                    <div className="tab-content active">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Target Keywords</th>
+                            <th>Est. Monthly Search Volume</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {blogPosts.map((post, idx) => (
+                            <tr key={idx}>
+                              <td><strong>{post.title}</strong></td>
+                              <td><span className="badge badge-pending">{post.status}</span></td>
+                              <td>{post.keywords}</td>
+                              <td>{post.volume.toLocaleString()}</td>
+                            </tr>
+                          ))}
+                          <tr>
+                            <td colSpan="4" style={{ textAlign: 'center', color: '#999', fontStyle: 'italic' }}>+ Add new posts</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+
+                  {/* Email Campaigns Tab */}
+                  {activeMarketingTab === 'email' && (
+                    <div className="tab-content active">
+                      <div className="campaigns-grid">
+                        {emailCampaigns.map((campaign, idx) => (
+                          <div key={idx} className="campaign-card">
+                            <div className="campaign-title">{campaign.name}</div>
+                            <div className="campaign-meta">{campaign.emails} emails</div>
+                            <span className="campaign-badge">{campaign.status}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Ads Tab */}
+                  {activeMarketingTab === 'ads' && (
+                    <div className="tab-content active">
+                      <div style={{ marginBottom: '30px' }}>
+                        <p style={{ color: '#666', marginBottom: '20px' }}>
+                          <strong>Google Ads</strong> — Not yet active. Launch planned for Month 4 (post-pilot).
+                        </p>
+                      </div>
+
+                      <div style={{ marginBottom: '20px' }}>
+                        <h3 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '15px', color: '#1a1a2e' }}>Budget Planner</h3>
+                        <div className="form-group">
+                          <label className="form-label">Monthly Budget</label>
+                          <input
+                            type="number"
+                            className="form-input"
+                            value={budgetInput}
+                            onChange={(e) => setBudgetInput(Number(e.target.value))}
+                          />
+                        </div>
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px' }}>
+                        <div>
+                          <div style={{ fontSize: '12px', color: '#666', marginBottom: '5px' }}>Est. Monthly CPC</div>
+                          <div style={{ fontSize: '18px', fontWeight: 600, color: '#1a1a2e' }}>$12</div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '12px', color: '#666', marginBottom: '5px' }}>Est. Conversion Rate</div>
+                          <div style={{ fontSize: '18px', fontWeight: 600, color: '#1a1a2e' }}>1.8%</div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '12px', color: '#666', marginBottom: '5px' }}>Projected Monthly Clicks</div>
+                          <div style={{ fontSize: '18px', fontWeight: 600, color: '#1a1a2e' }}>{Math.round(budgetInput / 12)}</div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '12px', color: '#666', marginBottom: '5px' }}>Projected Monthly Conversions</div>
+                          <div style={{ fontSize: '18px', fontWeight: 600, color: '#e67e22' }}>{Math.round((budgetInput / 12) * 0.018)}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Institutional Outreach Tab */}
+                  {activeMarketingTab === 'institutional' && (
+                    <div className="tab-content active">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Institution</th>
+                            <th>Contact</th>
+                            <th>Status</th>
+                            <th>Next Step</th>
+                            <th>Est. Value</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {institutions.map((inst, idx) => (
+                            <tr key={idx}>
+                              <td><strong>{inst.name}</strong></td>
+                              <td>{inst.contact}</td>
+                              <td><span className={`badge ${getStatusBadge(inst.status)}`}>{inst.status}</span></td>
+                              <td>{inst.next}</td>
+                              <td><strong>${inst.value.toLocaleString()}</strong></td>
+                            </tr>
+                          ))}
+                          <tr style={{ fontWeight: 600, background: '#f9f9f9' }}>
+                            <td colSpan="4">Pipeline Total</td>
+                            <td>${institutions.reduce((sum, i) => sum + i.value, 0).toLocaleString()}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* FINANCIALS SECTION */}
+            {activeSection === 'financials' && (
+              <div className="section active">
+                <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '25px', color: '#1a1a2e' }}>Year 1 Projections</h2>
+                <div className="financial-grid">
+                  <div className="financial-card">
+                    <div className="financial-label">Revenue Target</div>
+                    <div className="financial-value">$150K–$250K</div>
+                  </div>
+                  <div className="financial-card">
+                    <div className="financial-label">Gross Margin (35%)</div>
+                    <div className="financial-value">$52K–$87K</div>
+                  </div>
+                  <div className="financial-card">
+                    <div className="financial-label">Russell's Share (20%)</div>
+                    <div className="financial-value">$10K–$17K</div>
+                  </div>
+                  <div className="financial-card">
+                    <div className="financial-label">Marketing Budget</div>
+                    <div className="financial-value">$18K–$30K</div>
+                  </div>
+                </div>
+
+                <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '25px', marginTop: '40px', color: '#1a1a2e' }}>Year 2 Projections</h2>
+                <div className="financial-grid">
+                  <div className="financial-card">
+                    <div className="financial-label">Revenue Target</div>
+                    <div className="financial-value">$400K–$600K</div>
+                  </div>
+                  <div className="financial-card">
+                    <div className="financial-label">Gross Margin (35%)</div>
+                    <div className="financial-value">$140K–$210K</div>
+                  </div>
+                  <div className="financial-card">
+                    <div className="financial-label">Russell's Share (20%)</div>
+                    <div className="financial-value">$28K–$42K</div>
+                  </div>
+                </div>
+
+                <div className="notes-section" style={{ marginTop: '40px' }}>
+                  <strong>Compensation Structure:</strong> 20% of gross margin (revenue minus COGS). Business retains 80% at all levels.
+                </div>
+              </div>
+            )}
+
+            {/* TIMELINE SECTION */}
+            {activeSection === 'timeline' && (
+              <div className="section active">
+                {timelinePhases.map((phaseData, phaseIdx) => (
+                  <div key={phaseIdx} className="timeline-section">
+                    <div className="phase-title">
+                      <span>{phaseData.phase}</span>
+                      <span style={{ fontSize: '12px', color: '#999', fontWeight: 400, marginLeft: 'auto' }}>
+                        {phaseData.weeks}
+                      </span>
+                    </div>
+                    <ul className="phase-checklist">
+                      {phaseData.items.map((item, itemIdx) => (
+                        <li key={itemIdx} className="checklist-item">
+                          <span className={`check-icon ${item.done ? 'done' : 'pending'}`}>
+                            {item.done ? '✓' : '☐'}
+                          </span>
+                          <span style={{ color: item.done ? '#999' : '#333', textDecoration: item.done ? 'line-through' : 'none' }}>
+                            {item.text}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>

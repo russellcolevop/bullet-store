@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrician Starter Kit | Bullet Trade Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #1a1a2e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #e67e22;
+        }
+
+        nav .logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #e67e22;
+            margin-left: 0;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background-color: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: #e67e22;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb span {
+            color: #999;
+            margin: 0 0.5rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .product-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Image Section */
+        .image-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .main-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .main-image svg {
+            width: 60%;
+            height: 60%;
+            color: #ccc;
+        }
+
+        .thumbnails {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+
+        .thumbnail {
+            aspect-ratio: 1;
+            background-color: #f0f0f0;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            border-color: #e67e22;
+        }
+
+        /* Details Section */
+        .details-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #27ae60;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            width: fit-content;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #1a1a2e;
+            margin: 0;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            color: #e67e22;
+            font-weight: 600;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .star {
+            width: 18px;
+            height: 18px;
+            color: #e67e22;
+        }
+
+        .rating-text {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .description {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .add-to-cart-btn {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #d16e0f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
+        }
+
+        .institutional-note {
+            background-color: #f0f0f0;
+            padding: 0.8rem;
+            border-left: 4px solid #e67e22;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* Trust Badges */
+        .trust-badges {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .trust-badge::before {
+            content: "✓";
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Tabs */
+        .tabs-section {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #666;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab-button:hover {
+            color: #1a1a2e;
+        }
+
+        .tab-button.active {
+            color: #e67e22;
+            border-bottom-color: #e67e22;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h3 {
+            color: #1a1a2e;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .tab-content p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .tool-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .tool-category {
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-category h4 {
+            color: #1a1a2e;
+            font-size: 1.05rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e67e22;
+            padding-bottom: 0.5rem;
+        }
+
+        .tool-item {
+            color: #555;
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .tool-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #e67e22;
+            font-weight: bold;
+        }
+
+        /* Complete Your Kit Section */
+        .complete-kit-section {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .complete-kit-section h2 {
+            color: #1a1a2e;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .addon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .addon-card {
+            border: 1px solid #eee;
+            padding: 1.5rem;
+            border-radius: 6px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .addon-card:hover {
+            box-shadow: 0 4px 12px rgba(230, 126, 34, 0.2);
+            border-color: #e67e22;
+        }
+
+        .addon-card h3 {
+            color: #1a1a2e;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .addon-price {
+            color: #e67e22;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: #e67e22;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .product-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .price {
+                font-size: 1.5rem;
+            }
+
+            .trust-badges {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-buttons {
+                gap: 0;
+            }
+
+            .tab-button {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .addon-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav a {
+                margin-left: 0;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html" class="logo">Bullet Trade Services</a>
+        <div>
+            <a href="../shop.html">Shop</a>
+            <a href="../about.html">About</a>
+            <a href="../contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="../shop.html">Shop</a>
+        <span>></span>
+        <a href="../shop.html">Electrician Kits</a>
+        <span>></span>
+        <span>Starter Kit</span>
+    </div>
+
+    <div class="container">
+        <div class="product-layout">
+            <!-- Image Section -->
+            <div class="image-section">
+                <div class="main-image">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 20 50 L 80 50 M 50 20 L 50 80" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="30" cy="30" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="70" cy="70" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M 40 40 Q 50 50 40 60" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <path d="M 60 40 Q 50 50 60 60" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="thumbnails">
+                    <div class="thumbnail active" onclick="selectThumbnail(event)"></div>
+                    <div class="thumbnail" onclick="selectThumbnail(event)"></div>
+                    <div class="thumbnail" onclick="selectThumbnail(event)"></div>
+                    <div class="thumbnail" onclick="selectThumbnail(event)"></div>
+                </div>
+            </div>
+
+            <!-- Details Section -->
+            <div class="details-section">
+                <span class="badge">Good</span>
+                <h1>Electrician Starter Kit</h1>
+                <div class="price">$1,795.00 CAD</div>
+
+                <div class="rating">
+                    <div class="stars">
+                        <svg class="star" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                    </div>
+                    <span class="rating-text">(Field-tested by 100+ tradespeople)</span>
+                </div>
+
+                <p class="description">40+ insulated tools and essentials for apprentice electricians. Every tool selected by our licensed electricians for safety and functionality. Insulated to 1,000V where applicable.</p>
+
+                <button class="add-to-cart-btn">Add to Cart</button>
+
+                <div class="institutional-note">
+                    <strong>Institutional pricing available</strong> for orders of 20+
+                </div>
+
+                <div class="trust-badges">
+                    <div class="trust-badge">CWB Certified</div>
+                    <div class="trust-badge">Free Shipping over $500</div>
+                    <div class="trust-badge">30-Day Returns</div>
+                    <div class="trust-badge">Real Support from Real Tradespeople</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs Section -->
+        <div class="tabs-section">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="switchTab(event, 'included')">What's Included</button>
+                <button class="tab-button" onclick="switchTab(event, 'for-you')">Who It's For</button>
+                <button class="tab-button" onclick="switchTab(event, 'shipping')">Shipping & Returns</button>
+            </div>
+
+            <div id="included" class="tab-content active">
+                <div class="tool-list">
+                    <div class="tool-category">
+                        <h4>Insulated Hand Tools</h4>
+                        <div class="tool-item">Insulated linesman pliers, 9"</div>
+                        <div class="tool-item">Insulated long nose pliers, 8"</div>
+                        <div class="tool-item">Insulated diagonal cutting pliers, 7"</div>
+                        <div class="tool-item">Insulated tongue & groove pliers, 10"</div>
+                        <div class="tool-item">Insulated screwdriver set (flat + Phillips, various sizes) — 8 pieces</div>
+                        <div class="tool-item">Cable cutter/wire cutters</div>
+                        <div class="tool-item">Wire stripper/crimper tool</div>
+                        <div class="tool-item">Adjustable wrench, 10" (insulated)</div>
+                    </div>
+
+                    <div class="tool-category">
+                        <h4>Testing & Measurement</h4>
+                        <div class="tool-item">Digital multimeter (CAT III rated)</div>
+                        <div class="tool-item">Non-contact voltage tester</div>
+                        <div class="tool-item">Tape measure, 25ft</div>
+                        <div class="tool-item">Torpedo level, 9"</div>
+                    </div>
+
+                    <div class="tool-category">
+                        <h4>Wire Management</h4>
+                        <div class="tool-item">Fish tape, 25ft</div>
+                        <div class="tool-item">Electrical tape (5 rolls, assorted colors)</div>
+                        <div class="tool-item">Cable ties, assorted sizes — 200 pack</div>
+                        <div class="tool-item">Wire nuts, assorted sizes — 100 pack</div>
+                    </div>
+
+                    <div class="tool-category">
+                        <h4>Cutting & Utility</h4>
+                        <div class="tool-item">Utility knife with retractable blade</div>
+                        <div class="tool-item">Hacksaw with extra blades</div>
+                        <div class="tool-item">Keyhole saw</div>
+                    </div>
+
+                    <div class="tool-category">
+                        <h4>Safety</h4>
+                        <div class="tool-item">Safety glasses (ANSI Z87.1)</div>
+                        <div class="tool-item">Insulated work gloves (Class 0, 1,000V rated)</div>
+                        <div class="tool-item">LED headlamp (rechargeable)</div>
+                    </div>
+
+                    <div class="tool-category">
+                        <h4>Storage</h4>
+                        <div class="tool-item">Electrician's tool bag with padded compartments</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="for-you" class="tab-content">
+                <p>Built for first-year electrician apprentices and pre-apprenticeship students. Our licensed electricians selected every tool based on what they actually carry and use daily. All hand tools are insulated to 1,000V where applicable — because safety isn't optional in electrical work.</p>
+                <p>This kit meets the tool requirements for most Ontario college electrician programs. When you're ready to expand your capabilities, the Pro Kit adds specialized testing equipment and advanced instruments.</p>
+            </div>
+
+            <div id="shipping" class="tab-content">
+                <p>Free shipping on all orders over $500 across Canada. Standard delivery: 5-7 business days. Express available at checkout.</p>
+                <p>30-day return policy — if you're not satisfied, return the kit in original condition for a full refund.</p>
+                <p>For institutional orders (20+ units), contact us for custom shipping arrangements.</p>
+            </div>
+        </div>
+
+        <!-- Complete Your Kit Section -->
+        <div class="complete-kit-section">
+            <h2>Complete Your Kit</h2>
+            <div class="addon-grid">
+                <div class="addon-card">
+                    <h3>Upgrade to Pro Kit</h3>
+                    <div class="addon-price">$2,795.00</div>
+                </div>
+                <div class="addon-card">
+                    <h3>Add Safety Boots</h3>
+                    <div style="color: #999; margin-top: 0.5rem;">Coming soon</div>
+                </div>
+                <div class="addon-card">
+                    <h3>Add Tool Belt</h3>
+                    <div style="color: #999; margin-top: 0.5rem;">Coming soon</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Bullet Trade Services. All rights reserved. | <a href="../index.html">Back to Shop</a></p>
+    </footer>
+
+    <script>
+        function switchTab(event, tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Show selected tab and mark button as active
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function selectThumbnail(event) {
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
