@@ -5,556 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bullet Trade Services — Partner Portal</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-        }
-
-        /* ===== LOGIN GATE ===== */
-        .login-gate {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .login-gate.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        .login-card {
-            background: white;
-            padding: 48px 40px;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            animation: slideUp 0.5s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .login-card h1 {
-            font-size: 24px;
-            color: #1a1a2e;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        .login-card p {
-            color: #666;
-            margin-bottom: 32px;
-            font-size: 16px;
-        }
-
-        .login-form {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .login-form input {
-            padding: 12px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.2s;
-        }
-
-        .login-form input:focus {
-            outline: none;
-            border-color: #e67e22;
-        }
-
-        .login-form button {
-            padding: 12px 24px;
-            background-color: #e67e22;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .login-form button:hover {
-            background-color: #d35400;
-        }
-
-        .login-error {
-            color: #d32f2f;
-            font-size: 14px;
-            margin-top: 12px;
-            display: none;
-        }
-
-        .login-error.show {
-            display: block;
-        }
-
-        /* ===== PORTAL CONTENT ===== */
-        .portal-content {
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .portal-content.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .portal-header {
-            background-color: #1a1a2e;
-            color: white;
-            padding: 32px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 24px;
-        }
-
-        .portal-header-left h1 {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .portal-header-left p {
-            color: #bbb;
-            font-size: 16px;
-            margin-bottom: 4px;
-        }
-
-        .portal-header-left .update-date {
-            font-size: 13px;
-            color: #999;
-        }
-
-        .portal-header-right {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-        }
-
-        .welcome-text {
-            text-align: right;
-            font-size: 16px;
-        }
-
-        .confidential-badge {
-            background-color: #e67e22;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .portal-main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 32px 24px;
-        }
-
-        /* ===== PROGRESS BAR ===== */
-        .progress-section {
-            margin-bottom: 48px;
-        }
-
-        .progress-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 16px;
-        }
-
-        .progress-bar {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 32px;
-        }
-
-        .progress-phase {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .progress-box {
-            width: 100%;
-            height: 8px;
-            background-color: #e0e0e0;
-            border-radius: 4px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .progress-box.active {
-            background-color: #e67e22;
-        }
-
-        .progress-box.active::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
-            animation: shimmer 1.5s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        .progress-label-small {
-            font-size: 13px;
-            font-weight: 500;
-            color: #1a1a2e;
-        }
-
-        .progress-label-small.active {
-            color: #e67e22;
-            font-weight: 600;
-        }
-
-        .progress-status {
-            font-size: 11px;
-            color: #999;
-        }
-
-        .progress-status.active {
-            color: #e67e22;
-            font-weight: 600;
-        }
-
-        /* ===== PHASE SECTION ===== */
-        .phase-section {
-            margin-bottom: 48px;
-        }
-
-        .phase-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #1a1a2e;
-            margin-bottom: 8px;
-        }
-
-        .phase-subtitle {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 24px;
-        }
-
-        .documents-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        /* ===== DOCUMENT CARDS ===== */
-        .doc-card {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 24px;
-            transition: all 0.2s;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .doc-card.available {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .doc-card.available:hover {
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-            border-color: #e67e22;
-        }
-
-        .doc-card.locked {
-            background-color: #f5f5f5;
-            opacity: 0.7;
-            cursor: not-allowed;
-            border-color: #d0d0d0;
-        }
-
-        .doc-card.locked:hover {
-            box-shadow: none;
-            transform: none;
-            border-color: #d0d0d0;
-        }
-
-        .doc-card.highlighted {
-            border-color: #e67e22;
-            border-width: 2px;
-            box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.1);
-        }
-
-        .doc-icon {
-            font-size: 32px;
-            margin-bottom: 12px;
-        }
-
-        .doc-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1a1a2e;
-            margin-bottom: 8px;
-        }
-
-        .doc-description {
-            font-size: 13px;
-            color: #666;
-            line-height: 1.5;
-            margin-bottom: 16px;
-        }
-
-        .doc-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .doc-status {
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 4px 8px;
-            border-radius: 4px;
-        }
-
-        .status-sent {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .status-live {
-            background-color: #c8e6c9;
-            color: #1b5e20;
-        }
-
-        .status-review {
-            background-color: #ffe0b2;
-            color: #e65100;
-        }
-
-        .status-ready {
-            background-color: #e3f2fd;
-            color: #1565c0;
-        }
-
-        .status-locked {
-            background-color: #f0f0f0;
-            color: #999;
-        }
-
-        .doc-action {
-            font-size: 12px;
-            color: #e67e22;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .doc-card.available:hover .doc-action {
-            text-decoration: underline;
-        }
-
-        .doc-card.locked .doc-action {
-            color: #999;
-            cursor: not-allowed;
-        }
-
-        .lock-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
-
-        /* ===== ACTION ITEMS ===== */
-        .action-items {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: white;
-            padding: 32px 24px;
-            border-radius: 8px;
-            margin-bottom: 48px;
-        }
-
-        .action-items h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .action-items ol {
-            list-style: none;
-        }
-
-        .action-items li {
-            font-size: 15px;
-            margin-bottom: 12px;
-            line-height: 1.6;
-            display: flex;
-            gap: 12px;
-        }
-
-        .action-items li span:first-child {
-            min-width: 20px;
-            flex-shrink: 0;
-        }
-
-        .action-items a {
-            color: #e67e22;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .action-items a:hover {
-            text-decoration: underline;
-        }
-
-        .action-emphasis {
-            color: #e67e22;
-            font-weight: 600;
-        }
-
-        /* ===== FOOTER ===== */
-        .portal-footer {
-            background-color: #f0f0f0;
-            padding: 32px 24px;
-            text-align: center;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .portal-footer p {
-            font-size: 15px;
-            color: #333;
-            margin-bottom: 12px;
-        }
-
-        .portal-footer a {
-            color: #e67e22;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .portal-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .footer-disclaimer {
-            font-size: 12px;
-            color: #999;
-            margin-top: 16px;
-        }
-
-        /* ===== RESPONSIVE ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif; background-color: #f8f9fa; color: #333; }
+        .login-gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .login-gate.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .login-card { background: white; padding: 48px 40px; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; max-width: 400px; width: 90%; animation: slideUp 0.5s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .login-card h1 { font-size: 24px; color: #1a1a2e; margin-bottom: 12px; font-weight: 600; }
+        .login-card p { color: #666; margin-bottom: 32px; font-size: 16px; }
+        .login-form { display: flex; flex-direction: column; gap: 16px; }
+        .login-form input { padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; transition: border-color 0.2s; }
+        .login-form input:focus { outline: none; border-color: #e67e22; }
+        .login-form button { padding: 12px 24px; background-color: #e67e22; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.2s; }
+        .login-form button:hover { background-color: #d35400; }
+        .login-error { color: #d32f2f; font-size: 14px; margin-top: 12px; display: none; }
+        .login-error.show { display: block; }
+        .portal-content { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .portal-content.visible { opacity: 1; pointer-events: auto; }
+        .portal-header { background-color: #1a1a2e; color: white; padding: 32px 24px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; }
+        .portal-header-left h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+        .portal-header-left p { color: #bbb; font-size: 16px; margin-bottom: 4px; }
+        .portal-header-left .update-date { font-size: 13px; color: #999; }
+        .portal-header-right { display: flex; gap: 16px; align-items: center; }
+        .welcome-text { text-align: right; font-size: 16px; }
+        .confidential-badge { background-color: #e67e22; color: white; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; }
+        .portal-main { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+        .progress-section { margin-bottom: 48px; }
+        .progress-label { font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
+        .progress-bar { display: flex; gap: 12px; margin-bottom: 32px; }
+        .progress-phase { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .progress-box { width: 100%; height: 8px; background-color: #e0e0e0; border-radius: 4px; position: relative; overflow: hidden; }
+        .progress-box.active { background-color: #e67e22; }
+        .progress-box.active::after { content: ''; position: absolute; top: 0; left: 0; height: 100%; background: linear-gradient(90deg, rgba(255,255,255,0.2), rgba(255,255,255,0)); animation: shimmer 1.5s infinite; }
+        @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+        .progress-label-small { font-size: 13px; font-weight: 500; color: #1a1a2e; }
+        .progress-label-small.active { color: #e67e22; font-weight: 600; }
+        .progress-status { font-size: 11px; color: #999; }
+        .progress-status.active { color: #e67e22; font-weight: 600; }
+        .phase-section { margin-bottom: 48px; }
+        .phase-title { font-size: 20px; font-weight: 600; color: #1a1a2e; margin-bottom: 8px; }
+        .phase-subtitle { color: #666; font-size: 14px; margin-bottom: 24px; }
+        .documents-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .doc-card { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px; transition: all 0.2s; cursor: pointer; position: relative; overflow: hidden; }
+        .doc-card.available { box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .doc-card.available:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.1); transform: translateY(-2px); border-color: #e67e22; }
+        .doc-card.locked { background-color: #f5f5f5; opacity: 0.7; cursor: not-allowed; border-color: #d0d0d0; }
+        .doc-card.locked:hover { box-shadow: none; transform: none; border-color: #d0d0d0; }
+        .doc-card.highlighted { border-color: #e67e22; border-width: 2px; box-shadow: 0 0 0 4px rgba(230,126,34,0.1); }
+        .doc-icon { font-size: 32px; margin-bottom: 12px; }
+        .doc-title { font-size: 16px; font-weight: 600; color: #1a1a2e; margin-bottom: 8px; }
+        .doc-description { font-size: 13px; color: #666; line-height: 1.5; margin-bottom: 16px; }
+        .doc-footer { display: flex; justify-content: space-between; align-items: center; }
+        .doc-status { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 4px 8px; border-radius: 4px; }
+        .status-sent { background-color: #e8f5e9; color: #2e7d32; }
+        .status-live { background-color: #c8e6c9; color: #1b5e20; }
+        .status-review { background-color: #ffe0b2; color: #e65100; }
+        .status-ready { background-color: #e3f2fd; color: #1565c0; }
+        .status-locked { background-color: #f0f0f0; color: #999; }
+        .doc-action { font-size: 12px; color: #e67e22; font-weight: 600; text-decoration: none; }
+        .doc-card.available:hover .doc-action { text-decoration: underline; }
+        .doc-card.locked .doc-action { color: #999; cursor: not-allowed; }
+        .lock-icon { font-size: 24px; margin-bottom: 8px; }
+        .action-items { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 32px 24px; border-radius: 8px; margin-bottom: 48px; }
+        .action-items h3 { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
+        .action-items ol { list-style: none; }
+        .action-items li { font-size: 15px; margin-bottom: 12px; line-height: 1.6; display: flex; gap: 12px; }
+        .action-items li span:first-child { min-width: 20px; flex-shrink: 0; }
+        .action-items a { color: #e67e22; text-decoration: none; font-weight: 600; }
+        .action-items a:hover { text-decoration: underline; }
+        .action-emphasis { color: #e67e22; font-weight: 600; }
+        .portal-footer { background-color: #f0f0f0; padding: 32px 24px; text-align: center; border-top: 1px solid #e0e0e0; }
+        .portal-footer p { font-size: 15px; color: #333; margin-bottom: 12px; }
+        .portal-footer a { color: #e67e22; text-decoration: none; font-weight: 600; }
+        .portal-footer a:hover { text-decoration: underline; }
+        .footer-disclaimer { font-size: 12px; color: #999; margin-top: 16px; }
         @media (max-width: 768px) {
-            .portal-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .portal-header-right {
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            .welcome-text {
-                text-align: left;
-            }
-
-            .progress-bar {
-                flex-direction: column;
-            }
-
-            .progress-phase {
-                flex-direction: row;
-                gap: 12px;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .progress-box {
-                width: 60%;
-                height: 6px;
-            }
-
-            .progress-label-small,
-            .progress-status {
-                min-width: auto;
-            }
-
-            .documents-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .portal-header-left h1 {
-                font-size: 22px;
-            }
+            .portal-header { flex-direction: column; align-items: flex-start; }
+            .portal-header-right { width: 100%; justify-content: space-between; }
+            .welcome-text { text-align: left; }
+            .progress-bar { flex-direction: column; }
+            .progress-phase { flex-direction: row; gap: 12px; justify-content: space-between; align-items: center; }
+            .progress-box { width: 60%; height: 6px; }
+            .documents-grid { grid-template-columns: 1fr; }
+            .portal-header-left h1 { font-size: 22px; }
         }
     </style>
 </head>
 <body>
-    <!-- LOGIN GATE -->
     <div class="login-gate" id="loginGate">
         <div class="login-card">
             <h1>Bullet Trade Services</h1>
             <p>Partner Portal</p>
             <p style="font-size: 14px; color: #999;">Enter access code to continue</p>
             <form class="login-form" id="loginForm">
-                <input
-                    type="password"
-                    id="passwordInput"
-                    placeholder="Access code"
-                    autocomplete="off"
-                >
+                <input type="password" id="passwordInput" placeholder="Access code" autocomplete="off">
                 <button type="submit">Enter</button>
                 <div class="login-error" id="loginError">Invalid access code</div>
             </form>
         </div>
     </div>
-
-    <!-- PORTAL CONTENT -->
     <div class="portal-content" id="portalContent">
-        <!-- HEADER -->
         <div class="portal-header">
             <div class="portal-header-left">
                 <h1>Bullet Trade Services</h1>
@@ -563,89 +113,122 @@
                 <p class="update-date">Last updated: April 9, 2026</p>
             </div>
             <div class="portal-header-right">
-                <div class="welcome-text">
-                    <p>Welcome, <strong>Phil</strong></p>
-                </div>
+                <div class="welcome-text"><p>Welcome, <strong>Phil</strong></p></div>
                 <div class="confidential-badge">CONFIDENTIAL</div>
             </div>
         </div>
-
-        <!-- MAIN CONTENT -->
         <div class="portal-main">
-            <!-- PROGRESS BAR -->
             <div class="progress-section">
                 <div class="progress-label">Project Status</div>
                 <div class="progress-bar">
-                    <div class="progress-phase">
-                        <div class="progress-box active"></div>
-                        <div class="progress-label-small active">Phase 1</div>
-                        <div class="progress-status active">Foundation</div>
-                    </div>
-                    <div class="progress-phase">
-                        <div class="progress-box"></div>
-                        <div class="progress-label-small">Phase 2</div>
-                        <div class="progress-status">Build</div>
-                    </div>
-                    <div class="progress-phase">
-                        <div class="progress-box"></div>
-                        <div class="progress-label-small">Phase 3</div>
-                        <div class="progress-status">Launch</div>
-                    </div>
-                    <div class="progress-phase">
-                        <div class="progress-box"></div>
-                        <div class="progress-label-small">Phase 4</div>
-                        <div class="progress-status">Growth</div>
-                    </div>
+                    <div class="progress-phase"><div class="progress-box active"></div><div class="progress-label-small active">Phase 1</div><div class="progress-status active">Foundation</div></div>
+                    <div class="progress-phase"><div class="progress-box"></div><div class="progress-label-small">Phase 2</div><div class="progress-status">Build</div></div>
+                    <div class="progress-phase"><div class="progress-box"></div><div class="progress-label-small">Phase 3</div><div class="progress-status">Launch</div></div>
+                    <div class="progress-phase"><div class="progress-box"></div><div class="progress-label-small">Phase 4</div><div class="progress-status">Growth</div></div>
                 </div>
             </div>
-
-            <!-- PHASE 1: FOUNDATION -->
             <div class="phase-section">
                 <div class="phase-title">Phase 1: Foundation — Documents Available Now</div>
                 <div class="phase-subtitle">Review and validate these materials</div>
                 <div class="documents-grid">
-                    <!-- Partnership Proposal -->
                     <div class="doc-card available">
                         <div class="doc-icon">📋</div>
                         <div class="doc-title">Partnership Proposal</div>
                         <div class="doc-description">Compensation structure, roles, timeline, and terms</div>
-                        <div class="doc-footer">
-                            <div class="doc-status status-sent">Sent</div>
-                            <a href="javascript:showProposalNote()" class="doc-action">View</a>
-                        </div>
+                        <div class="doc-footer"><div class="doc-status status-sent">Sent</div><a href="javascript:showProposalNote()" class="doc-action">View</a></div>
                     </div>
-
-                    <!-- Store Prototype -->
                     <div class="doc-card available">
                         <div class="doc-icon">🏪</div>
                         <div class="doc-title">Store Prototype</div>
                         <div class="doc-description">Live preview of the e-commerce store</div>
-                        <div class="doc-footer">
-                            <div class="doc-status status-live">Live</div>
-                            <a href="index.html" class="doc-action">Visit</a>
-                        </div>
+                        <div class="doc-footer"><div class="doc-status status-live">Live</div><a href="index.html" class="doc-action">Visit</a></div>
                     </div>
-
-                    <!-- Kit Framework -->
                     <div class="doc-card available highlighted">
                         <div class="doc-icon">📊</div>
                         <div class="doc-title">Kit Framework</div>
                         <div class="doc-description">Good/Better/Best kit contents for your team to validate</div>
-                        <div class="doc-footer">
-                            <div class="doc-status status-review">Needs Your Review</div>
-                            <a href="kit-framework.html" class="doc-action">Review</a>
-                        </div>
+                        <div class="doc-footer"><div class="doc-status status-review">Needs Your Review</div><a href="kit-framework.html" class="doc-action">Review</a></div>
                     </div>
-
-                    <!-- Product Import File -->
                     <div class="doc-card available">
                         <div class="doc-icon">📥</div>
                         <div class="doc-title">Product Import File</div>
                         <div class="doc-description">WooCommerce CSV ready to import when your site is ready</div>
-                        <div class="doc-footer">
-                            <div class="doc-status status-ready">Ready</div>
-                            <a href="woocommerce-product-import.csv" class="doc-action">Download</a>
-                        </div>
+                        <div class="doc-footer"><div class="doc-status status-ready">Ready</div><a href="woocommerce-product-import.csv" class="doc-action">Download</a></div>
                     </div>
                 </div>
             </div>
+            <div class="phase-section">
+                <div class="phase-title">Phase 2: Build — Unlocks After Agreement Signed</div>
+                <div class="phase-subtitle">Coming soon</div>
+                <div class="documents-grid">
+                    <div class="doc-card locked"><div class="lock-icon">🔒</div><div class="doc-title">Financial Model</div><div class="doc-description">24-month P&amp;L projection with sensitivity analysis</div><div class="doc-footer"><div class="doc-status status-locked">Locked</div><span class="doc-action">After agreement</span></div></div>
+                    <div class="doc-card locked"><div class="lock-icon">🔒</div><div class="doc-title">SEO Blog Content</div><div class="doc-description">3 articles ready to publish at launch</div><div class="doc-footer"><div class="doc-status status-locked">Locked</div><span class="doc-action">After agreement</span></div></div>
+                    <div class="doc-card locked"><div class="lock-icon">🔒</div><div class="doc-title">Email Marketing Campaigns</div><div class="doc-description">4 complete email sequences for launch, outreach, and retention</div><div class="doc-footer"><div class="doc-status status-locked">Locked</div><span class="doc-action">After agreement</span></div></div>
+                </div>
+            </div>
+            <div class="phase-section">
+                <div class="phase-title">Phase 3: Launch — Unlocks After Store Goes Live</div>
+                <div class="phase-subtitle">Coming soon</div>
+                <div class="documents-grid">
+                    <div class="doc-card locked"><div class="lock-icon">🔒</div><div class="doc-title">Google Ads Campaign Plan</div><div class="doc-description">Keyword strategy, budget allocation, and targeting</div><div class="doc-footer"><div class="doc-status status-locked">Locked</div><span class="doc-action">After launch</span></div></div>
+                    <div class="doc-card locked"><div class="lock-icon">🔒</div><div class="doc-title">Institutional Outreach Playbook</div><div class="doc-description">College and trade school sales pipeline and templates</div><div class="doc-footer"><div class="doc-status status-locked">Locked</div><span class="doc-action">After launch</span></div></div>
+                </div>
+            </div>
+            <div class="phase-section">
+                <div class="phase-title">Phase 4: Growth — Unlocks at $100K Revenue</div>
+                <div class="phase-subtitle">Coming soon</div>
+                <div class="documents-grid">
+                    <div class="doc-card locked"><div class="lock-icon">🔒</div><div class="doc-title">Expansion Strategy</div><div class="doc-description">Scaling plan for $500K, $1M, and $5M revenue targets</div><div class="doc-footer"><div class="doc-status status-locked">Locked</div><span class="doc-action">At $100K revenue</span></div></div>
+                </div>
+            </div>
+            <div class="action-items">
+                <h3>Your Next Steps</h3>
+                <ol>
+                    <li><span>✅</span><span>Review the store prototype (<a href="index.html">visit here</a>)</span></li>
+                    <li><span>🔲</span><span>Have your team validate the kit contents (<a href="kit-framework.html">review here</a>) — <span class="action-emphasis">This is the most important one</span></span></li>
+                    <li><span>🔲</span><span>Confirm college pilot timeline</span></li>
+                    <li><span>🔲</span><span>Review and sign partnership agreement</span></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="portal-footer">
+        <p>Questions? Contact <strong>Russell</strong> — <a href="mailto:russellcolevop@gmail.com">russellcolevop@gmail.com</a></p>
+        <p class="footer-disclaimer">This portal is confidential. Please do not share the access link or code.</p>
+    </div>
+    <script>
+        const CORRECT_PASSWORD = 'bullet2026';
+        const SESSION_KEY = 'bullet_portal_authenticated';
+        const loginGate = document.getElementById('loginGate');
+        const portalContent = document.getElementById('portalContent');
+        const loginForm = document.getElementById('loginForm');
+        const passwordInput = document.getElementById('passwordInput');
+        const loginError = document.getElementById('loginError');
+        function checkAuthentication() {
+            if (sessionStorage.getItem(SESSION_KEY) === 'true') { unlockPortal(); }
+        }
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = passwordInput.value;
+            if (password === CORRECT_PASSWORD) {
+                sessionStorage.setItem(SESSION_KEY, 'true');
+                unlockPortal();
+            } else {
+                loginError.classList.add('show');
+                passwordInput.value = '';
+                passwordInput.focus();
+                setTimeout(() => { loginError.classList.remove('show'); }, 3000);
+            }
+        });
+        function unlockPortal() {
+            loginGate.classList.add('hidden');
+            portalContent.classList.add('visible');
+            passwordInput.value = '';
+        }
+        function showProposalNote() {
+            alert('Partnership Proposal\n\nThis document has been sent via email. Please check your inbox for the detailed proposal.\n\nIf you have not received it, contact Russell at russellcolevop@gmail.com');
+        }
+        checkAuthentication();
+    </script>
+</body>
+</html>
