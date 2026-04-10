@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kit Framework — For Team Review | Bullet Trade Services</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        .header {
+            background: #1a1a2e;
+            color: white;
+            padding: 32px 24px;
+        }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .back-link { color: #e67e22; text-decoration: none; font-size: 13px; font-weight: 600; }
+        .back-link:hover { color: #d35400; }
+        .header h1 { font-size: 28px; margin: 16px 0 8px; }
+        .header p { color: #aaa; font-size: 15px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 32px 24px; }
+        .instructions {
+            background: #fff3e0;
+            border-left: 4px solid #e67e22;
+            padding: 20px 24px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 32px;
+        }
+        .instructions h3 { color: #e67e22; margin-bottom: 8px; font-size: 16px; }
+        .instructions p { font-size: 14px; margin-bottom: 6px; }
+        .trade-section { margin-bottom: 48px; }
+        .trade-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #e67e22;
+            display: inline-block;
+        }
+        .kit-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .kit-header {
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .kit-name { font-size: 20px; font-weight: 700; color: #1a1a2e; }
+        .tier-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .tier-good { background: #e8f5e9; color: #2e7d32; }
+        .tier-better { background: #e3f2fd; color: #1565c0; }
+        .tier-best { background: #fff8e1; color: #f57f17; }
+        .kit-price { font-size: 24px; font-weight: 700; color: #e67e22; margin-left: auto; }
+        .kit-for { width: 100%; font-size: 14px; color: #666; margin-top: -4px; }
+        .kit-body { padding: 0 24px 24px; }
+        .tool-category { margin-bottom: 20px; }
+        .category-name {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #e67e22;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #eee;
+        }
+        .tool-list { list-style: none; }
+        .tool-item {
+            padding: 4px 0;
+            font-size: 14px;
+            color: #444;
+            padding-left: 20px;
+            position: relative;
+        }
+        .tool-item::before {
+            content: "\2713";
+            position: absolute;
+            left: 0;
+            color: #2e7d32;
+            font-weight: 700;
+        }
+        .feedback-box {
+            background: #f8f9fa;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 20px;
+        }
+        .feedback-box label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .feedback-box textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+        }
+        .feedback-hint { font-size: 12px; color: #999; margin-top: 6px; }
+        .summary {
+            background: #1a1a2e;
+            color: white;
+            padding: 32px;
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+        .summary h3 { color: #e67e22; margin-bottom: 16px; }
+        .summary p { color: #ccc; font-size: 14px; margin-bottom: 8px; }
+        .summary a { color: #e67e22; }
+        @media (max-width: 600px) {
+            .kit-header { flex-direction: column; align-items: flex-start; }
+            .kit-price { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-inner">
+            <a href="../portal.html" class="back-link">&larr; Back to Portal</a>
+            <h1>Kit Framework &mdash; For Team Review</h1>
+            <p>Please review the tool selections below and let Russell know: (1) Are the right tools included? (2) Anything missing? (3) Any brand preferences?</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="instructions">
+            <h3>How to Review</h3>
+            <p><strong>For each kit below:</strong> Check the tools listed and confirm they're what your tradespeople would actually carry. Flag anything that should be added, removed, or swapped.</p>
+            <p><strong>Brand preferences:</strong> If your team prefers specific brands (e.g., Knipex pliers, Fluke meters, Milwaukee), note that in the feedback area or just call/text Russell.</p>
+            <p style="margin-top: 12px;"><strong>Pricing model:</strong> All six tiers are built to a consistent <strong>51% gross margin</strong>, anchored to the Millwright Pro Kit at <strong>$4,400 retail / $2,150 landed cost / $2,250 GM</strong> (Phil-confirmed). Retail prices and landed cost estimates for the other five tiers are modeled from that anchor and are directionally correct &mdash; final COGS will firm up once suppliers are locked in.</p>
+        </div>
+
+        <!-- MILLWRIGHT KITS -->
+        <div class="trade-section">
+            <div class="trade-title">Millwright Kits</div>
+
+            <!-- MILLWRIGHT STARTER -->
+            <div class="kit-card">
+                <div class="kit-header">
+                    <span class="tier-badge tier-good">Good</span>
+                    <span class="kit-name">Millwright Starter Kit</span>
+                    <span class="kit-price">$2,295</span>
+                    <span class="kit-for">For: First-year apprentices, pre-apprenticeship students, career changers. 45+ pieces.<br><strong>Landed cost: ~$1,125 &middot; GM: $1,170 (51%)</strong></span>
+                </div>
+                <div class="kit-body">
+                    <div class="tool-category">
+                        <div class="category-name">Hand Tools</div>
+                        <ul class="tool-list">
+                            <li class="tool-item">Combination wrench set, metric (8mm&ndash;19mm) &mdash; 12 pieces</li>
+                            <li class="tool-item">Combination wrench set, SAE (1/4"&ndash;1") &mdash; 12 pieces</li>
+                            <li class="tool-item">3/8" drive socket set, metric + SAE &mdash; 28 pieces</li>
+                            <li class="tool-item">Adjustable wrench, 10"</li>
+                            <li class="tool-item">Adjustable wrench, 6"</li>
+                            <li class="tool-item">Ball-peen hammer, 16oz</li>
+                            <li class="tool-item">Hacksaw with extra blades</li>
+                            <li class="tool-item">Utility knife with retractable blade</li>
+                            <li class="tool-item">Screwdriver set (flat + Phillips) &mdash; 8 pieces</li>
+                            <li class="tool-item">Needle nose pliers</li>
+                            <li class="tool-item">Channel lock pliers, 10"</li>
+                            <li class="tool-item">Tin snips (straight cut)</li>
+                            <li class="tool-item">Allen key set, metric &mdash; 9 pieces</li>
+                            <li class="tool-item">Allen key set, SAE &mdash; 9 pieces</li>
+                            <li class="tool-item">Punch and chisel set &mdash; 6 pieces</li>
+                            <li class="tool-item">Pry bar, 12"</li>
+                            <li class="tool-item">File set (flat, half-round, round) &mdash; 3 pieces</li>
+                        </ul>
+                    </div>
+                    <div class="tool-category">
+                        <div class="category-name">Measurement</div>
+                        <ul class="tool-list">
+                            <li class="tool-item">Tape measure, 25ft</li>
+                            <li class="tool-item">Torpedo level, 9"</li>
+                            <li class="tool-item">Combination square</li>
+                            <li class="tool-item">6" digital caliper</li>
+                            <li class="tool-item">Feeler gauge set</li>
+                        </ul>
+                    </div>
+                    <div class="tool-category">
+                        <div class="category-name">Safety</div>
+                        <ul class="tool-list">
+                            <li class="tool-item">Safety glasses (ANSI Z87.1)</li>
+                            <li class="tool-item">Leather work gloves</li>
+                            <li class="tool-item">LED headlamp (rechargeable)</li>
+                        </ul>
+                    </div>
+                    <div class="tool-category">
+                        <div class="category-name">Storage</div>
+                        <ul class="tool-list">
+                            <li class="tool-item">Heavy-duty tool bag with multiple compartments</li>
+                        </ul>
+                    </div>
+                    <div class="feedback-box">
+                        <label>Team Feedback &mdash; Millwright Starter Kit</label>
+                        <textarea placeholder="Anything to add, remove, or swap? Any brand preferences?"></textarea>
+                        <div class="feedback-hint">Or just call/text Russell with feedback</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MILLWRIGHT PRO -->
+            <div class="kit-card">
+                <div class="kit-header">
+                    <span class="tier-badge tier-better">Better</span>
+                    <span class="kit-name">Millwright Pro Kit</span>
+                    <span class="kit-price">$4,400</span>
+                    <span class="kit-for">For: 2nd&ndash;3rd year apprentices, journeypersons upgrading their toolkit. 65+ pieces.<br><strong>Landed cost: $2,150 &middot; GM: $2,250 (51%) &mdash; Phil-confirmed anchor tier</strong></span>
+                </div>
+                <div class="kit-body">
+                    <div class="tool-category">
+                        <div class="category-name">Everything in Starter Kit, Plus:</div>
+                        <ul class="tool-list">
+                            <li class="tool-item">1/2" drive socket set, metric + SAE</li>
+                            <li class="tool-item">Digital micrometer (0&ndash;1")</li>
+                            <li class="tool-item">Dial indicator with magnetic base</li>
+                            <li class="tool-item">Extended digital caliper (8")</li>
+                            <li class="tool-item">Dead blow hammer, 2lb</li>
+                            <li class="tool-item">Pry bar set (8", 12", 18")</li>
+                            <li class="tool-item">Cold chisel set &mdash; 4 pieces</li>
+                            <li class="tool-item">Specialty pliers set (snap ring, locking, etc.) &mdash; 4 pieces</li>
+                            <li class="tool-item">Precision file set &mdash; 6 pieces</li>
+                            <li class="tool-item">Ratcheting wrench set, metric + SAE</li>
+                            <li class="tool-item">Impact-rated socket adapter set</li>
+                            <li class="tool-item">Thread pitch gauge set</li>
+                            <li class="tool-item">Scribe and center finder</li>
+                        </ul>
+                    </div>
+                    <div class="feedback-box">
+                        <label>Team Feedback &mdash; Millwright Pro Kit</label>
+                        <textarea placeholder="Anything to add, remove, or swap? Any brand preferences?"></textarea>
+                        <div class="feedback-hint">Or just call/text Russell with feedback</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MILLWRIGHT MASTER -->
+            <div class="kit-card">
+                <div class="kit-header">
+                    <span class="tier-badge tier-best">Best</span>
+                    <span class="kit-name">Millwright Master Kit</span>
+                    <span class="kit-price">$6,995</span>
+                    <span class="kit-for">For: Journeypersons, shop leads, experienced tradespeople. 90+ pieces.<br><strong>Landed cost: ~$3,425 &middot; GM: $3,570 (51%)</strong></span>
+                </div>
+                <div class="kit-body">
+                    <div class="tool-category">
+                        <div class="category-name">Everything in Pro Kit, Plus:</div>
+                        <ul class="tool-list">
+                            <li class="tool-item">Torque wrench (3/8" drive, 10&ndash;80 ft-lbs)</li>
+                            <li class="tool-item">Torque wrench (1/2" drive, 30&ndash;250 ft-lbs)</li>
+                            <li class="tool-item">Bearing puller set (2-jaw and 3-jaw)</li>
+                            <li class="tool-item">Laser level with tripod</li>
+                            <li class="tool-item">Shaft alignment tools</li>
+                            <li class="tool-item">Telescoping magnetic pickup tools</li>
+                            <li class="tool-item">Inspection mirror set</li>
+                            <li class="tool-item">Stainless steel ruler set (6", 12", 24")</li>
+                            <li class="tool-item">Premium brand upgrades throughout</li>
+                            <li class="tool-item">Professional rolling tool chest</li>
+                        </ul>
+                    </div>
+                    <div class="feedback-box">
+                        <label>Team Feedback &mdash; Millwright Master Kit</label>
+                        <textarea placeholder="Anything to add, remove, or swap? Any brand preferences?"></textarea>
+                        <div class="feedback-hint">Or just call/text Russell with feedback</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ELECTRICIAN KITS -->
+        <div class="trade-section">
+            <div class="trade-title">Electrician Kits</div>
+
+            <!-- ELECTRICIAN STARTER -->
+            <div class="kit-card">
+                <div class="kit-header">
+                    <span class="tier-badge tier-good">Good</span>
+                    <span class="kit-name">Electrician Starter Kit</span>
+                    <span class="kit-price">$1,995</span>
+                    <span class="kit-for">For: First-year apprentices, pre-apprenticeship students. 40+ pieces. All hand tools insulated to 1,000V where applicable.<br><strong>Landed cost: ~$975 &middot; GM: $1,020 (51%)</strong></span>
+                </div>
+                <div class="kit-body">
+                    <div class="tool-category">
+                        <div class="category-name">Insulated Hand Tools</div>
+                        <ul class="tool-list">
+                            <li class="tool-item">Insulated linesman pliers, 9"</li>
+                            <li class="tool-item">Insulated long nose pliers, 8"</li>
+                            <li class="tool-item">Insulated diagonal cutting pliers, 7"</li>
+                            <li class="tool-item">Insulated tongue &amp; groove pliers, 10"</li>
+                            <li class="tool-item">Insulated screwdriver set (flat + Phillips) &mdash; 8 pieces</li>
+                            <li class="tool-item">Cable cutter / wire cutters</li>
+                            <li class="tool-item">Wire stripper / crimper tool</li>
+                            <li class="tool-item">Adjustable wrench, 10" (insulated)</li>
+                        </ul>
+                    </div>
+                    <div class="tool-category">
+                        <div class="category-name">Testing &amp; Measurement</div>
+                        <ul class="tool-list">
+                            <li class="tool-item">Digital multimeter (CAT III rated)</li>
+                            <li class="tool-item">Non-contact voltage tester</li>
+                            <li class="tool-item">Tape measure, 25ft</li>
+                            <li class="tool-item">Torpedo level, 9"</li>
+                        </ul>
+                    </div>
+                    <div class="tool-category">
+                        <div class="category-name">Wire Management</div>
+                        <ul class="tool-list">
+                            <li class="tool-item">Fish tape, 25ft</li>
+                            <li class="tool-item">Electrical tape (5 rolls, assorted colors)</li>
+                            <li class="tool-item">Cable ties, assorted sizes &mdash; 200 pack</li>
+                            <li class="tool-item">Wire nuts, assorted sizes &mdash; 100 pack</li>
+                        </ul>
+                    </div>
+                    <div class="tool-category">
+                        <div class="category-name">Cutting &amp; Utility</div>
+                        <ul class="tool-list">
+                            <li class="tool-item">Utility knife with retractable blade</li>
+                            <li class="tool-item">Hacksaw with extra blades</li>
+                            <li class="tool-item">Keyhole saw</li>
+                        </ul>
+                    </div>
+                    <div class="tool-category">
+                        <div class="category-name">Safety</div>
+                        <ul class="tool-list">
+                            <li class="tool-item">Safety glasses (ANSI Z87.1)</li>
+                            <li class="tool-item">Insulated work gloves (Class 0, 1,000V rated)</li>
+                            <li class="tool-item">LED headlamp (rechargeable)</li>
+                        </ul>
+                    </div>
+                    <div class="tool-category">
+                        <div class="category-name">Storage</div>
+                        <ul class="tool-list">
+                            <li class="tool-item">Electrician's tool bag with padded compartments</li>
+                        </ul>
+                    </div>
+                    <div class="feedback-box">
+                        <label>Team Feedback &mdash; Electrician Starter Kit</label>
+                        <textarea placeholder="Anything to add, remove, or swap? Any brand preferences?"></textarea>
+                        <div class="feedback-hint">Or just call/text Russell with feedback</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ELECTRICIAN PRO -->
+            <div class="kit-card">
+                <div class="kit-header">
+                    <span class="tier-badge tier-better">Better</span>
+                    <span class="kit-name">Electrician Pro Kit</span>
+                    <span class="kit-price">$3,995</span>
+                    <span class="kit-for">For: 2nd&ndash;3rd year apprentices, journeyperson electricians. 55+ pieces.<br><strong>Landed cost: ~$1,960 &middot; GM: $2,035 (51%)</strong></span>
+                </div>
+                <div class="kit-body">
+                    <div class="tool-category">
+                        <div class="category-name">Everything in Starter Kit, Plus:</div>
+                        <ul class="tool-list">
+                            <li class="tool-item">Premium Fluke multimeter upgrade</li>
+                            <li class="tool-item">Expanded insulated screwdriver set &mdash; 12 pieces</li>
+                            <li class="tool-item">Conduit bender (1/2" EMT)</li>
+                            <li class="tool-item">Fish tape, 50ft (steel)</li>
+                            <li class="tool-item">Cable pulling grip</li>
+                            <li class="tool-item">Insulated nut driver set &mdash; 7 pieces</li>
+                            <li class="tool-item">Additional wire management tools</li>
+                            <li class="tool-item">Upgraded tool bag with wheels</li>
+                        </ul>
+                    </div>
+                    <div class="feedback-box">
+                        <label>Team Feedback &mdash; Electrician Pro Kit</label>
+                        <textarea placeholder="Anything to add, remove, or swap? Any brand preferences?"></textarea>
+                        <div class="feedback-hint">Or just call/text Russell with feedback</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ELECTRICIAN MASTER -->
+            <div class="kit-card">
+                <div class="kit-header">
+                    <span class="tier-badge tier-best">Best</span>
+                    <span class="kit-name">Electrician Master Kit</span>
+                    <span class="kit-price">$6,495</span>
+                    <span class="kit-for">For: Master electricians, shop leads, experienced journeypersons. 80+ pieces.<br><strong>Landed cost: ~$3,185 &middot; GM: $3,310 (51%)</strong></span>
+                </div>
+                <div class="kit-body">
+                    <div class="tool-category">
+                        <div class="category-name">Everything in Pro Kit, Plus:</div>
+                        <ul class="tool-list">
+                            <li class="tool-item">Fluke 117 True RMS multimeter</li>
+                            <li class="tool-item">Thermal imager (electrical inspection rated)</li>
+                            <li class="tool-item">Full insulated socket set (3/8" drive)</li>
+                            <li class="tool-item">Cable pulling tools (complete set)</li>
+                            <li class="tool-item">Premium conduit tools</li>
+                            <li class="tool-item">Circuit tracer</li>
+                            <li class="tool-item">Wire loom &amp; labeling kit</li>
+                            <li class="tool-item">Professional rolling tool case</li>
+                        </ul>
+                    </div>
+                    <div class="feedback-box">
+                        <label>Team Feedback &mdash; Electrician Master Kit</label>
+                        <textarea placeholder="Anything to add, remove, or swap? Any brand preferences?"></textarea>
+                        <div class="feedback-hint">Or just call/text Russell with feedback</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="summary">
+            <h3>Next Steps</h3>
+            <p>1. Have your senior millwrights and electricians review the tool lists above.</p>
+            <p>2. Flag anything that should be added, removed, or changed &mdash; especially brand preferences.</p>
+            <p>3. Call or text Russell with feedback, or use the boxes above.</p>
+            <p style="margin-top: 16px; color: #e67e22; font-weight: 600;">The Starter Kits are the priority &mdash; those are what the college pilot will be based on.</p>
+            <p style="margin-top: 16px;">Questions? <a href="mailto:russellcolevop@gmail.com">russellcolevop@gmail.com</a></p>
+        </div>
+    </div>
+</body>
+</html>
