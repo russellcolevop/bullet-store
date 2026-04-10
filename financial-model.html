@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Model — Bullet Trade Services E-Commerce</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; color: #222; line-height: 1.6; }
+.nav { background: #1a1a2e; color: white; padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+.nav a { color: #e67e22; text-decoration: none; font-weight: 600; font-size: 14px; }
+.nav .brand { font-weight: 600; font-size: 16px; }
+.hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 72px 32px 56px; text-align: center; }
+.hero h1 { font-size: 36px; font-weight: 700; margin-bottom: 12px; }
+.hero .subtitle { font-size: 17px; color: #bbb; max-width: 700px; margin: 0 auto; }
+.container { max-width: 1000px; margin: 0 auto; padding: 48px 32px; }
+.section { margin-bottom: 48px; }
+.section h2 { font-size: 26px; color: #1a1a2e; margin-bottom: 12px; font-weight: 700; border-bottom: 3px solid #e67e22; padding-bottom: 8px; display: inline-block; }
+.section p { margin-bottom: 14px; font-size: 15px; color: #333; }
+.assumptions { background: white; border-radius: 8px; padding: 24px 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 32px; }
+.assumptions h3 { color: #1a1a2e; font-size: 16px; margin-bottom: 12px; }
+.assumptions ul { margin-left: 20px; font-size: 14px; color: #555; }
+.assumptions li { margin-bottom: 6px; }
+.scenarios { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 24px 0 32px; }
+.scenario { background: white; border-radius: 8px; padding: 24px 20px; border-top: 4px solid #ccc; }
+.scenario.conservative { border-top-color: #95a5a6; }
+.scenario.base { border-top-color: #e67e22; box-shadow: 0 4px 16px rgba(230,126,34,0.15); }
+.scenario.optimistic { border-top-color: #27ae60; }
+.scenario h3 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-bottom: 8px; }
+.scenario .big { font-size: 28px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+.scenario .sub { font-size: 12px; color: #888; margin-bottom: 14px; }
+.scenario .line { font-size: 13px; padding: 5px 0; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; }
+.scenario .line:last-child { border-bottom: none; }
+.scenario .line strong { color: #1a1a2e; }
+.tag { display: inline-block; background: #e67e22; color: white; padding: 2px 8px; border-radius: 3px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; margin-left: 6px; }
+table.data { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin: 20px 0; font-size: 13px; }
+table.data th { background: #1a1a2e; color: white; padding: 12px; text-align: left; font-weight: 600; font-size: 12px; }
+table.data td { padding: 12px; border-top: 1px solid #eee; }
+table.data tr:hover { background: #fafafa; }
+.callout { background: #fff5e6; border-left: 4px solid #e67e22; padding: 18px 22px; margin: 20px 0; border-radius: 4px; font-size: 14px; }
+.callout strong { color: #d35400; }
+.footer { background: #1a1a2e; color: #999; text-align: center; padding: 32px; font-size: 13px; }
+@media (max-width: 768px) {
+.scenarios { grid-template-columns: 1fr; }
+.hero h1 { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+<div class="nav">
+<div class="brand">Bullet Trade Services — Financial Model</div>
+<a href="portal.html">&larr; Back to Portal</a>
+</div>
+
+<div class="hero">
+<h1>24-Month Financial Model</h1>
+<p class="subtitle">Three scenarios built off the confirmed $4,400 / $2,150 anchor kit and 51% blended gross margin.</p>
+</div>
+
+<div class="container">
+
+<div class="section">
+<div class="assumptions">
+<h3>Core Assumptions</h3>
+<ul>
+<li><strong>Anchor kit:</strong> Millwright Pro — $4,400 retail / $2,150 landed cost / $2,250 GM (51%) — Phil-confirmed.</li>
+<li><strong>Blended GM:</strong> 51% across all six tiers (starter, pro, master × MW/EL).</li>
+<li><strong>Average order value:</strong> ~$3,500 (weighted toward pro tier).</li>
+<li><strong>Mix assumption:</strong> 55% pro, 25% starter, 20% master.</li>
+<li><strong>Fulfillment cost:</strong> handled internally by Bullet — modeled as included in landed cost.</li>
+<li><strong>Customer acquisition cost (CAC):</strong> $85–140 blended (SEO free, paid $180, referral/institutional $20).</li>
+<li><strong>Return rate:</strong> 3% (industry standard for trade tool sales).</li>
+<li><strong>Payment processing:</strong> 2.9% of revenue.</li>
+<li><strong>Platform costs:</strong> $150/month (WooCommerce hosting, plugins, email).</li>
+</ul>
+</div>
+</div>
+
+<div class="section">
+<h2>Year 1 Scenarios</h2>
+<div class="scenarios">
+
+<div class="scenario conservative">
+<h3>Conservative</h3>
+<div class="big">$305K</div>
+<div class="sub">revenue / Year 1</div>
+<div class="line"><span>Kits sold</span><strong>85</strong></div>
+<div class="line"><span>College bulk order</span><strong>—</strong></div>
+<div class="line"><span>Gross margin</span><strong>$152K</strong></div>
+<div class="line"><span>Ad spend</span><strong>$18K</strong></div>
+<div class="line"><span>Platform / ops</span><strong>$8K</strong></div>
+<div class="line"><span>Net margin</span><strong>$126K</strong></div>
+<div class="line"><span>Phil's take (75%)</span><strong>$94K</strong></div>
+<div class="line"><span>Russell profit share (10% of GM)</span><strong>$15K</strong></div>
+</div>
+
+<div class="scenario base">
+<h3>Base <span class="tag">TARGET</span></h3>
+<div class="big">$545K</div>
+<div class="sub">revenue / Year 1</div>
+<div class="line"><span>Kits sold</span><strong>155</strong></div>
+<div class="line"><span>College bulk order</span><strong>50 units</strong></div>
+<div class="line"><span>Gross margin</span><strong>$270K</strong></div>
+<div class="line"><span>Ad spend</span><strong>$36K</strong></div>
+<div class="line"><span>Platform / ops</span><strong>$10K</strong></div>
+<div class="line"><span>Net margin</span><strong>$224K</strong></div>
+<div class="line"><span>Phil's take (75%)</span><strong>$168K</strong></div>
+<div class="line"><span>Russell profit share (10% of GM)</span><strong>$27K</strong></div>
+</div>
+
+<div class="scenario optimistic">
+<h3>Optimistic</h3>
+<div class="big">$865K</div>
+<div class="sub">revenue / Year 1</div>
+<div class="line"><span>Kits sold</span><strong>240</strong></div>
+<div class="line"><span>College bulk order</span><strong>100 units</strong></div>
+<div class="line"><span>Gross margin</span><strong>$428K</strong></div>
+<div class="line"><span>Ad spend</span><strong>$55K</strong></div>
+<div class="line"><span>Platform / ops</span><strong>$12K</strong></div>
+<div class="line"><span>Net margin</span><strong>$361K</strong></div>
+<div class="line"><span>Phil's take (75%)</span><strong>$271K</strong></div>
+<div class="line"><span>Russell profit share (10% of GM)</span><strong>$43K</strong></div>
+</div>
+
+</div>
+
+<div class="callout">
+<strong>Read this:</strong> Even in the Conservative scenario, Bullet clears $94K of net margin from a channel that doesn't exist today. Phil's out-of-pocket risk is inventory capital only (~$30–60K float). Russell's compensation scales with performance — if the business doesn't produce, Russell doesn't get paid.
+</div>
+</div>
+
+<div class="section">
+<h2>Year 2 Scale-Up (Base Case)</h2>
+<p>Year 2 assumes the flywheel is turning: SEO traffic compounds, the college pilot expands to 2–3 additional institutions, and paid channels are optimized.</p>
+
+<table class="data">
+<tr><th>Line Item</th><th>Year 1</th><th>Year 2</th><th>Delta</th></tr>
+<tr><td>Kits sold (retail)</td><td>155</td><td>320</td><td>+107%</td></tr>
+<tr><td>Institutional / bulk</td><td>50</td><td>180</td><td>+260%</td></tr>
+<tr><td><strong>Revenue</strong></td><td><strong>$545K</strong></td><td><strong>$1.32M</strong></td><td>+142%</td></tr>
+<tr><td>Gross margin (51%)</td><td>$270K</td><td>$655K</td><td>+143%</td></tr>
+<tr><td>Ad spend</td><td>$36K</td><td>$72K</td><td>+100%</td></tr>
+<tr><td>Platform / ops</td><td>$10K</td><td>$18K</td><td>+80%</td></tr>
+<tr><td><strong>Net margin</strong></td><td><strong>$224K</strong></td><td><strong>$565K</strong></td><td>+152%</td></tr>
+<tr><td>Phil's take</td><td>$168K</td><td>$423K</td><td>+152%</td></tr>
+<tr><td>Russell profit share</td><td>$27K</td><td>$65K</td><td>+141%</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>24-Month Cumulative</h2>
+<table class="data">
+<tr><th>Scenario</th><th>24-mo Revenue</th><th>24-mo Net</th><th>Phil Net (75%)</th><th>Russell Profit Share</th></tr>
+<tr><td>Conservative</td><td>$685K</td><td>$288K</td><td>$216K</td><td>$34K</td></tr>
+<tr style="background:#fff5e6;"><td><strong>Base</strong></td><td><strong>$1.87M</strong></td><td><strong>$789K</strong></td><td><strong>$591K</strong></td><td><strong>$92K</strong></td></tr>
+<tr><td>Optimistic</td><td>$3.1M</td><td>$1.32M</td><td>$990K</td><td>$155K</td></tr>
+</table>
+
+<div class="callout">
+<strong>Important:</strong> These numbers model profit share only. Russell's phantom equity stake (25%) is a separate instrument valued on sale/liquidity or annual snapshot — see the partnership proposal for details.
+</div>
+</div>
+
+<div class="section">
+<h2>Break-Even Math</h2>
+<p>The e-commerce channel breaks even the moment the first kit ships. Every kit is profitable on a unit-economics basis — there is no negative margin period. What Phil is risking is inventory float (buying stock before it sells), not operating losses.</p>
+
+<table class="data">
+<tr><th>Metric</th><th>Value</th></tr>
+<tr><td>Per-kit contribution margin</td><td>$2,250 (Pro tier anchor)</td></tr>
+<tr><td>Fixed costs per month</td><td>~$800 (platform, ads baseline)</td></tr>
+<tr><td>Break-even kits per month</td><td>&lt;1</td></tr>
+<tr><td>Inventory float required (10 kit buffer)</td><td>$21,500</td></tr>
+<tr><td>Inventory float required (25 kit buffer)</td><td>$53,750</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>What Could Break This</h2>
+<p>Numbers are only as good as the assumptions. Here's what I'd stress-test with Phil:</p>
+<ul style="margin-left: 22px; font-size: 15px;">
+<li><strong>Landed cost drift.</strong> If actual COGS comes in 10% higher, margin compresses to ~45% — still healthy but tighter.</li>
+<li><strong>CAC inflation.</strong> If paid channels cost 2x our estimate, break-even shifts by ~5 kits/month — manageable.</li>
+<li><strong>College pilot doesn't convert.</strong> Removes ~$175K from base case Year 1 revenue; still profitable, slower growth.</li>
+<li><strong>Competitor enters.</strong> Low probability — the trade-certified angle is a defensible moat.</li>
+</ul>
+</div>
+
+</div>
+
+<div class="footer">
+Financial Model v1 &bull; Confidential &bull; Prepared for Phil &bull; April 2026
+</div>
+
+</body>
+</html>

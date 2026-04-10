@@ -1,234 +1,408 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bullet Trade Services — Partner Portal</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif; background-color: #f8f9fa; color: #333; }
-        .login-gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.3s ease, visibility 0.3s ease; }
-        .login-gate.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .login-card { background: white; padding: 48px 40px; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; max-width: 400px; width: 90%; animation: slideUp 0.5s ease; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .login-card h1 { font-size: 24px; color: #1a1a2e; margin-bottom: 12px; font-weight: 600; }
-        .login-card p { color: #666; margin-bottom: 32px; font-size: 16px; }
-        .login-form { display: flex; flex-direction: column; gap: 16px; }
-        .login-form input { padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; transition: border-color 0.2s; }
-        .login-form input:focus { outline: none; border-color: #e67e22; }
-        .login-form button { padding: 12px 24px; background-color: #e67e22; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.2s; }
-        .login-form button:hover { background-color: #d35400; }
-        .login-error { color: #d32f2f; font-size: 14px; margin-top: 12px; display: none; }
-        .login-error.show { display: block; }
-        .portal-content { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-        .portal-content.visible { opacity: 1; pointer-events: auto; }
-        .portal-header { background-color: #1a1a2e; color: white; padding: 32px 24px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; }
-        .portal-header-left h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; }
-        .portal-header-left p { color: #bbb; font-size: 16px; margin-bottom: 4px; }
-        .portal-header-left .update-date { font-size: 13px; color: #999; }
-        .portal-header-right { display: flex; gap: 16px; align-items: center; }
-        .welcome-text { text-align: right; font-size: 16px; }
-        .confidential-badge { background-color: #e67e22; color: white; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; }
-        .portal-main { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
-        .progress-section { margin-bottom: 48px; }
-        .progress-label { font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
-        .progress-bar { display: flex; gap: 12px; margin-bottom: 32px; }
-        .progress-phase { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .progress-box { width: 100%; height: 8px; background-color: #e0e0e0; border-radius: 4px; position: relative; overflow: hidden; }
-        .progress-box.active { background-color: #e67e22; }
-        .progress-box.active::after { content: ''; position: absolute; top: 0; left: 0; height: 100%; background: linear-gradient(90deg, rgba(255,255,255,0.2), rgba(255,255,255,0)); animation: shimmer 1.5s infinite; }
-        @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
-        .progress-label-small { font-size: 13px; font-weight: 500; color: #1a1a2e; }
-        .progress-label-small.active { color: #e67e22; font-weight: 600; }
-        .progress-status { font-size: 11px; color: #999; }
-        .progress-status.active { color: #e67e22; font-weight: 600; }
-        .phase-section { margin-bottom: 48px; }
-        .phase-title { font-size: 20px; font-weight: 600; color: #1a1a2e; margin-bottom: 8px; }
-        .phase-subtitle { color: #666; font-size: 14px; margin-bottom: 24px; }
-        .documents-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .doc-card { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px; transition: all 0.2s; cursor: pointer; position: relative; overflow: hidden; }
-        .doc-card.available { box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .doc-card.available:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.1); transform: translateY(-2px); border-color: #e67e22; }
-        .doc-card.locked { background-color: #f5f5f5; opacity: 0.7; cursor: not-allowed; border-color: #d0d0d0; }
-        .doc-card.locked:hover { box-shadow: none; transform: none; border-color: #d0d0d0; }
-        .doc-card.highlighted { border-color: #e67e22; border-width: 2px; box-shadow: 0 0 0 4px rgba(230,126,34,0.1); }
-        .doc-icon { font-size: 32px; margin-bottom: 12px; }
-        .doc-title { font-size: 16px; font-weight: 600; color: #1a1a2e; margin-bottom: 8px; }
-        .doc-description { font-size: 13px; color: #666; line-height: 1.5; margin-bottom: 16px; }
-        .doc-footer { display: flex; justify-content: space-between; align-items: center; }
-        .doc-status { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 4px 8px; border-radius: 4px; }
-        .status-sent { background-color: #e8f5e9; color: #2e7d32; }
-        .status-live { background-color: #c8e6c9; color: #1b5e20; }
-        .status-review { background-color: #ffe0b2; color: #e65100; }
-        .status-ready { background-color: #e3f2fd; color: #1565c0; }
-        .status-locked { background-color: #f0f0f0; color: #999; }
-        .doc-action { font-size: 12px; color: #e67e22; font-weight: 600; text-decoration: none; }
-        .doc-card.available:hover .doc-action { text-decoration: underline; }
-        .doc-card.locked .doc-action { color: #999; cursor: not-allowed; }
-        .lock-icon { font-size: 24px; margin-bottom: 8px; }
-        .action-items { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 32px 24px; border-radius: 8px; margin-bottom: 48px; }
-        .action-items h3 { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
-        .action-items ol { list-style: none; }
-        .action-items li { font-size: 15px; margin-bottom: 12px; line-height: 1.6; display: flex; gap: 12px; }
-        .action-items li span:first-child { min-width: 20px; flex-shrink: 0; }
-        .action-items a { color: #e67e22; text-decoration: none; font-weight: 600; }
-        .action-items a:hover { text-decoration: underline; }
-        .action-emphasis { color: #e67e22; font-weight: 600; }
-        .portal-footer { background-color: #f0f0f0; padding: 32px 24px; text-align: center; border-top: 1px solid #e0e0e0; }
-        .portal-footer p { font-size: 15px; color: #333; margin-bottom: 12px; }
-        .portal-footer a { color: #e67e22; text-decoration: none; font-weight: 600; }
-        .portal-footer a:hover { text-decoration: underline; }
-        .footer-disclaimer { font-size: 12px; color: #999; margin-top: 16px; }
-        @media (max-width: 768px) {
-            .portal-header { flex-direction: column; align-items: flex-start; }
-            .portal-header-right { width: 100%; justify-content: space-between; }
-            .welcome-text { text-align: left; }
-            .progress-bar { flex-direction: column; }
-            .progress-phase { flex-direction: row; gap: 12px; justify-content: space-between; align-items: center; }
-            .progress-box { width: 60%; height: 6px; }
-            .documents-grid { grid-template-columns: 1fr; }
-            .portal-header-left h1 { font-size: 22px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bullet Trade Services — Partner Portal</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; color: #333; line-height: 1.6; }
+
+/* LOGIN GATE */
+.login-gate { position: fixed; inset: 0; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); display: flex; justify-content: center; align-items: center; z-index: 9999; }
+.login-gate.hidden { display: none; }
+.login-card { background: white; padding: 48px 40px; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; max-width: 420px; width: 90%; }
+.login-card .brand-mark { font-size: 11px; color: #e67e22; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.login-card h1 { color: #1a1a2e; font-size: 22px; margin-bottom: 6px; }
+.login-card .sub { color: #888; font-size: 13px; margin-bottom: 24px; }
+.login-card input { width: 100%; padding: 14px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 15px; margin-bottom: 12px; outline: none; transition: border 0.2s; }
+.login-card input:focus { border-color: #e67e22; }
+.login-card button { width: 100%; padding: 14px; background: #e67e22; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; transition: background 0.2s; }
+.login-card button:hover { background: #d35400; }
+.login-card button:disabled { background: #ccc; cursor: not-allowed; }
+.login-error { color: #c0392b; font-size: 13px; margin-top: 10px; min-height: 18px; }
+
+/* HEADER */
+header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 56px 32px 48px; text-align: center; }
+header .confidential { display: inline-block; background: #e67e22; color: white; padding: 4px 12px; border-radius: 3px; font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 16px; }
+header h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+header p { color: #bbb; font-size: 15px; max-width: 640px; margin: 0 auto; }
+
+/* NAV */
+.topnav { background: white; border-bottom: 1px solid #e0e0e0; padding: 14px 32px; text-align: center; }
+.topnav a { display: inline-block; color: #1a1a2e; text-decoration: none; font-weight: 600; font-size: 13px; margin: 0 12px; padding: 6px 12px; border-radius: 4px; }
+.topnav a:hover { background: #fff5e6; color: #d35400; }
+
+/* CONTAINER */
+.container { max-width: 1100px; margin: 0 auto; padding: 40px 32px; }
+
+/* INTRO BOX */
+.intro-box { background: white; border-left: 4px solid #e67e22; padding: 24px 28px; border-radius: 8px; margin-bottom: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.intro-box h2 { color: #1a1a2e; font-size: 18px; margin-bottom: 6px; }
+.intro-box p { font-size: 14px; color: #555; }
+
+/* SECTION */
+.section-title { display: flex; align-items: center; margin: 36px 0 16px; }
+.section-title .num { width: 32px; height: 32px; background: #1a1a2e; color: #e67e22; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; margin-right: 12px; }
+.section-title h2 { color: #1a1a2e; font-size: 20px; font-weight: 700; }
+.section-title .phase-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-left: 10px; }
+
+/* CARDS GRID */
+.cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-bottom: 24px; }
+.card { background: white; border-radius: 10px; padding: 24px 26px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); border-top: 3px solid #e67e22; text-decoration: none; color: inherit; display: block; transition: transform 0.15s, box-shadow 0.15s; cursor: pointer; }
+.card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+.card .card-meta { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.card h3 { color: #1a1a2e; font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+.card p { font-size: 13px; color: #555; margin-bottom: 10px; }
+.card .card-kpis { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.card .kpi { background: #fff5e6; color: #d35400; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.card .card-cta { font-size: 12px; color: #e67e22; font-weight: 700; margin-top: 12px; }
+.card.priority { border-top-color: #e67e22; background: linear-gradient(to bottom, #fffaf3, white); }
+.card.priority .card-meta { color: #e67e22; }
+
+/* STATUS BADGES */
+.status { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-left: auto; }
+.status.ready { background: #e8f5e9; color: #2e7d32; }
+.status.review { background: #fff3e0; color: #e67e22; }
+.status.live { background: #e3f2fd; color: #1976d2; }
+
+.card-header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+
+/* FOOTER */
+footer { background: #1a1a2e; color: #999; text-align: center; padding: 40px 32px; margin-top: 48px; font-size: 13px; }
+footer strong { color: #e67e22; }
+
+@media (max-width: 768px) {
+.cards-grid { grid-template-columns: 1fr; }
+header h1 { font-size: 24px; }
+.container { padding: 24px 16px; }
+}
+</style>
 </head>
 <body>
-    <div class="login-gate" id="loginGate">
-        <div class="login-card">
-            <h1>Bullet Trade Services</h1>
-            <p>Partner Portal</p>
-            <p style="font-size: 14px; color: #999;">Enter access code to continue</p>
-            <form class="login-form" id="loginForm">
-                <input type="password" id="passwordInput" placeholder="Access code" autocomplete="off">
-                <button type="submit">Enter</button>
-                <div class="login-error" id="loginError">Invalid access code</div>
-            </form>
-        </div>
-    </div>
-    <div class="portal-content" id="portalContent">
-        <div class="portal-header">
-            <div class="portal-header-left">
-                <h1>Bullet Trade Services</h1>
-                <p>Partner Portal</p>
-                <p style="font-size: 14px; color: #999;">E-Commerce Expansion Project</p>
-                <p class="update-date">Last updated: April 9, 2026</p>
-            </div>
-            <div class="portal-header-right">
-                <div class="welcome-text"><p>Welcome, <strong>Phil</strong></p></div>
-                <div class="confidential-badge">CONFIDENTIAL</div>
-            </div>
-        </div>
-        <div class="portal-main">
-            <div class="progress-section">
-                <div class="progress-label">Project Status</div>
-                <div class="progress-bar">
-                    <div class="progress-phase"><div class="progress-box active"></div><div class="progress-label-small active">Phase 1</div><div class="progress-status active">Foundation</div></div>
-                    <div class="progress-phase"><div class="progress-box"></div><div class="progress-label-small">Phase 2</div><div class="progress-status">Build</div></div>
-                    <div class="progress-phase"><div class="progress-box"></div><div class="progress-label-small">Phase 3</div><div class="progress-status">Launch</div></div>
-                    <div class="progress-phase"><div class="progress-box"></div><div class="progress-label-small">Phase 4</div><div class="progress-status">Growth</div></div>
-                </div>
-            </div>
-            <div class="phase-section">
-                <div class="phase-title">Phase 1: Foundation — Documents Available Now</div>
-                <div class="phase-subtitle">Review and validate these materials</div>
-                <div class="documents-grid">
-                    <div class="doc-card available">
-                        <div class="doc-icon">📋</div>
-                        <div class="doc-title">Partnership Proposal</div>
-                        <div class="doc-description">Compensation structure, roles, timeline, and terms</div>
-                        <div class="doc-footer"><div class="doc-status status-sent">Sent</div><a href="javascript:showProposalNote()" class="doc-action">View</a></div>
-                    </div>
-                    <div class="doc-card available">
-                        <div class="doc-icon">🏪</div>
-                        <div class="doc-title">Store Prototype</div>
-                        <div class="doc-description">Live preview of the e-commerce store</div>
-                        <div class="doc-footer"><div class="doc-status status-live">Live</div><a href="index.html" class="doc-action">Visit</a></div>
-                    </div>
-                    <div class="doc-card available highlighted">
-                        <div class="doc-icon">📊</div>
-                        <div class="doc-title">Kit Framework</div>
-                        <div class="doc-description">Good/Better/Best kit contents for your team to validate</div>
-                        <div class="doc-footer"><div class="doc-status status-review">Needs Your Review</div><a href="kit-framework.html" class="doc-action">Review</a></div>
-                    </div>
-                    <div class="doc-card available">
-                        <div class="doc-icon">📥</div>
-                        <div class="doc-title">Product Import File</div>
-                        <div class="doc-description">WooCommerce CSV ready to import when your site is ready</div>
-                        <div class="doc-footer"><div class="doc-status status-ready">Ready</div><a href="woocommerce-product-import.csv" class="doc-action">Download</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="phase-section">
-                <div class="phase-title">Phase 2: Build — Unlocks After Agreement Signed</div>
-                <div class="phase-subtitle">Coming soon</div>
-                <div class="documents-grid">
-                    <div class="doc-card locked"><div class="lock-icon">🔒</div><div class="doc-title">Financial Model</div><div class="doc-description">24-month P&amp;L projection with sensitivity analysis</div><div class="doc-footer"><div class="doc-status status-locked">Locked</div><span class="doc-action">After agreement</span></div></div>
-                    <div class="doc-card locked"><div class="lock-icon">🔒</div><div class="doc-title">SEO Blog Content</div><div class="doc-description">3 articles ready to publish at launch</div><div class="doc-footer"><div class="doc-status status-locked">Locked</div><span class="doc-action">After agreement</span></div></div>
-                    <div class="doc-card locked"><div class="lock-icon">🔒</div><div class="doc-title">Email Marketing Campaigns</div><div class="doc-description">4 complete email sequences for launch, outreach, and retention</div><div class="doc-footer"><div class="doc-status status-locked">Locked</div><span class="doc-action">After agreement</span></div></div>
-                </div>
-            </div>
-            <div class="phase-section">
-                <div class="phase-title">Phase 3: Launch — Unlocks After Store Goes Live</div>
-                <div class="phase-subtitle">Coming soon</div>
-                <div class="documents-grid">
-                    <div class="doc-card locked"><div class="lock-icon">🔒</div><div class="doc-title">Google Ads Campaign Plan</div><div class="doc-description">Keyword strategy, budget allocation, and targeting</div><div class="doc-footer"><div class="doc-status status-locked">Locked</div><span class="doc-action">After launch</span></div></div>
-                    <div class="doc-card locked"><div class="lock-icon">🔒</div><div class="doc-title">Institutional Outreach Playbook</div><div class="doc-description">College and trade school sales pipeline and templates</div><div class="doc-footer"><div class="doc-status status-locked">Locked</div><span class="doc-action">After launch</span></div></div>
-                </div>
-            </div>
-            <div class="phase-section">
-                <div class="phase-title">Phase 4: Growth — Unlocks at $100K Revenue</div>
-                <div class="phase-subtitle">Coming soon</div>
-                <div class="documents-grid">
-                    <div class="doc-card locked"><div class="lock-icon">🔒</div><div class="doc-title">Expansion Strategy</div><div class="doc-description">Scaling plan for $500K, $1M, and $5M revenue targets</div><div class="doc-footer"><div class="doc-status status-locked">Locked</div><span class="doc-action">At $100K revenue</span></div></div>
-                </div>
-            </div>
-            <div class="action-items">
-                <h3>Your Next Steps</h3>
-                <ol>
-                    <li><span>✅</span><span>Review the store prototype (<a href="index.html">visit here</a>)</span></li>
-                    <li><span>🔲</span><span>Have your team validate the kit contents (<a href="kit-framework.html">review here</a>) — <span class="action-emphasis">This is the most important one</span></span></li>
-                    <li><span>🔲</span><span>Confirm college pilot timeline</span></li>
-                    <li><span>🔲</span><span>Review and sign partnership agreement</span></li>
-                </ol>
-            </div>
-        </div>
-    </div>
-    <div class="portal-footer">
-        <p>Questions? Contact <strong>Russell</strong> — <a href="mailto:russellcolevop@gmail.com">russellcolevop@gmail.com</a></p>
-        <p class="footer-disclaimer">This portal is confidential. Please do not share the access link or code.</p>
-    </div>
-    <script>
-        const CORRECT_PASSWORD = 'bullet2026';
-        const SESSION_KEY = 'bullet_portal_authenticated';
-        const loginGate = document.getElementById('loginGate');
-        const portalContent = document.getElementById('portalContent');
-        const loginForm = document.getElementById('loginForm');
-        const passwordInput = document.getElementById('passwordInput');
-        const loginError = document.getElementById('loginError');
-        function checkAuthentication() {
-            if (sessionStorage.getItem(SESSION_KEY) === 'true') { unlockPortal(); }
-        }
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const password = passwordInput.value;
-            if (password === CORRECT_PASSWORD) {
-                sessionStorage.setItem(SESSION_KEY, 'true');
-                unlockPortal();
-            } else {
-                loginError.classList.add('show');
-                passwordInput.value = '';
-                passwordInput.focus();
-                setTimeout(() => { loginError.classList.remove('show'); }, 3000);
-            }
-        });
-        function unlockPortal() {
-            loginGate.classList.add('hidden');
-            portalContent.classList.add('visible');
-            passwordInput.value = '';
-        }
-        function showProposalNote() {
-            alert('Partnership Proposal\n\nThis document has been sent via email. Please check your inbox for the detailed proposal.\n\nIf you have not received it, contact Russell at russellcolevop@gmail.com');
-        }
-        checkAuthentication();
-    </script>
+
+<!-- LOGIN GATE -->
+<div class="login-gate" id="loginGate">
+<div class="login-card">
+<div class="brand-mark">Bullet Trade Services</div>
+<h1>Partner Portal</h1>
+<p class="sub">Confidential &mdash; Phil access only</p>
+<input type="password" id="passwordInput" placeholder="Enter access code" autocomplete="off">
+<button id="loginBtn" type="button">Enter Portal</button>
+<div class="login-error" id="loginError"></div>
+</div>
+</div>
+
+<!-- PORTAL CONTENT -->
+<div id="portalContent" style="display:none;">
+
+<header>
+<span class="confidential">CONFIDENTIAL &bull; APRIL 2026</span>
+<h1>Bullet Trade Services &mdash; E-Commerce Partnership</h1>
+<p>Everything Phil needs to evaluate the opportunity, the plan, and the partnership structure. Take your time.</p>
+</header>
+
+<div class="topnav">
+<a href="#start">Start Here</a>
+<a href="#strategy">Strategy &amp; Plan</a>
+<a href="#product">Product &amp; Store</a>
+<a href="#channels">Channels &amp; Execution</a>
+<a href="#partnership">Partnership</a>
+</div>
+
+<div class="container">
+
+<div class="intro-box">
+<h2>How to use this portal</h2>
+<p>Six numbered sections. Every card is clickable and opens a detailed document with costs, ownership, and expected returns. The most important card to review is the Kit Framework in Section 2 &mdash; everything downstream hinges on those kits being right. Start with the Partnership Proposal if you want to understand the structure, the cost, and the four build-vs-operate options before digging into execution details.</p>
+</div>
+
+<!-- SECTION 1: START HERE -->
+<div id="start"></div>
+<div class="section-title"><div class="num">1</div><h2>Start Here &mdash; The Partnership Proposal</h2><span class="phase-label">Read first</span></div>
+<div class="cards-grid">
+
+<a href="proposal.html" class="card priority">
+<div class="card-header-row"><div class="card-meta">Partnership Structure</div><span class="status ready">Open</span></div>
+<h3>Partnership Proposal</h3>
+<p>Full proposal: the four build-vs-operate options, the compensation math, the phantom equity structure, the vesting schedule, the buyout formula, and the risk split. This is the document that answers &quot;what is Russell actually asking for?&quot;</p>
+<div class="card-kpis">
+<span class="kpi">4 options compared</span>
+<span class="kpi">$0 cash from Phil</span>
+<span class="kpi">Full terms</span>
+</div>
+<div class="card-cta">Read the proposal &rarr;</div>
+</a>
+
+<a href="financial-model.html" class="card priority">
+<div class="card-header-row"><div class="card-meta">Numbers</div><span class="status ready">Open</span></div>
+<h3>24-Month Financial Model</h3>
+<p>Conservative, Base, and Optimistic scenarios built from the confirmed $4,400 / $2,150 anchor kit. Year 1 and Year 2 P&amp;L, break-even math, and stress tests on what could go wrong.</p>
+<div class="card-kpis">
+<span class="kpi">51% GM</span>
+<span class="kpi">3 scenarios</span>
+<span class="kpi">Base: $545K Y1</span>
+</div>
+<div class="card-cta">View the model &rarr;</div>
+</a>
+
+</div>
+
+<!-- SECTION 2: KIT FRAMEWORK -->
+<div id="product"></div>
+<div class="section-title"><div class="num">2</div><h2>Product &mdash; Kit Framework for Team Review</h2><span class="phase-label">Most important</span></div>
+<div class="cards-grid">
+
+<a href="portal-docs/kit-framework.html" class="card priority">
+<div class="card-header-row"><div class="card-meta">For Your Team</div><span class="status review">Needs Review</span></div>
+<h3>Kit Framework (6 Tiers)</h3>
+<p>Detailed tool contents for all six kits across millwright and electrician lines. Pricing anchored to the Phil-confirmed $4,400 Pro tier at 51% GM. This is the one your team should look at &mdash; flag anything to add, remove, or swap.</p>
+<div class="card-kpis">
+<span class="kpi">6 tiers</span>
+<span class="kpi">$1,995&ndash;$6,995</span>
+<span class="kpi">Feedback fields</span>
+</div>
+<div class="card-cta">Review the kits &rarr;</div>
+</a>
+
+<a href="index.html" class="card" target="_blank">
+<div class="card-header-row"><div class="card-meta">Live Site</div><span class="status live">Live</span></div>
+<h3>Store Prototype</h3>
+<p>Working e-commerce prototype you can browse on your phone. Six kits, shopping cart, checkout flow, product detail pages. Opens in a new tab.</p>
+<div class="card-kpis">
+<span class="kpi">6 products</span>
+<span class="kpi">Cart + checkout</span>
+<span class="kpi">Mobile-ready</span>
+</div>
+<div class="card-cta">Open the store &rarr;</div>
+</a>
+
+</div>
+
+<!-- SECTION 3: STRATEGY -->
+<div id="strategy"></div>
+<div class="section-title"><div class="num">3</div><h2>Strategy &mdash; Full Growth Playbook</h2><span class="phase-label">The plan</span></div>
+<div class="cards-grid">
+
+<a href="growth-strategy.html" class="card priority">
+<div class="card-header-row"><div class="card-meta">Full Playbook</div><span class="status ready">Open</span></div>
+<h3>Growth Strategy</h3>
+<p>The entire plan upfront: six acquisition channels, channel economics side-by-side, and a 12-month rollout with quarterly revenue targets. No gatekeeping &mdash; everything Phil needs to evaluate whether this is worth doing.</p>
+<div class="card-kpis">
+<span class="kpi">6 channels</span>
+<span class="kpi">12-mo plan</span>
+<span class="kpi">Quarterly targets</span>
+</div>
+<div class="card-cta">View the strategy &rarr;</div>
+</a>
+
+<a href="card-details.html" class="card">
+<div class="card-header-row"><div class="card-meta">Execution Detail</div><span class="status ready">Open</span></div>
+<h3>Initiative Details</h3>
+<p>Every major workstream broken down: who does what, what it costs, and what the expected return is. Google Ads, institutional outreach, email, analytics, WordPress integration &mdash; all in one place.</p>
+<div class="card-kpis">
+<span class="kpi">6 initiatives</span>
+<span class="kpi">ROI per channel</span>
+</div>
+<div class="card-cta">View the details &rarr;</div>
+</a>
+
+</div>
+
+<!-- SECTION 4: CHANNELS -->
+<div id="channels"></div>
+<div class="section-title"><div class="num">4</div><h2>Channels &mdash; Individual Workstreams</h2><span class="phase-label">How it works</span></div>
+<div class="cards-grid">
+
+<a href="card-details.html#google-ads" class="card">
+<div class="card-header-row"><div class="card-meta">Paid Acquisition</div><span class="status ready">Open</span></div>
+<h3>Google Ads Campaign</h3>
+<p>Three campaign types, $2&ndash;3K/mo spend, 4:1 target ROAS. Russell runs everything; Phil approves the monthly budget.</p>
+<div class="card-kpis">
+<span class="kpi">$2&ndash;3K/mo</span>
+<span class="kpi">4:1 ROAS</span>
+<span class="kpi">CAC $140</span>
+</div>
+<div class="card-cta">View the detail &rarr;</div>
+</a>
+
+<a href="card-details.html#institutional" class="card">
+<div class="card-header-row"><div class="card-meta">B2B Bulk</div><span class="status ready">Open</span></div>
+<h3>Institutional Outreach</h3>
+<p>Target: 2&ndash;3 additional college accounts in Year 1. Avg deal size 50 kits, ~$175K ACV. Highest-ROI channel.</p>
+<div class="card-kpis">
+<span class="kpi">2&ndash;3 accounts</span>
+<span class="kpi">$175K ACV</span>
+<span class="kpi">CAC $20</span>
+</div>
+<div class="card-cta">View the detail &rarr;</div>
+</a>
+
+<a href="card-details.html#email" class="card">
+<div class="card-header-row"><div class="card-meta">Lifecycle</div><span class="status ready">Open</span></div>
+<h3>Email Marketing</h3>
+<p>Welcome, abandoned cart, post-purchase, upgrade, and win-back automations. Target: 20% of total revenue.</p>
+<div class="card-kpis">
+<span class="kpi">5 automations</span>
+<span class="kpi">$30/mo</span>
+<span class="kpi">20% of rev</span>
+</div>
+<div class="card-cta">View the detail &rarr;</div>
+</a>
+
+<a href="seo-content-plan.html" class="card">
+<div class="card-header-row"><div class="card-meta">Owned Asset</div><span class="status ready">Open</span></div>
+<h3>SEO Content Plan</h3>
+<p>Full quarterly content calendar &mdash; 12 pillar articles, week-by-week publishing schedule, target keywords, and expected funnel positions.</p>
+<div class="card-kpis">
+<span class="kpi">12 articles / qtr</span>
+<span class="kpi">CAC $12</span>
+<span class="kpi">$0 cost</span>
+</div>
+<div class="card-cta">View the schedule &rarr;</div>
+</a>
+
+<a href="card-details.html#analytics" class="card">
+<div class="card-header-row"><div class="card-meta">Reporting</div><span class="status ready">Open</span></div>
+<h3>Analytics &amp; Reporting</h3>
+<p>GA4, Tag Manager, Meta Pixel, Looker Studio dashboard for Phil's phone. Weekly written summaries every Monday.</p>
+<div class="card-kpis">
+<span class="kpi">Live dashboard</span>
+<span class="kpi">Weekly report</span>
+<span class="kpi">5 min / wk</span>
+</div>
+<div class="card-cta">View the detail &rarr;</div>
+</a>
+
+<a href="card-details.html#wordpress" class="card">
+<div class="card-header-row"><div class="card-meta">Technical</div><span class="status ready">Open</span></div>
+<h3>WordPress / WooCommerce</h3>
+<p>CSV product import (auto-populates the store in 60 seconds), store configuration, payment and shipping setup. Zero disruption to the existing site.</p>
+<div class="card-kpis">
+<span class="kpi">4&ndash;6 hrs setup</span>
+<span class="kpi">$0 dev cost</span>
+<span class="kpi">1-click rollback</span>
+</div>
+<div class="card-cta">View the detail &rarr;</div>
+</a>
+
+</div>
+
+<!-- SECTION 5: PRODUCT IMPORT -->
+<div class="section-title"><div class="num">5</div><h2>Technical Assets &mdash; Ready to Deploy</h2><span class="phase-label">When we go</span></div>
+<div class="cards-grid">
+
+<a href="woocommerce-product-import.csv" class="card" download>
+<div class="card-header-row"><div class="card-meta">CSV File</div><span class="status ready">Download</span></div>
+<h3>WooCommerce Product Import</h3>
+<p>Real CSV import file &mdash; drop this into WooCommerce &rarr; Products &rarr; Import and all six kits auto-populate with prices, descriptions, and SEO fields. Not a manual form.</p>
+<div class="card-kpis">
+<span class="kpi">Auto-populate</span>
+<span class="kpi">60 seconds</span>
+</div>
+<div class="card-cta">Download CSV &darr;</div>
+</a>
+
+<a href="proposal.html#timeline" class="card">
+<div class="card-header-row"><div class="card-meta">Timeline</div><span class="status ready">Open</span></div>
+<h3>Launch Timeline</h3>
+<p>Week-by-week schedule from signing through first revenue: technical setup, content launch, ad go-live, first institutional close. See the proposal for the full timeline.</p>
+<div class="card-kpis">
+<span class="kpi">Week 1 start</span>
+<span class="kpi">Month 3 revenue</span>
+</div>
+<div class="card-cta">View the timeline &rarr;</div>
+</a>
+
+</div>
+
+<!-- SECTION 6: PARTNERSHIP -->
+<div id="partnership"></div>
+<div class="section-title"><div class="num">6</div><h2>Partnership &mdash; Terms &amp; Next Steps</h2><span class="phase-label">Decision</span></div>
+<div class="cards-grid">
+
+<a href="proposal.html" class="card priority">
+<div class="card-header-row"><div class="card-meta">Full Terms</div><span class="status ready">Open</span></div>
+<h3>Partnership Proposal (Full Terms)</h3>
+<p>The compensation math, phantom equity stake, profit share percentage, vesting schedule with 12-month cliff, buyout formula, and what Russell needs from Phil before signing. Protective of both sides.</p>
+<div class="card-kpis">
+<span class="kpi">25% phantom equity</span>
+<span class="kpi">10% profit share</span>
+<span class="kpi">24-mo vesting</span>
+</div>
+<div class="card-cta">Read the full proposal &rarr;</div>
+</a>
+
+<a href="proposal.html#what-russell-needs" class="card">
+<div class="card-header-row"><div class="card-meta">Next Steps</div><span class="status review">Decision</span></div>
+<h3>What Russell Needs From Phil</h3>
+<p>A 20-minute conversation, kit feedback from the team, and a go / no-go on the partnership structure. Nothing irreversible until both sides are comfortable.</p>
+<div class="card-kpis">
+<span class="kpi">20-min call</span>
+<span class="kpi">Kit feedback</span>
+<span class="kpi">Go/no-go</span>
+</div>
+<div class="card-cta">See the ask &rarr;</div>
+</a>
+
+</div>
+
+</div>
+
+<footer>
+<strong>Bullet Trade Services &mdash; E-Commerce Partnership Portal</strong><br>
+Confidential &bull; Prepared for Phil &bull; April 2026<br>
+Questions? Call or text Russell directly.
+</footer>
+
+</div>
+
+<script>
+(function() {
+  var PASSWORD = 'bullet2026';
+  var gate = document.getElementById('loginGate');
+  var content = document.getElementById('portalContent');
+  var input = document.getElementById('passwordInput');
+  var btn = document.getElementById('loginBtn');
+  var err = document.getElementById('loginError');
+
+  // Check session
+  if (sessionStorage.getItem('bullet_portal_auth') === 'yes') {
+    gate.classList.add('hidden');
+    content.style.display = 'block';
+  }
+
+  function attemptLogin() {
+    var val = (input.value || '').trim();
+    err.textContent = '';
+    if (val.length === 0) {
+      err.textContent = 'Please enter the access code.';
+      input.focus();
+      return;
+    }
+    if (val.toLowerCase() === PASSWORD) {
+      sessionStorage.setItem('bullet_portal_auth', 'yes');
+      gate.classList.add('hidden');
+      content.style.display = 'block';
+    } else {
+      err.textContent = 'Incorrect access code. Try again.';
+      input.value = '';
+      input.focus();
+    }
+  }
+
+  btn.addEventListener('click', attemptLogin);
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      attemptLogin();
+    }
+  });
+
+  // Focus the input on load
+  setTimeout(function() { input.focus(); }, 100);
+})();
+</script>
+
 </body>
 </html>
