@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Assessment — Bullet Trade Services E-Commerce</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; color: #222; line-height: 1.6; }
+.nav { background: #1a1a2e; color: white; padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+.nav a { color: #e67e22; text-decoration: none; font-weight: 600; font-size: 14px; }
+.nav a:hover { text-decoration: underline; }
+.nav .brand { font-weight: 600; font-size: 16px; }
+.hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 80px 32px 64px; text-align: center; }
+.hero h1 { font-size: 40px; font-weight: 700; margin-bottom: 16px; max-width: 800px; margin-left: auto; margin-right: auto; }
+.hero .subtitle { font-size: 18px; color: #bbb; max-width: 700px; margin: 0 auto 24px; }
+.hero .meta { font-size: 13px; color: #888; letter-spacing: 1px; text-transform: uppercase; }
+.container { max-width: 900px; margin: 0 auto; padding: 56px 32px; }
+.section { margin-bottom: 56px; }
+.section h2 { font-size: 28px; color: #1a1a2e; margin-bottom: 12px; font-weight: 700; border-bottom: 3px solid #e67e22; padding-bottom: 8px; display: inline-block; }
+.section h3 { font-size: 20px; color: #1a1a2e; margin: 28px 0 12px; font-weight: 600; }
+.section p { margin-bottom: 14px; font-size: 16px; color: #333; }
+.section ul { margin: 12px 0 16px 22px; }
+.section li { margin-bottom: 8px; font-size: 16px; }
+a.source { color: #0645AD; text-decoration: underline; }
+a.source:hover { color: #d35400; }
+.callout { background: #fff5e6; border-left: 4px solid #e67e22; padding: 20px 24px; margin: 20px 0; border-radius: 4px; }
+.callout strong { color: #d35400; }
+.callout.blue { background: #eef4ff; border-left-color: #1a1a2e; }
+.callout.blue strong { color: #1a1a2e; }
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+.stat-box { background: white; padding: 24px; border-radius: 8px; border-top: 3px solid #e67e22; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: center; }
+.stat-box .num { font-size: 36px; font-weight: 700; color: #e67e22; }
+.stat-box .label { font-size: 13px; color: #666; margin-top: 4px; }
+.data-table { width: 100%; border-collapse: collapse; margin: 24px 0; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); font-size: 14px; }
+.data-table th { background: #1a1a2e; color: white; padding: 14px 12px; text-align: left; font-weight: 600; font-size: 13px; }
+.data-table th.right, .data-table td.right { text-align: right; }
+.data-table td { padding: 14px 12px; border-top: 1px solid #eee; vertical-align: top; }
+.data-table tr:nth-child(even) { background: #f9f9f9; }
+.data-table tr.highlight { background: #fff5e6; }
+.data-table tr.highlight td { font-weight: 600; }
+.data-table tr.total-row { background: #e8e8e8; }
+.data-table tr.total-row td { font-weight: 700; }
+.tag { display: inline-block; background: #e67e22; color: white; padding: 2px 8px; border-radius: 3px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; }
+.tag.core { background: #B00020; }
+.tag.year2 { background: #1a1a2e; }
+.tag.year3 { background: #666; }
+.download-bar { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 24px; margin-top: 32px; display: flex; align-items: center; justify-content: space-between; }
+.download-bar span { font-size: 14px; color: #666; }
+.download-bar a { background: #1a1a2e; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 13px; }
+.download-bar a:hover { background: #2a2a4e; }
+.footer { background: #1a1a2e; color: #999; text-align: center; padding: 40px 32px; font-size: 13px; }
+.footer strong { color: white; }
+@media (max-width: 768px) {
+.hero h1 { font-size: 28px; }
+.stat-row { grid-template-columns: 1fr; }
+.container { padding: 40px 20px; }
+.data-table { font-size: 12px; }
+.download-bar { flex-direction: column; gap: 12px; text-align: center; }
+}
+</style>
+</head>
+<body>
+<div class="nav">
+<a href="portal.html">&larr; Back to Portal</a>
+<div class="brand">Market Assessment &amp; TAM Validation</div>
+</div>
+
+<div class="hero">
+<div class="meta">Confidential &bull; Updated April 2026 &bull; Statistics Canada 2024 RAIS Data</div>
+<h1 style="margin-top: 16px;">Market Assessment &amp; TAM Validation</h1>
+<p class="subtitle">Sized from federal data. Every number sourced. The opportunity is real &mdash; and bigger than we originally thought.</p>
+</div>
+
+<div class="container">
+
+<!-- HEADLINE STATS -->
+<div class="stat-row">
+<div class="stat-box">
+<div class="num">498,783</div>
+<div class="label">Registered Red Seal apprentices across Canada (2024)</div>
+</div>
+<div class="stat-box">
+<div class="num">+31%</div>
+<div class="label">Growth since 2020 across all Red Seal trades</div>
+</div>
+<div class="stat-box">
+<div class="num">101,541</div>
+<div class="label">New registrations in 2024 &mdash; record high</div>
+</div>
+</div>
+
+<!-- EXEC SUMMARY -->
+<div class="section">
+<h2>Executive Summary</h2>
+<p>The Canadian skilled trades market is at a record high and growing. Statistics Canada reported <strong>101,541 new apprenticeship registrations in 2024</strong> (record high, +5.9% YoY) and <strong>498,783 total registered apprentices</strong> across all Red Seal trades, up 31% since 2020. Ontario alone registered 27,319 new apprentices in 2023, up 24% from 2022. Independent forecasts from RBC and BuildForce Canada project a minimum shortfall of 10,000 Red Seal tradespeople by 2029 and total hiring requirements of 351,800 through 2033.</p>
+<p><strong>This is not just a millwright and electrician business.</strong> The same platform, warehouse, college relationships, and shop sales motion that serve industrial millwrights and electricians can be extended into construction electricians (64,740 registered apprentices), welders (15,699), heavy duty equipment technicians (15,408), steamfitters (14,346), automotive service technicians (27,168), and plumbers (27,036). Each additional trade vertical costs a product curation sprint, not a new business. The college purchasing office that buys millwright kits also runs the welding, HVAC, and electrician programs under the same roof.</p>
+<ul>
+<li><strong>Core launch TAM</strong> (industrial millwrights + industrial electricians, all buyer segments across Canada): <strong>$35&ndash;55M/year</strong> base case.</li>
+<li><strong>First expansion</strong> (add construction electrician 309A): triples the addressable apprentice pool to 93,486 and pushes TAM to <strong>$110&ndash;175M/year</strong>.</li>
+<li><strong>Full industrial trades expansion</strong> (six verticals): 165,843 registered apprentices, TAM of <strong>$200&ndash;325M/year</strong> across Canada.</li>
+<li><strong>US expansion</strong> (Northern border states, Year 3&ndash;4): 538,300 employed US industrial mechanics and millwrights alone, with 13% projected growth to 2034.</li>
+<li><strong>Realistic 5-year capture (SOM):</strong> $4.5&ndash;6.5M in annual revenue by Year 5 from core trades alone; $8&ndash;15M with two adjacent trade verticals contributing by Year 4&ndash;5.</li>
+</ul>
+<div class="callout blue">
+<strong>The strategic framing:</strong> BTS&rsquo;s labour/service business is inherently capped by the number of certified tradespeople Phil can recruit and the hours in a day. An e-commerce division selling curated tool kits through a scalable digital platform is structurally uncapped &mdash; each additional trade vertical, each additional college account, and each new geography compounds on the same fixed infrastructure. This is the division of the company that scales without adding headcount proportionally.
+</div>
+</div>
+
+<!-- DATA SOURCE -->
+<div class="section">
+<h2>Primary Data Source</h2>
+<p>The apprenticeship registration data in this report is sourced from <strong>Statistics Canada Table 37-10-0137-01: Number of apprenticeship program registrations in Red Seal trades (annual).</strong> This is the authoritative federal dataset maintained through the Registered Apprenticeship Information System (RAIS), released December 11, 2025, covering all provinces and territories through 2024.</p>
+<ul>
+<li><strong>Interactive data table:</strong> <a class="source" href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3710013701" target="_blank">Statistics Canada Table 37-10-0137-01</a></li>
+<li><strong>Full dataset download (CSV):</strong> <a class="source" href="https://open.canada.ca/data/en/dataset/d73b1535-f725-4d85-b1ee-5b2e757e6525" target="_blank">Open Government Portal &mdash; Red Seal Apprenticeship Registrations</a></li>
+<li><strong>2024 RAIS release summary:</strong> <a class="source" href="https://www150.statcan.gc.ca/n1/daily-quotidien/251211/dq251211e-eng.htm" target="_blank">Statistics Canada Daily &mdash; December 11, 2025</a></li>
+</ul>
+</div>
+
+<!-- FULL RED SEAL LANDSCAPE -->
+<div class="section">
+<h2>1. Core Market &mdash; Canada-Wide Registration Data</h2>
+<p>Total active registrations (not just new entrants) representing the addressable customer base at any given time.</p>
+
+<table class="data-table">
+<thead>
+<tr><th>Trade</th><th class="right">2020</th><th class="right">2024</th><th class="right">Growth</th><th>BTS Relevance</th></tr>
+</thead>
+<tbody>
+<tr class="highlight"><td><strong>Industrial millwright</strong></td><td class="right">9,096</td><td class="right">13,635</td><td class="right">+50%</td><td><span class="tag core">CORE</span></td></tr>
+<tr class="highlight"><td><strong>Industrial electrician</strong></td><td class="right">12,708</td><td class="right">15,111</td><td class="right">+19%</td><td><span class="tag core">CORE</span></td></tr>
+<tr><td>Construction electrician</td><td class="right">47,103</td><td class="right">64,740</td><td class="right">+37%</td><td><span class="tag year2">YEAR 2</span></td></tr>
+<tr><td>Welder</td><td class="right">10,539</td><td class="right">15,699</td><td class="right">+49%</td><td><span class="tag year2">YEAR 2&ndash;3</span></td></tr>
+<tr><td>Heavy duty equipment tech</td><td class="right">9,474</td><td class="right">15,408</td><td class="right">+63%</td><td><span class="tag year2">YEAR 2&ndash;3</span></td></tr>
+<tr><td>Steamfitter / pipefitter</td><td class="right">9,279</td><td class="right">14,346</td><td class="right">+55%</td><td><span class="tag year3">YEAR 3&ndash;4</span></td></tr>
+<tr><td>Automotive service tech</td><td class="right">20,649</td><td class="right">27,168</td><td class="right">+32%</td><td><span class="tag year3">YEAR 3&ndash;4</span></td></tr>
+<tr><td>Plumber</td><td class="right">19,299</td><td class="right">27,036</td><td class="right">+40%</td><td><span class="tag year3">YEAR 3&ndash;4</span></td></tr>
+<tr><td>Carpenter</td><td class="right">44,667</td><td class="right">56,937</td><td class="right">+28%</td><td style="color: #999;">Future</td></tr>
+<tr class="total-row"><td>ALL Red Seal trades</td><td class="right">381,039</td><td class="right">498,783</td><td class="right">+31%</td><td>Total market</td></tr>
+</tbody>
+</table>
+<p style="font-size: 13px; color: #888;"><em>Source: <a class="source" href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3710013701" target="_blank">Statistics Canada Table 37-10-0137-01</a></em></p>
+
+<h3>Ontario-Specific Data Points</h3>
+<ul>
+<li><strong>Ontario total new apprenticeship registrations:</strong> 27,319 (2023), up 24% from 21,971 (2022). <a class="source" href="https://www.skilledtradesontario.ca/wp-content/uploads/2024/09/Apprenticeship-Programs-Chart-EN-09.06.24.pdf" target="_blank">Source: Skilled Trades Ontario</a></li>
+<li><strong>Industrial Electrician (442A) registrations in Ontario:</strong> 507 in 2022&ndash;23, up from 341 in 2021&ndash;22 (~48% YoY). <a class="source" href="https://electricalindustry.ca/latest-articles/apprenticeship-registrations/" target="_blank">Source: Electrical Industry Canada</a></li>
+<li><strong>2024 Ontario certifications completed:</strong> 749 millwrights (433A) + 260 industrial electricians (442A) = <strong>1,009 newly certified tradespeople in one year</strong>, each needing a full professional toolkit. <a class="source" href="https://www.skilledtradesontario.ca/wp-content/uploads/2025/05/industrial-mechanic-millwright-433A_2024_en_TradeReport.html" target="_blank">Source: Skilled Trades Ontario 2024 Trade Reports</a></li>
+</ul>
+</div>
+
+<!-- BOTTOM-UP TAM -->
+<div class="section">
+<h2>2. Bottom-Up TAM Calculation &mdash; Core Trades</h2>
+<p>TAM is built from three buyer segments: individual apprentices, shops/employers, and trade colleges. Each is sized independently.</p>
+
+<h3>Individual apprentice segment</h3>
+<ul>
+<li>Canada-wide registered millwright + industrial electrician apprentices (2024): <strong>28,746</strong>.</li>
+<li>Ontario share (~38% of Canada): ~10,900 active apprentices in these two trades.</li>
+<li>Personal tool investment per apprentice over 4&ndash;5 year program: $3,000&ndash;$6,000 (proxied from CRA tradesperson tool tax deduction eligibility and apprentice wage bands of $20&ndash;$34/hr).</li>
+<li>Annual addressable individual apprentice spend (Canada): <strong>$14&ndash;29M</strong>.</li>
+</ul>
+
+<h3>Shop / employer segment</h3>
+<p>BTS testimonial data (Phil&rsquo;s prototype): &ldquo;Bought 6 Apprentice Pro kits for our incoming apprentice class.&rdquo; This buyer pattern is the highest-value segment:</p>
+<ul>
+<li>If 15&ndash;25% of Ontario industrial shops adopt apprentice kits for incoming hires at $2,150&ndash;$4,400/kit average, 2&ndash;5 kits/year each: Ontario shop segment alone = <strong>$5&ndash;15M/year</strong>.</li>
+<li>Canada-wide (scaling by population): <strong>$13&ndash;40M/year</strong>.</li>
+</ul>
+
+<h3>Trade college segment</h3>
+<ul>
+<li>Ontario has 12+ colleges and TDAs offering millwright and industrial electrician programs (George Brown, Sheridan, Conestoga, Mohawk, Humber, Confederation, Centre for Skills, CTAO). <a class="source" href="https://www.skilledtradesontario.ca/public-register/" target="_blank">Full directory: Skilled Trades Ontario Public Register</a></li>
+<li>Typical intake 20&ndash;40 students; if 8&ndash;12 programs adopt starter kits at $1,500&ndash;$2,300/kit: Ontario college segment = $1&ndash;3M/year. Canada-wide: <strong>$3&ndash;8M/year</strong>.</li>
+</ul>
+
+<table class="data-table">
+<thead>
+<tr><th>Scenario</th><th class="right">Individuals</th><th class="right">Shops</th><th class="right">Colleges</th><th class="right">Total</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Conservative</strong></td><td class="right">$14M</td><td class="right">$13M</td><td class="right">$3M</td><td class="right"><strong>$30M</strong></td></tr>
+<tr><td><strong>Base</strong></td><td class="right">$21M</td><td class="right">$26M</td><td class="right">$5M</td><td class="right"><strong>$52M</strong></td></tr>
+<tr><td><strong>Optimistic</strong></td><td class="right">$29M</td><td class="right">$40M</td><td class="right">$8M</td><td class="right"><strong>$77M</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- EXPANSION -->
+<div class="section">
+<h2>3. The Expansion Opportunity &mdash; Why This Is a Platform</h2>
+<div class="callout">
+<strong>This section describes the single most important strategic insight in this assessment.</strong> The e-commerce infrastructure built for millwright and industrial electrician kits &mdash; the website, the SEO moat, the checkout flow, the warehouse workflow, the college relationships, the email list, the shop outreach playbook &mdash; serves every industrial trade vertical with near-zero marginal fixed cost. The only variable cost per new vertical is a product curation sprint: identifying the right tools, negotiating with suppliers, building the kit SKUs, and writing the product copy. That is 2&ndash;4 weeks of work, not a new business.
+</div>
+
+<h3>The college channel is the unlock</h3>
+<p>When the BTS e-commerce division sells a millwright starter kit to Conestoga College, it is not building a relationship with &ldquo;the millwright program.&rdquo; It is building a relationship with <strong>the purchasing office, the dean of trades, and the apprenticeship coordinator</strong>. Those same people run every trade program under one roof. The second-vertical sale to an existing college account is a phone call, not a cold outreach campaign. Customer acquisition cost on vertical two through six at an existing college: effectively zero.</p>
+<p>The same logic applies to shops. An industrial shop that employs millwrights almost certainly also employs welders, heavy equipment techs, and electricians. Phil already has relationships with these shop owners. The buyer who &ldquo;bought 6 Apprentice Pro kits for our incoming apprentice class&rdquo; does not care which trade the apprentice is in &mdash; that buyer cares about equipping new hires without sourcing 40 individual items.</p>
+
+<h3>Expansion timeline</h3>
+<table class="data-table">
+<thead>
+<tr><th>Phase</th><th>Trades added</th><th class="right">Cumulative apprentices</th><th class="right">Estimated TAM</th></tr>
+</thead>
+<tbody>
+<tr class="highlight"><td><strong>Year 1</strong></td><td>Industrial millwright + industrial electrician</td><td class="right">28,746</td><td class="right">$35&ndash;55M</td></tr>
+<tr><td><strong>Year 2</strong></td><td>+ Construction electrician (309A)</td><td class="right">93,486</td><td class="right">$110&ndash;175M</td></tr>
+<tr><td><strong>Year 2&ndash;3</strong></td><td>+ Welder + heavy duty equipment tech</td><td class="right">124,593</td><td class="right">$155&ndash;245M</td></tr>
+<tr><td><strong>Year 3&ndash;4</strong></td><td>+ Steamfitter/pipefitter + automotive</td><td class="right">165,843</td><td class="right">$200&ndash;325M</td></tr>
+</tbody>
+</table>
+
+<h3>Why this matters to BTS strategically</h3>
+<p><strong>Phil&rsquo;s existing labour/service business is structurally capped:</strong> revenue scales linearly with the number of certified tradespeople BTS can recruit and the hours they can bill. An e-commerce division is structurally uncapped. Revenue compounds on each new trade vertical, each new college account, and each new geography &mdash; all on the same fixed infrastructure. This is not a side business bolted onto BTS. It is the scalable, compounding revenue division of the company &mdash; the part that grows without adding headcount proportionally.</p>
+<p>The role Russell fills &mdash; setting up, scaling, and systematizing each new trade vertical repeatably and sustainably, with maximum automation throughout &mdash; is the role that makes this a platform rather than a project. The operator who builds the playbook once, proves it on core trades, then runs it across six verticals with declining marginal cost per vertical is the reason the business can eventually run at scale with a market-rate management team.</p>
+</div>
+
+<!-- GROWTH DRIVERS -->
+<div class="section">
+<h2>4. Market Growth Drivers</h2>
+<p>Three independent forecasts confirm the customer base is growing faster than population:</p>
+<ul>
+<li><strong>RBC skilled trades shortage projection:</strong> minimum 10,000-person shortfall in 56 Red Seal trades by 2029; up to 100,000+ including provincially regulated trades. Shortages &ldquo;particularly acute among industrial mechanics, boilermakers, welders.&rdquo; <a class="source" href="https://thoughtleadership.rbc.com/wp-content/uploads/Skilled-Trades-Report.pdf" target="_blank">Source: RBC Thought Leadership</a></li>
+<li><strong>BuildForce Canada (through 2033):</strong> 351,800 total hiring requirements, 263,400 from retirements (21% of workforce), 88,400+ from growth. Recruitment gap: ~85,500 workers. <a class="source" href="https://www.buildforce.ca/en/press-release/canadas-construction-sector-is-poised-to-grow-through-2033/" target="_blank">Source: BuildForce Canada</a></li>
+<li><strong>Government training equipment funding:</strong> CAS-ITE provides up to $5M per union training project; $20M available 2025&ndash;26 &mdash; direct grant-funded purchasing power for college and union customers. <a class="source" href="https://www.canada.ca/en/employment-social-development/services/funding/investments-training-equipment.html" target="_blank">Source: ESDC</a></li>
+</ul>
+<p>These drivers independently suggest institutional buyers (colleges, unions, sector councils) are actively looking for qualified vendors to absorb grant money. A credible specialized supplier is a scarce resource in this category.</p>
+</div>
+
+<!-- US EXPANSION -->
+<div class="section">
+<h2>5. US Expansion Context (Year 3&ndash;4)</h2>
+<ul>
+<li><strong>US millwrights (SOC 49-9044):</strong> 72,500 employed (May 2024), median wage $63,510/yr, 13% projected growth to 2034, ~5,400 annual openings. <a class="source" href="https://www.bls.gov/oes/current/oes499044.htm" target="_blank">Source: US BLS</a></li>
+<li><strong>US combined industrial mechanics + maintenance + millwrights:</strong> 538,300 employed, 54,200 annual openings, 13% projected growth. <a class="source" href="https://www.bls.gov/ooh/installation-maintenance-and-repair/industrial-machinery-mechanics-and-maintenance-workers-and-millwrights.htm" target="_blank">Source: US BLS OOH</a></li>
+</ul>
+<p>The US market is ~18&ndash;22x the Canadian equivalent. Realistic entry is Year 3&ndash;4, beginning with northern border states (Michigan, Ohio, Pennsylvania, New York) using dropship-first or US 3PL. Capturing 0.5% of US industrial mechanic/millwright tool spend would add <strong>$5&ndash;15M/year</strong> to the Canadian business.</p>
+</div>
+
+<!-- BUYER SEGMENTS -->
+<div class="section">
+<h2>6. Buyer Segment Breakdown</h2>
+<table class="data-table">
+<thead>
+<tr><th>Segment</th><th>Decision cycle</th><th>Price sensitivity</th><th>Order size</th><th>Entry barrier</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Individual apprentice</strong></td><td>1&ndash;4 weeks</td><td>High</td><td>1 kit</td><td>Checkout, reviews, financing</td></tr>
+<tr><td><strong>Shop / employer</strong></td><td>2&ndash;8 weeks</td><td>Medium</td><td>2&ndash;20 kits</td><td>Quote flow, PO terms</td></tr>
+<tr><td><strong>Trade college</strong></td><td>3&ndash;12 months</td><td>Low (grant-funded)</td><td>20&ndash;60 kits</td><td>RFP, vendor listing</td></tr>
+<tr><td><strong>Union / JAC</strong></td><td>3&ndash;9 months</td><td>Low (grant-funded)</td><td>10&ndash;100 kits</td><td>Sector approval</td></tr>
+</tbody>
+</table>
+<p>BTS has structural advantages in each segment: domain authority on bullettrade.ca (individual), existing industrial customer relationships (shop), and the ability to add a direct sales motion through the college and union channels.</p>
+</div>
+
+<!-- SOM -->
+<div class="section">
+<h2>7. Realistic 5-Year Capture (SOM)</h2>
+<table class="data-table">
+<thead>
+<tr><th>Year</th><th>Focus</th><th class="right">Revenue</th><th class="right">CM @ 25%</th><th class="right">% of TAM</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Year 1</strong></td><td>MW + IE, Ontario, prove model</td><td class="right">$500K&ndash;$800K</td><td class="right">$125K&ndash;$200K</td><td class="right">1&ndash;2%</td></tr>
+<tr><td><strong>Year 2</strong></td><td>National + add 309A electrician</td><td class="right">$1.5M&ndash;$2.5M</td><td class="right">$375K&ndash;$625K</td><td class="right">1&ndash;2%</td></tr>
+<tr><td><strong>Year 3</strong></td><td>+ Welder or heavy equip</td><td class="right">$3M&ndash;$5M</td><td class="right">$750K&ndash;$1.25M</td><td class="right">2&ndash;3%</td></tr>
+<tr><td><strong>Year 4</strong></td><td>College + union channels mature</td><td class="right">$5M&ndash;$8M</td><td class="right">$1.25M&ndash;$2M</td><td class="right">3&ndash;4%</td></tr>
+<tr><td><strong>Year 5</strong></td><td>3rd vertical or US entry</td><td class="right">$8M&ndash;$15M</td><td class="right">$2M&ndash;$3.75M</td><td class="right">4&ndash;6%</td></tr>
+</tbody>
+</table>
+<p>These projections represent 1&ndash;6% capture of the expanded TAM &mdash; modest penetration rates for a market with documented supply-side gaps and no dominant specialized competitor.</p>
+</div>
+
+<!-- LIMITATIONS -->
+<div class="section">
+<h2>8. Limitations &amp; Recommended Next Steps</h2>
+<p>To convert base-case estimates into board-grade projections:</p>
+<ol>
+<li>Access Statistics Canada Table 37-10-0137-01 with provincial filters for Ontario-specific breakdown per trade.</li>
+<li>Contact Skilled Trades Ontario (647-847-3000) for year-by-year 433A and 442A new registration counts.</li>
+<li>Query Statistics Canada Table 14-10-0041-01 for employed tradespeople by NOC code (72400, 72201) by province.</li>
+<li>Outreach to the Canadian Apprenticeship Forum (CAF-FCA, info@caf-fca.org) for employer tool purchasing survey data.</li>
+<li>5&ndash;10 discovery calls with Ontario industrial shop owners to validate bulk-buy adoption assumptions.</li>
+<li>3&ndash;5 discovery calls with Ontario trade college program heads to validate starter-kit willingness-to-buy and grant funding cycles.</li>
+<li>Debrief with channel partners (e.g., Knells) on competitive landscape and customer purchasing patterns &mdash; ideally through existing BTS relationships to maintain trust and leverage Phil&rsquo;s positioning.</li>
+</ol>
+</div>
+
+<!-- SOURCES -->
+<div class="section">
+<h2>Sources &amp; Data Links</h2>
+<ul>
+<li><a class="source" href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3710013701" target="_blank">Statistics Canada Table 37-10-0137-01 &mdash; Red Seal Apprenticeship Registrations (interactive)</a></li>
+<li><a class="source" href="https://open.canada.ca/data/en/dataset/d73b1535-f725-4d85-b1ee-5b2e757e6525" target="_blank">Statistics Canada Table 37-10-0137-01 &mdash; Full dataset download (Open Government Portal)</a></li>
+<li><a class="source" href="https://www150.statcan.gc.ca/n1/daily-quotidien/251211/dq251211e-eng.htm" target="_blank">Statistics Canada Daily &mdash; 2024 RAIS Release (December 11, 2025)</a></li>
+<li><a class="source" href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1410041601" target="_blank">Statistics Canada Table 14-10-0041-01 &mdash; Labour Force by Occupation</a></li>
+<li><a class="source" href="https://www.skilledtradesontario.ca/wp-content/uploads/2024/09/Apprenticeship-Programs-Chart-EN-09.06.24.pdf" target="_blank">Skilled Trades Ontario &mdash; Apprenticeship Programs Chart (Sept 2024)</a></li>
+<li><a class="source" href="https://www.skilledtradesontario.ca/wp-content/uploads/2025/05/industrial-mechanic-millwright-433A_2024_en_TradeReport.html" target="_blank">Skilled Trades Ontario &mdash; Millwright 433A Trade Report (2024)</a></li>
+<li><a class="source" href="https://www.skilledtradesontario.ca/wp-content/uploads/2025/05/industrial-electrician-442A_2024_en_TradeReport.html" target="_blank">Skilled Trades Ontario &mdash; Industrial Electrician 442A Trade Report (2024)</a></li>
+<li><a class="source" href="https://www.skilledtradesontario.ca/public-register/" target="_blank">Skilled Trades Ontario &mdash; Public Register of Training Delivery Agents</a></li>
+<li><a class="source" href="https://electricalindustry.ca/latest-articles/apprenticeship-registrations/" target="_blank">Electrical Industry Canada &mdash; Apprenticeship Registrations Report</a></li>
+<li><a class="source" href="https://thoughtleadership.rbc.com/wp-content/uploads/Skilled-Trades-Report.pdf" target="_blank">RBC Thought Leadership &mdash; Powering Up: Preparing Canada&rsquo;s Skilled Trades</a></li>
+<li><a class="source" href="https://www.buildforce.ca/en/press-release/canadas-construction-sector-is-poised-to-grow-through-2033/" target="_blank">BuildForce Canada &mdash; Construction Sector Growth Through 2033</a></li>
+<li><a class="source" href="https://www.canada.ca/en/employment-social-development/services/funding/investments-training-equipment.html" target="_blank">ESDC &mdash; CAS-ITE Funding Program</a></li>
+<li><a class="source" href="https://www.ibisworld.com/canada/market-size/hand-tool-cutlery-manufacturing/617/" target="_blank">IBISWorld Canada &mdash; Hand Tool &amp; Cutlery Manufacturing ($759M, 2024)</a></li>
+<li><a class="source" href="https://www.bls.gov/oes/current/oes499044.htm" target="_blank">US BLS &mdash; Millwrights OEWS (49-9044, May 2024)</a></li>
+<li><a class="source" href="https://www.bls.gov/ooh/installation-maintenance-and-repair/industrial-machinery-mechanics-and-maintenance-workers-and-millwrights.htm" target="_blank">US BLS &mdash; Industrial Machinery Mechanics OOH</a></li>
+<li><a class="source" href="https://caf-fca.org/wp-content/uploads/2024/05/2024-04-UTIP-report-EN.pdf" target="_blank">Canadian Apprenticeship Forum &mdash; Registration Trends Report (2024)</a></li>
+</ul>
+</div>
+
+<div class="download-bar">
+<span>Prefer an offline copy?</span>
+<a href="BTS_Market_Assessment.docx" download>Download Word version &darr;</a>
+</div>
+
+</div>
+
+<div class="footer">
+<p><strong>CONFIDENTIAL</strong> &bull; Market Assessment v2 &bull; Updated April 2026</p>
+<p style="margin-top: 8px;">Prepared by Russell Cole for Phil, Bullet Trade Services.</p>
+</div>
+
+</body>
+</html>
