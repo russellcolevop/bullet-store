@@ -20,7 +20,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .section h2 { font-size: 28px; color: #1a1a2e; margin-bottom: 12px; font-weight: 700; border-bottom: 3px solid #e67e22; padding-bottom: 8px; display: inline-block; }
 .section h3 { font-size: 20px; color: #1a1a2e; margin: 28px 0 12px; font-weight: 600; }
 .section p { margin-bottom: 14px; font-size: 16px; color: #333; }
-.section ol { margin: 12px 0 16px 22px; }
+.section ol, .section ul { margin: 12px 0 16px 22px; }
 .section li { margin-bottom: 8px; font-size: 16px; }
 .callout { background: #fff5e6; border-left: 4px solid #e67e22; padding: 20px 24px; margin: 20px 0; border-radius: 4px; }
 .callout strong { color: #d35400; }
@@ -28,6 +28,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .callout.blue strong { color: #1a1a2e; }
 .callout.green { background: #eefaf4; border-left-color: #27ae60; }
 .callout.green strong { color: #1e8449; }
+.callout.red { background: #fef2f2; border-left-color: #B00020; }
+.callout.red strong { color: #B00020; }
 .memo-header { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; margin-bottom: 40px; }
 .memo-row { display: flex; border-bottom: 1px solid #eee; }
 .memo-row:last-child { border-bottom: none; }
@@ -46,6 +48,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .stat-box .label { font-size: 13px; color: #666; margin-top: 4px; }
 .stat-box.green { border-top-color: #27ae60; }
 .stat-box.green .num { color: #27ae60; }
+.stat-box.blue { border-top-color: #1a1a2e; }
+.stat-box.blue .num { color: #1a1a2e; }
+.math-box { background: white; border: 2px solid #e67e22; border-radius: 8px; padding: 24px; margin: 20px 0; }
+.math-box .math-title { font-size: 14px; font-weight: 700; color: #d35400; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+.math-box .math-line { font-size: 15px; color: #333; margin-bottom: 6px; font-family: 'SF Mono', 'Fira Code', monospace; }
+.math-box .math-result { font-size: 18px; color: #1a1a2e; font-weight: 700; margin-top: 12px; padding-top: 12px; border-top: 1px solid #eee; }
 .download-bar { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 24px; margin-top: 32px; display: flex; align-items: center; justify-content: space-between; }
 .download-bar span { font-size: 14px; color: #666; }
 .download-bar a { background: #1a1a2e; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 13px; }
@@ -71,8 +79,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 <div class="hero">
 <div class="meta">Confidential &bull; April 2026 &bull; Memorandum</div>
-<h1 style="margin-top: 16px;">Compensation Structure Memo</h1>
-<p class="subtitle">How the e-commerce division compensates me &mdash; and why it lands at market rate.</p>
+<h1 style="margin-top: 16px;">Compensation Structure</h1>
+<p class="subtitle">How I get paid, how I build equity, and why the math is fair to both of us at every stage.</p>
 </div>
 
 <div class="container">
@@ -82,167 +90,253 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 <div class="memo-row"><div class="memo-label">TO</div><div class="memo-value">Phil, Owner, Bullet Trade Services</div></div>
 <div class="memo-row"><div class="memo-label">FROM</div><div class="memo-value">Russell Cole</div></div>
 <div class="memo-row"><div class="memo-label">DATE</div><div class="memo-value">April 2026</div></div>
-<div class="memo-row"><div class="memo-label">RE</div><div class="memo-value">How the e-commerce division compensates me &mdash; and why it lands at market rate</div></div>
+<div class="memo-row"><div class="memo-label">RE</div><div class="memo-value">Partnership compensation &mdash; CM share, sweat equity conversion, and protections</div></div>
 </div>
 
 <!-- HEADLINE STATS -->
 <div class="stat-row">
 <div class="stat-box">
-<div class="num">40% &rarr; 5%</div>
-<div class="label">CM share steps down as revenue grows</div>
+<div class="num">30%</div>
+<div class="label">CM share &mdash; cash, paid monthly as earned</div>
 </div>
 <div class="stat-box green">
-<div class="num">$0</div>
-<div class="label">Fixed salary during build phase &mdash; zero risk</div>
+<div class="num">2.5&times;</div>
+<div class="label">Multiplier on foregone salary &rarr; equity</div>
 </div>
-<div class="stat-box">
-<div class="num">= Market</div>
-<div class="label">Converges to standard T4 at scale</div>
+<div class="stat-box blue">
+<div class="num">Up to 30%</div>
+<div class="label">Total NewCo equity at full performance</div>
 </div>
-</div>
-
-<!-- THE PRINCIPLE -->
-<div class="section">
-<h2>The Principle</h2>
-<p>Compensation for my role running the BTS e-commerce division should meet three tests:</p>
-<ol>
-<li>Track the value the division actually generates &mdash; not a guaranteed salary before revenue exists.</li>
-<li>Never exceed, at steady state, what a senior e-commerce leader would cost you as a T4 employee in the same role at the same scale.</li>
-<li>Convert automatically from performance-based to market-rate as the business matures &mdash; with no renegotiation needed.</li>
-</ol>
-<p>The structure below delivers all three. It starts high as a percentage of contribution margin (CM) because I am taking no salary during the build phase, and it declines on a pre-agreed schedule so that at maturity the division pays me exactly what any company our size would pay its Head of E-Commerce &mdash; not a dollar more.</p>
 </div>
 
-<!-- WHY IT STARTS HIGH -->
+<!-- THE STARTING POINT -->
 <div class="section">
-<h2>Why It Starts High</h2>
-<p>A market-rate Head of E-Commerce in Canada earns $140K&ndash;$180K base + 15&ndash;25% variable + benefits, for a total package of approximately $180K&ndash;$230K. Over the first 18 months of a build you would spend $270K&ndash;$345K on that person &mdash; cash out the door, regardless of whether the division generates any revenue.</p>
-<p>Under my proposal, the division pays me nothing until CM exists. When CM is generated, I take a high percentage of it &mdash; 40% of the first tranche &mdash; because that high percentage applied to a small early pool still sums to less total cash than a salaried hire&rsquo;s guaranteed payroll over the same period.</p>
+<h2>The Starting Point</h2>
+<p>I am not coming into this as an employee looking for a paycheque. I am building a new revenue division for BTS from scratch &mdash; sourcing the strategy, designing the growth plan, executing every digital channel, and scaling it into adjacent trade verticals over time. That is founder-level work. The compensation should reflect it.</p>
+<p>At the same time, Phil is contributing things I cannot replicate on my own: the Bullet Trade Services brand, established supplier and industry relationships, trade credibility, and the operational infrastructure to fulfill orders. Those contributions are real and they justify Phil holding majority ownership of the entity.</p>
+<p>The structure below is designed so that both sides are compensated proportionally to what they contribute, at every stage of the business.</p>
+</div>
+
+<!-- WHAT THE ROLE IS ACTUALLY WORTH -->
+<div class="section">
+<h2>What This Role Is Actually Worth</h2>
+<p>To set the CM share and equity in context, we need to establish what a company would actually spend to hire someone into this role externally. This is the benchmark everything else is measured against.</p>
 
 <table class="data-table">
 <thead>
-<tr><th>Scenario</th><th class="right">Annual CM</th><th class="right">My share</th><th class="right">T4 alternative</th></tr>
+<tr><th>Cost component</th><th class="right">Annual amount</th><th>Notes</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>Year 1 (build)</strong></td><td class="right">$150K</td><td class="right">$60K (40%)</td><td class="right">~$180K</td></tr>
-<tr><td><strong>Year 2 (ramp)</strong></td><td class="right">$400K</td><td class="right">$122K (40/25 blend)</td><td class="right">~$190K</td></tr>
-</tbody>
-</table>
-
-<div class="callout green">
-<strong>Through Year 2 I am cheaper than a salaried equivalent in nearly every scenario, and the division carries zero fixed-cost risk if it doesn&rsquo;t work.</strong> The high percentage is not a premium &mdash; it is the price of the capital and risk I am contributing in lieu of a salary.
-</div>
-</div>
-
-<!-- WHY IT DECLINES -->
-<div class="section">
-<h2>Why It Declines &mdash; and Converges to Market Rate</h2>
-<p>At larger CM pools, a flat 40% share would eventually exceed what a T4 hire costs, which is unfair to you as owner and unsustainable for the business. The structure prevents that mechanically, in two layers that work together.</p>
-
-<h3>Layer 1 &mdash; Tiered CM Share</h3>
-<p>The CM share rate steps down at fixed CM thresholds, so that larger pools are taxed at lower rates:</p>
-
-<table class="data-table">
-<thead>
-<tr><th>Annual CM band</th><th class="right">My share</th><th class="right">Cumulative $ at band ceiling</th></tr>
-</thead>
-<tbody>
-<tr><td><strong>$0 &mdash; $150K</strong></td><td class="right">40%</td><td class="right">$60K</td></tr>
-<tr><td><strong>$150K &mdash; $400K</strong></td><td class="right">25%</td><td class="right">$122K</td></tr>
-<tr><td><strong>$400K &mdash; $1.0M</strong></td><td class="right">15%</td><td class="right">$212K</td></tr>
-<tr><td><strong>$1.0M &mdash; $2.0M</strong></td><td class="right">8%</td><td class="right">$292K</td></tr>
-<tr class="highlight"><td><strong>$2.0M +</strong></td><td class="right">5% &rarr; converts to T4</td><td class="right">Market-rate salary</td></tr>
-</tbody>
-</table>
-
-<p>By itself, this schedule caps my cash comp below or at a senior director salary through the entire growth phase. It is self-limiting.</p>
-
-<h3>Layer 2 &mdash; NewCo Equity Vesting Steps Down the CM Share Further</h3>
-<p>Once NewCo (the separately incorporated e-commerce entity proposed in the addendum to the main proposal) hits revenue milestones, milestone-vested equity kicks in and the CM share drops in lockstep:</p>
-
-<table class="data-table">
-<thead>
-<tr><th>Vested NewCo equity</th><th>Vesting trigger</th><th>CM share adjustment</th></tr>
-</thead>
-<tbody>
-<tr><td><strong>5%</strong></td><td>$1.0M TTM revenue</td><td>&minus;25% of current rate</td></tr>
-<tr><td><strong>10%</strong></td><td>$2.5M TTM revenue</td><td>&minus;50% of current rate</td></tr>
-<tr><td><strong>15%</strong></td><td>$5.0M TTM revenue</td><td>&minus;75% of current rate</td></tr>
-<tr class="highlight"><td><strong>20% (fully vested)</strong></td><td>$10M TTM revenue or liquidity event</td><td>CM share &rarr; $0; T4 salary takes over</td></tr>
+<tr><td><strong>Base salary</strong></td><td class="right">$140K &ndash; $180K</td><td>Senior e-commerce / digital commerce lead, Ontario market</td></tr>
+<tr><td><strong>Employer CPP</strong></td><td class="right">~$4,000</td><td>Mandatory employer contribution</td></tr>
+<tr><td><strong>Employer EI</strong></td><td class="right">~$1,300</td><td>Mandatory employer premium</td></tr>
+<tr><td><strong>Benefits</strong></td><td class="right">$8K &ndash; $15K</td><td>Health, dental, vision, life, disability</td></tr>
+<tr><td><strong>RRSP matching</strong></td><td class="right">$5K &ndash; $8K</td><td>3&ndash;5% match, standard for senior roles</td></tr>
+<tr><td><strong>Recruiting cost (amortized)</strong></td><td class="right">~$10K</td><td>15&ndash;25% of salary, spread over 2&ndash;3 years</td></tr>
+<tr><td><strong>Ramp / onboarding</strong></td><td class="right">Hard to quantify</td><td>3&ndash;6 months at reduced productivity, full pay</td></tr>
+<tr class="highlight"><td><strong>All-in annual cost</strong></td><td class="right"><strong>$195K</strong></td><td>Conservative mid-point, before ramp cost</td></tr>
 </tbody>
 </table>
 
 <div class="callout blue">
-<strong>At fully vested, my cash compensation is exactly a standard T4 Head of E-Commerce package for a business at that scale &mdash; approximately $180K&ndash;$220K base + variable + benefits. Not a dollar above market rate.</strong> The only remaining economic relationship is my 20% NewCo equity stake, which I earned from zero by building the division. You retain 75&ndash;85% ownership of a clean, sellable sub-entity that is now worth materially more than a buried operating division would have been.
+<strong>Why this matters:</strong> every dollar below $195K/year that I receive in CM share is a dollar I am effectively investing into the business. That gap &mdash; the difference between what the role costs and what I actually take home &mdash; is the basis for my equity. It is not a gift. It is a documented, calculable investment of foregone income, compensated at a risk premium.
 </div>
 </div>
 
-<!-- WHAT THIS MEANS FOR YOU -->
+<!-- HOW I GET PAID: CM SHARE -->
 <div class="section">
-<h2>What This Means for You</h2>
+<h2>How I Get Paid: 30% CM Share</h2>
+<p>I receive 30% of the division&rsquo;s contribution margin, paid monthly as the cash comes in. This is my operating income. No tiers, no step-downs, no complicated schedule &mdash; the division makes a dollar of margin, I keep thirty cents, Phil keeps seventy.</p>
 
+<h3>Why 30%</h3>
+<p>At 30%, Phil always keeps more than twice what I earn from the same pool. At every stage of the business, the majority of value flows to Phil as the owner. The percentage is fixed because simplicity matters &mdash; both sides should be able to calculate the split on the back of a napkin without consulting a schedule.</p>
+
+<h3>What this looks like in practice</h3>
 <table class="data-table">
 <thead>
-<tr><th>Phase</th><th class="right">My cash comp</th><th class="right">T4 equivalent</th><th class="right">Your exposure</th></tr>
+<tr><th>Year</th><th class="right">Annual CM (base case)</th><th class="right">My 30% (cash)</th><th class="right">Phil&rsquo;s 70%</th><th class="right">vs. $195K T4 hire</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>Build (Y1&ndash;Y2)</strong></td><td class="right">$0 &ndash; $122K</td><td class="right">$180K &ndash; $230K</td><td class="right">Zero if CM = 0</td></tr>
-<tr><td><strong>Scale (Y3&ndash;Y4)</strong></td><td class="right">$150K &ndash; $220K</td><td class="right">$180K &ndash; $240K</td><td class="right">&asymp; market rate</td></tr>
-<tr class="highlight"><td><strong>Mature (Y5+)</strong></td><td class="right">$180K &ndash; $220K T4</td><td class="right">$180K &ndash; $240K</td><td class="right">= market rate</td></tr>
+<tr><td><strong>Year 1</strong></td><td class="right">$200K</td><td class="right">$60K</td><td class="right">$140K</td><td class="right">$135K cheaper</td></tr>
+<tr><td><strong>Year 2</strong></td><td class="right">$500K</td><td class="right">$150K</td><td class="right">$350K</td><td class="right">$45K cheaper</td></tr>
+<tr><td><strong>Year 3</strong></td><td class="right">$1.0M</td><td class="right">$300K</td><td class="right">$700K</td><td class="right">$105K above market</td></tr>
+<tr><td><strong>Year 4</strong></td><td class="right">$1.5M</td><td class="right">$450K</td><td class="right">$1.05M</td><td class="right">$255K above market</td></tr>
+<tr><td><strong>Year 5</strong></td><td class="right">$2.0M</td><td class="right">$600K</td><td class="right">$1.4M</td><td class="right">$405K above market</td></tr>
 </tbody>
 </table>
-
-<p>At no point in the division&rsquo;s life does it pay me more, in cash, than what the market would pay a senior e-commerce leader in a mature business of equivalent scale. The high early percentage is the price of not paying a salary during the build. The low late percentage &mdash; and the automatic conversion to T4 &mdash; is the correction the moment the division is large enough to afford one.</p>
-</div>
-
-<!-- ROBUST IF CIRCUMSTANCES CHANGE -->
-<div class="section">
-<h2>Robust If Circumstances Change</h2>
-<p>A fair structure has to work even if the relationship has to change. Two failure modes to plan for:</p>
 
 <div class="callout">
-<strong>If the division grows faster than expected:</strong> the CM share steps down mechanically; you are not stuck with an above-market comp line. You don&rsquo;t need my agreement to avoid overpaying &mdash; the schedule does it for you.
+<strong>The honest framing for Years 3+:</strong> yes, my cash comp exceeds what a salaried hire would cost. But a salaried hire did not build this division from zero, did not go 12&ndash;18 months earning well below market, and does not carry the execution risk of making it work. The CM share rewards the build, not just the maintenance. And at every point, Phil is keeping 70% of a revenue stream that did not exist before this partnership. The question is never &ldquo;does Russell cost more than a hire?&rdquo; &mdash; the question is &ldquo;is Phil better off with Russell at 30% or without this division entirely?&rdquo;
 </div>
 
-<div class="callout blue">
-<strong>If the division grows slower than expected:</strong> I earn less, and you haven&rsquo;t paid a salary to an unproductive hire. The division&rsquo;s downside is shared proportionally, not absorbed by you.
+<h3>Optional: monthly draw</h3>
+<p>If Phil prefers, he can offer a $10K/month draw ($120K/year) as an advance against my CM share. This is deducted from my 30% &mdash; it is not additional cost. The draw simply smooths my cash flow during the build phase when CM is irregular.</p>
+<p>If Phil prefers not to pay any draw, that is fine &mdash; but the salary gap widens, and more equity accrues through the sweat equity conversion below. Phil should understand that choosing &ldquo;no draw&rdquo; is not free: it costs him equity instead of cash.</p>
+</div>
+
+<!-- HOW I BUILD EQUITY -->
+<div class="section">
+<h2>How I Build Equity: Sweat Equity at 2.5&times;</h2>
+<p>Every quarter, we calculate the gap between the $195K all-in benchmark and what I actually received in CM share over that period. That gap &mdash; the income I chose not to take &mdash; converts to equity in NewCo at a <strong>2.5&times; multiplier</strong>, applied against a pre-agreed <strong>$2M valuation cap</strong>.</p>
+
+<h3>Why 2.5&times;?</h3>
+<p>The multiplier compensates for risk. A salaried employee receives guaranteed income with benefits, employment insurance coverage, and severance protections under Ontario law. I receive none of that. If the division generates zero CM, I earn zero. The 2.5&times; multiplier is standard in startup sweat equity arrangements and reflects the risk premium of deferred, performance-contingent compensation versus guaranteed salary.</p>
+
+<h3>The math on base-case projections</h3>
+<div class="math-box">
+<div class="math-title">Year 1</div>
+<div class="math-line">Market benchmark: $195,000</div>
+<div class="math-line">CM share received (cash): $60,000</div>
+<div class="math-line">Gap: $135,000</div>
+<div class="math-line">Equity credit: $135,000 &times; 2.5 = <strong>$337,500</strong></div>
+</div>
+
+<div class="math-box">
+<div class="math-title">Year 2</div>
+<div class="math-line">Market benchmark: $195,000</div>
+<div class="math-line">CM share received (cash): $150,000</div>
+<div class="math-line">Gap: $45,000</div>
+<div class="math-line">Equity credit: $45,000 &times; 2.5 = <strong>$112,500</strong></div>
+</div>
+
+<div class="math-box">
+<div class="math-title">Cumulative sweat equity</div>
+<div class="math-line">Total equity credits: $337,500 + $112,500 = $450,000</div>
+<div class="math-line">Valuation cap: $2,000,000</div>
+<div class="math-result">Sweat equity stake: $450,000 &divide; $2,000,000 = <strong>~22.5% of NewCo</strong></div>
 </div>
 
 <div class="callout green">
-<strong>If operational responsibility needs to transition:</strong> once my CM share has dropped into the single-digit band (Year 4 onward), it is close enough to a variable-comp component of a salaried role that you can convert me formally to T4 via the three-door transition, or bring in a market-rate operator to run day-to-day while I retain whatever NewCo equity has vested. In either case, the division&rsquo;s ongoing operating cost stays at market rate. The structure never structurally burdens you with above-market comp.
-</div>
+<strong>The self-correcting mechanism:</strong> once my CM share meets or exceeds the $195K benchmark (around Year 2&ndash;3), the gap goes to zero and no more sweat equity accrues. I stop &ldquo;buying&rdquo; equity with sacrifice and start earning well in cash. The faster the division succeeds, the less sweat equity I accumulate &mdash; which naturally moderates my ownership percentage. If the business grows slowly and I spend longer below market rate, I accumulate more equity, which is fair because I bore more risk for longer.
 </div>
 
-<!-- COMPARISON TO ALTERNATIVES -->
+<h3>Year 3 and beyond</h3>
+<p>By Year 3 (base case: $1M CM), my 30% share = $300K, which exceeds the $195K benchmark. The gap is zero. No additional sweat equity accrues. My ownership stabilizes at whatever it reached during the build phase &mdash; approximately 20&ndash;22% under base-case projections. The equity I earned stays mine permanently.</p>
+</div>
+
+<!-- PERFORMANCE MILESTONES -->
 <div class="section">
-<h2>Comparison to Alternatives</h2>
+<h2>Performance Equity: Milestones with Accelerators</h2>
+<p>On top of sweat equity, additional grants reward building something that scales. These milestones are earned by hitting revenue targets &mdash; and hitting them ahead of schedule earns a bonus grant.</p>
 
 <table class="data-table">
 <thead>
-<tr><th>Structure</th><th class="right">Build-phase cost</th><th class="right">Scale-phase cost</th><th class="right">Risk if it fails</th></tr>
+<tr><th>Milestone</th><th class="right">Standard grant</th><th>Accelerator</th><th class="right">Accelerated grant</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>T4 Head of E-Comm from Day 1</strong></td><td class="right">$180K&ndash;$230K/yr guaranteed</td><td class="right">$180K&ndash;$260K/yr</td><td class="right">Severance, ~$50K&ndash;$100K sunk</td></tr>
-<tr><td><strong>Fractional / agency leader</strong></td><td class="right">$120K&ndash;$180K/yr retainer</td><td class="right">Capped effort</td><td class="right">Low, but low upside</td></tr>
-<tr class="highlight"><td><strong>Russell on tiered CM + NewCo vesting</strong></td><td class="right">$0&ndash;$122K (outcome-linked)</td><td class="right">Converges to market rate</td><td class="right">Zero &mdash; no CM, no payment</td></tr>
+<tr><td><strong>$3M TTM revenue</strong></td><td class="right">+3%</td><td>Achieved in under 24 months</td><td class="right">+5%</td></tr>
+<tr><td><strong>$5M TTM revenue</strong></td><td class="right">+3%</td><td>Achieved in under 30 months</td><td class="right">+5%</td></tr>
+<tr><td><strong>$10M TTM revenue</strong></td><td class="right">+2%</td><td>Achieved in under 42 months</td><td class="right">+3%</td></tr>
 </tbody>
 </table>
 
-<p>The proposed structure is the only one of the three where (a) the build-phase cost is fully linked to the revenue the division actually generates, and (b) the scale-phase cost is locked at market rate by design.</p>
+<h3>Total potential equity</h3>
+<table class="data-table">
+<thead>
+<tr><th>Source</th><th class="right">Standard pace</th><th class="right">Accelerated pace</th></tr>
+</thead>
+<tbody>
+<tr><td>Sweat equity (Years 1&ndash;2 gap &times; 2.5&times;)</td><td class="right">~20&ndash;22%</td><td class="right">~15&ndash;18%*</td></tr>
+<tr><td>$3M milestone</td><td class="right">+3%</td><td class="right">+5%</td></tr>
+<tr><td>$5M milestone</td><td class="right">+3%</td><td class="right">+5%</td></tr>
+<tr><td>$10M milestone</td><td class="right">+2%</td><td class="right">+3%</td></tr>
+<tr class="highlight"><td><strong>Total</strong></td><td class="right"><strong>~28&ndash;30%</strong></td><td class="right"><strong>~28&ndash;31%</strong></td></tr>
+</tbody>
+</table>
+<p style="font-size: 13px; color: #888;">*Accelerated growth means higher early CM share, smaller gap, less sweat equity &mdash; offset by larger milestone grants. The total converges to ~30% either way.</p>
+
+<div class="callout blue">
+<strong>Hard cap: 30% of NewCo.</strong> Total equity from all sources will not exceed 30%. Phil retains at least 70% ownership and full operational control of the entity at all times. Russell&rsquo;s path to 30% requires building a $10M+ revenue business &mdash; at which point Phil owns 70% of something worth significantly more than his entire labour division.
+</div>
+</div>
+
+<!-- WHY THIS IS FAIR -->
+<div class="section">
+<h2>Why This Is Fair to Phil</h2>
+
+<table class="data-table">
+<thead>
+<tr><th>Metric</th><th class="right">Russell</th><th class="right">Phil</th></tr>
+</thead>
+<tbody>
+<tr><td>Share of every CM dollar</td><td class="right">$0.30</td><td class="right">$0.70</td></tr>
+<tr><td>Maximum equity ownership</td><td class="right">30%</td><td class="right">70%+</td></tr>
+<tr><td>Cash at risk if division fails</td><td class="right">$0 (but lost $200K+ in foregone salary)</td><td class="right">$0 (no salary paid)</td></tr>
+<tr><td>Upfront cost to Phil</td><td class="right">&mdash;</td><td class="right">$0</td></tr>
+<tr><td>Who builds the division</td><td class="right">Russell</td><td class="right">&mdash;</td></tr>
+<tr><td>Who provides brand + relationships</td><td class="right">&mdash;</td><td class="right">Phil</td></tr>
+</tbody>
+</table>
+
+<div class="callout">
+<strong>The comparison that matters:</strong> if Phil hires a senior e-commerce leader at $195K all-in, that person costs $195K in Year 1 whether the division makes $0 or $1M. Under this structure, if the division makes $0, Phil pays $0. If it makes $200K CM, Phil pays $60K &mdash; still $135K cheaper than the hire &mdash; and Russell is building equity from the gap. The only scenario where Russell costs more than a hire is the scenario where Phil is earning $700K+ from a division that didn&rsquo;t exist before. That is not a cost problem. That is a success problem.
+</div>
+</div>
+
+<!-- PROTECTIONS -->
+<div class="section">
+<h2>Protections</h2>
+<p>A fair partnership has to work even when things change. These clauses protect both sides and ensure the structure is durable.</p>
+
+<h3>Termination without cause &mdash; severance</h3>
+<p>If Phil terminates the partnership without cause, Russell receives <strong>24 months of trailing compensation</strong> (calculated as the average monthly CM share over the prior 12 months, multiplied by 24). This ensures Russell walks away whole after having invested significant time and foregone income into building the division.</p>
+<div class="callout">
+<strong>Why 24 months:</strong> this is not designed to make termination impossible. Phil should always have the right to end the relationship if it is no longer working. But it should not be economically trivial to terminate someone who built the asset, especially during the growth phase when CM share exceeds what a replacement hire would cost. The 24-month window gives Russell a fair runway to transition, and gives Phil a reason to have the conversation before it reaches that point.
+</div>
+
+<h3>Accelerated vesting on termination</h3>
+<p>If Russell is terminated without cause, <strong>all unvested milestone equity vests immediately</strong>. Russell keeps whatever sweat equity has accrued to date (this is already earned and non-reversible), and any performance milestones that have been achieved but not yet formally granted also vest on the termination date.</p>
+<div class="callout blue">
+<strong>The rationale:</strong> if the business has hit $5M TTM revenue and Russell is terminated, it would be unfair for the milestone equity tied to that achievement to disappear. Russell built the machine that generated that revenue. The equity he earned by doing so should not be contingent on remaining employed.
+</div>
+
+<h3>Accelerated vesting on acquisition</h3>
+<p>If NewCo or BTS is acquired, merged, or undergoes a change of control, <strong>all of Russell&rsquo;s unvested equity vests immediately</strong> prior to the transaction closing. This is standard in shareholder agreements and ensures that the person who built the value participates fully in the liquidity event created by that value.</p>
+
+<h3>Put option (Year 5+)</h3>
+<p>Beginning in Year 5, Russell has the right to sell his equity stake back to Phil / NewCo at <strong>independently appraised fair market value</strong>, exercisable once per year with 90 days notice. Phil has 12 months to complete the buyback, payable in up to 4 quarterly installments.</p>
+<div class="callout green">
+<strong>Why this is fair to both sides:</strong> without a put option, Russell&rsquo;s equity could be worth a lot on paper but produce no liquidity unless Phil decides to sell the company. The put option gives Russell an exit path without forcing Phil to sell. The Year 5 start date gives the business time to mature. The independent appraisal ensures the price is fair, not dictated by either party. And the 12-month installment window means Phil is never forced into a lump-sum cash crunch.
+</div>
+
+<h3>Constructive dismissal</h3>
+<p>If Phil materially reduces Russell&rsquo;s authority, eliminates the budget required to operate the division, reassigns the division to another operator, or takes other actions that effectively make the role untenable without formally terminating, Russell may treat this as termination without cause and trigger the severance and accelerated vesting protections above.</p>
+<div class="callout red">
+<strong>Why this exists:</strong> without it, there is a loophole where Phil could avoid severance by making the role impossible instead of ending it. This clause closes that loophole. It only triggers on material, documented changes &mdash; not disagreements about strategy or normal business decisions.
+</div>
+
+<h3>Anti-dilution</h3>
+<p>Phil cannot issue additional shares in NewCo that would dilute Russell&rsquo;s percentage below his earned amount without Russell&rsquo;s written consent. If new shares are issued (e.g., to bring in an investor), Russell has the right to participate pro-rata to maintain his ownership percentage.</p>
+
+<h3>Annual profit distributions</h3>
+<p>Once NewCo is profitable, annual distributions are made proportional to equity ownership. If Phil takes a distribution, Russell receives his proportional share. This ensures Russell&rsquo;s equity produces real cash returns even if the company is never sold.</p>
+</div>
+
+<!-- NO FORCED T4 -->
+<div class="section">
+<h2>No Automatic Conversion to Employee</h2>
+<p>Under this structure, there is no automatic trigger that converts Russell to a T4 employee. Russell remains independent and on the CM share arrangement for as long as both parties are satisfied with it.</p>
+<p>If at some point Phil wants Russell in a formal T4 employee role, he is welcome to make an offer. Russell will evaluate it on its merits. But the bar is high &mdash; it would need to be a package compelling enough that giving up the CM share upside and operational independence makes sense. Think: a senior executive salary well above market, retention bonuses, and full preservation of vested equity.</p>
+<div class="callout blue">
+<strong>The principle:</strong> Russell chose this partnership over a safe salaried job specifically because of the upside and independence it offers. Converting to an employee should only happen if the terms make that trade-off worthwhile &mdash; not as an automatic mechanism that pulls Russell into a box he did not sign up for.
+</div>
 </div>
 
 <!-- WHAT I'M ASKING -->
 <div class="section">
 <h2>What I&rsquo;m Asking You to Agree To</h2>
 <ol>
-<li>The tiered CM share schedule in the table above.</li>
-<li>Spinning the division into NewCo &mdash; a separately incorporated entity, 100% owned by Bullet Trade Services on day one, with the milestone-vested equity schedule in the addendum.</li>
-<li>A severance clause: termination without cause before fully vested triggers the greater of 18 months trailing CM share or $150K.</li>
-<li>At fully vested NewCo equity, my compensation automatically reverts to a standard market-rate T4 package &mdash; no premium, no override, no negotiation.</li>
+<li><strong>30% CM share</strong>, paid monthly as earned. Simple, flat, no tiers.</li>
+<li><strong>Sweat equity conversion</strong> at 2.5&times; on the gap between $195K benchmark and actual CM received, converting at a $2M valuation cap.</li>
+<li><strong>Performance milestone equity</strong> at $3M, $5M, and $10M TTM revenue, with accelerators for beating the timeline. Total equity capped at 30%.</li>
+<li><strong>NewCo spin-out</strong> &mdash; a separately incorporated entity, 100% owned by BTS on day one, with equity earned through the mechanisms above.</li>
+<li><strong>Termination protections</strong>: 24 months trailing comp as severance, accelerated vesting on termination and acquisition, constructive dismissal clause.</li>
+<li><strong>Put option</strong> starting Year 5 at independently appraised fair market value.</li>
+<li><strong>Anti-dilution</strong> and <strong>proportional profit distributions</strong>.</li>
 </ol>
 
 <div class="callout">
-<strong>The point I want you to take from this memo:</strong> the structure is specifically engineered so that the division never pays me more than a market-rate employee at maturity. The only period in which my effective hourly rate looks high is the period in which you are paying no salary, no benefits, and carrying no severance risk. Every other year of the life of the business, my comp is at or below what you would pay an outside hire for the same role.
+<strong>The bottom line:</strong> Phil pays nothing upfront. Phil keeps 70%+ of everything the division generates. Phil&rsquo;s downside if the division fails is zero. Russell&rsquo;s upside is a 30% stake in a business he built and 30% of the margin it produces along the way. Every dollar of equity Russell earns is backed by documented, calculable sacrifice or measurable performance. Nothing is arbitrary and nothing is a gift.
 </div>
 </div>
 
